@@ -1,0 +1,59 @@
+Maquettes
+Schéma BD
+Droits utilisateurs
+Lister les fonctions
+
+
+
+connexion inscription
+
+accéder à ses infos personnel et pouvoir les modifier
+
+Rechercher un ouvrage :
+rechercher un ouvrage par titre, par genre, par auteur,
+on affiche une liste d'ouvrages, et on peux cliquer sur un ouvrage pour voir toutes les infos sur lui
+
+Rechercher les bibliothèques autour de chez moi :
+api google maps, tout simple tu n'affiches que les bibli et ta postion
+
+Mes lectures : 
+tu peux ajouter un ouvrage à dans la catégorie mes lectures
+pour cela tu fais une recherche
+-si l'ouvrage n'existe pas tu peux l'ajouter à la main en renseignant les infos (prendre une photo de la couverture, mettre le nom etc..)
+-sinon tu as un bouton "ajouter à mes lectures"
+
+
+base de données embarquées
+base sgbd en ligne
+
+
+livre 
+	-titre
+	-auteur
+	-date de parution
+	-image couverture
+	-une catégorie
+	-un type
+
+scan code barre - qrcode
+
+
+
+a venir
+rechercher par ville
+
+
+les interfaces avec les controllers
+créer la base et l'api
+gérer la localisation
+l'interface entre les controller et la base
+
+
+Gérer le cas si un livre a plusieurs auteurs
+
+mode déconnecté : question : est ce qu'on active les modifs
+sinon juste 
+
+v1 : une bd
+
+last purge dans user
