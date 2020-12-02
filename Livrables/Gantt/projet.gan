@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2020-11-11" view-index="0" gantt-divider-location="485" resource-divider-location="300" version="2.8.11" locale="fr_FR">
+    <description/>
+    <view zooming-state="default:0" id="gantt-chart">
+        <field id="tpd3" name="Nom" width="278" order="0"/>
+        <field id="tpd4" name="Date de début" width="80" order="1"/>
+        <field id="tpd5" name="Date de fin" width="123" order="2"/>
+        <option id="color.recent">
+            <![CDATA[#3333ff #00cc00 #0033ff #ff0033 #ff0000]]>
+        </option>
+    </view>
+    <view id="resource-table">
+        <field id="0" name="Nom" width="210" order="0"/>
+        <field id="1" name="Rôle par défaut" width="86" order="1"/>
+    </view>
+    <!-- -->
+    <calendars>
+        <day-types>
+            <day-type id="0"/>
+            <day-type id="1"/>
+            <default-week id="1" name="default" sun="1" mon="0" tue="0" wed="0" thu="0" fri="0" sat="1"/>
+            <only-show-weekends value="false"/>
+            <overriden-day-types/>
+            <days/>
+        </day-types>
+    </calendars>
+    <tasks empty-milestones="true">
+        <taskproperties>
+            <taskproperty id="tpd0" name="type" type="default" valuetype="icon"/>
+            <taskproperty id="tpd1" name="priority" type="default" valuetype="icon"/>
+            <taskproperty id="tpd2" name="info" type="default" valuetype="icon"/>
+            <taskproperty id="tpd3" name="name" type="default" valuetype="text"/>
+            <taskproperty id="tpd4" name="begindate" type="default" valuetype="date"/>
+            <taskproperty id="tpd5" name="enddate" type="default" valuetype="date"/>
+            <taskproperty id="tpd6" name="duration" type="default" valuetype="int"/>
+            <taskproperty id="tpd7" name="completion" type="default" valuetype="int"/>
+            <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
+            <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
+        </taskproperties>
+        <task id="0" name="Définir les données utilisées/affichées (schéma BD, analyse/conception)" color="#8cb6ce" meeting="false" start="2020-11-02" duration="1" complete="0" thirdDate="2020-12-01" thirdDate-constraint="0" expand="true"/>
+        <task id="2" name="Réaliser la note de cadrage" color="#8cb6ce" meeting="false" start="2020-11-02" duration="23" complete="0" thirdDate="2020-10-22" thirdDate-constraint="0" expand="true"/>
+        <task id="4" name="Réalisation des maquettes" color="#8cb6ce" meeting="false" start="2020-11-02" duration="1" complete="0" thirdDate="2020-10-22" thirdDate-constraint="0" expand="true"/>
+        <task id="6" name="Choix du SGBD : MariaDB / MySQL, communication serveur/internet/application REST Http" color="#8cb6ce" meeting="false" start="2020-11-02" duration="1" complete="0" thirdDate="2020-10-22" thirdDate-constraint="0" expand="true"/>
+        <task id="24" name="Représenter l’architecture logicielle" color="#8cb6ce" meeting="false" start="2020-11-02" duration="1" complete="0" thirdDate="2020-11-27" thirdDate-constraint="0" expand="true">
+            <notes>
+                <![CDATA[MVC, MV, MVVM ]]>
+            </notes>
+        </task>
+        <task id="8" name="Développement de l’interface graphique" color="#ff0000" meeting="false" start="2020-12-02" duration="6" complete="0" thirdDate="2020-10-22" thirdDate-constraint="0" expand="true">
+            <depend id="14" type="2" difference="0" hardness="Strong"/>
+            <depend id="29" type="2" difference="0" hardness="Strong"/>
+            <depend id="38" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="14" name="BD embarquée SQLLite" color="#ff0033" meeting="false" start="2020-12-10" duration="1" complete="0" thirdDate="2020-11-19" thirdDate-constraint="0" expand="true"/>
+        <task id="27" name="Développement API serveur BD (serveur Apache PHP)" color="#0033ff" meeting="false" start="2020-12-02" duration="3" complete="0" thirdDate="2020-12-02" thirdDate-constraint="0" expand="true">
+            <depend id="68" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="68" name="Liaison application api" color="#3333ff" meeting="false" start="2020-12-07" duration="2" complete="0" thirdDate="2020-11-25" thirdDate-constraint="0" expand="true">
+            <depend id="63" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="63" name="Jeu de test bd + test api" color="#3333ff" meeting="false" start="2020-12-09" duration="2" complete="0" thirdDate="2020-11-26" thirdDate-constraint="0" expand="true"/>
+        <task id="29" name="Intégration API Google Maps" color="#00cc00" meeting="false" start="2020-12-10" duration="3" complete="0" thirdDate="2020-11-27" thirdDate-constraint="0" expand="true">
+            <depend id="34" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="38" name="Intégrer l’utilisation de la géolocalisation" color="#00cc00" meeting="false" start="2020-12-10" duration="3" complete="0" thirdDate="2020-11-27" thirdDate-constraint="0" expand="true">
+            <depend id="34" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="34" name="Intégrer l’utilisation de l’API pour scanner des codes barres" color="#00cc00" meeting="false" start="2020-12-15" duration="3" complete="0" thirdDate="2020-11-27" thirdDate-constraint="0" expand="true"/>
+        <task id="74" name="BookyPocket_V1" color="#8cb6ce" meeting="false" start="2020-12-02" duration="13" complete="0" thirdDate="2020-11-10" thirdDate-constraint="0" expand="true">
+            <notes>
+                <![CDATA[Dans une première version, nous proposerons la gestion des utilisateurs (inscription/connexion), la gestion de la carte Google Maps, et la gestion des listes de lectures avec ajout ou suppression des ouvrages. La base de données sera embarquée SQLLite]]>
+            </notes>
+            <depend id="80" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="80" name="BookyPocket_V2" color="#8cb6ce" meeting="false" start="2020-12-21" duration="16" complete="0" thirdDate="2020-11-23" thirdDate-constraint="0" expand="true">
+            <notes>
+                <![CDATA[Dans une seconde version, nous proposerons l’intégration des scans des codes barres, et la gestion d’une base de donnée sur un serveur distant. ]]>
+            </notes>
+        </task>
+        <task id="48" name="Réalisation des tests unitaires" color="#8cb6ce" meeting="false" start="2020-11-02" duration="52" complete="0" thirdDate="2020-11-27" thirdDate-constraint="0" expand="true"/>
+        <task id="49" name="Réalisation des tests fonctionnels" color="#8cb6ce" meeting="false" start="2020-11-02" duration="52" complete="0" thirdDate="2020-11-27" thirdDate-constraint="0" expand="true"/>
+        <task id="54" name="User manual / documentation (tout le monde)" color="#8cb6ce" meeting="false" start="2020-12-02" duration="30" complete="0" thirdDate="2020-12-31" thirdDate-constraint="0" expand="true"/>
+        <task id="56" name="Rendu de projet" color="#8cb6ce" meeting="false" start="2021-01-13" duration="1" complete="0" thirdDate="2020-12-07" thirdDate-constraint="0" expand="true"/>
+    </tasks>
+    <resources>
+        <resource id="0" name="Laporte Maëlle" function="Default:1" contacts="" phone=""/>
+        <resource id="1" name="Robert Raphaël" function="Default:0" contacts="" phone=""/>
+        <resource id="2" name="Malglaive Hugo" function="Default:0" contacts="" phone=""/>
+    </resources>
+    <allocations>
+        <allocation task-id="2" resource-id="0" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="29" resource-id="0" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="38" resource-id="0" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="34" resource-id="0" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="74" resource-id="0" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="80" resource-id="0" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="48" resource-id="0" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="54" resource-id="0" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="56" resource-id="0" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="27" resource-id="1" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="68" resource-id="1" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="63" resource-id="1" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="74" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="80" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="54" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="56" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="8" resource-id="2" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="14" resource-id="2" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="74" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="80" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="49" resource-id="2" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="54" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="56" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
+    </allocations>
+    <vacations/>
+    <previous/>
+    <roles roleset-name="Default"/>
+</project>
