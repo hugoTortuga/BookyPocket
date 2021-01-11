@@ -13,13 +13,13 @@
 
     <fragment
         android:id="@+id/nav_gallery"
-        android:name="android.cnam.bookypocket.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:name="android.cnam.bookypocket.ui.bookyMap.BookyMapFragment"
+        android:label="@string/menu_map"
+        tools:layout="@layout/fragment_bookymap" />
 
     <fragment
         android:id="@+id/nav_slideshow"
-        android:name="android.cnam.bookypocket.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:name="android.cnam.bookypocket.ui.readings.ReadingsFragment"
+        android:label="@string/menu_readings"
+        tools:layout="@layout/fragment_readings" />
 </navigation>

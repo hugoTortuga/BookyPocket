@@ -1,14 +1,14 @@
-package android.cnam.bookypocket.ui.gallery;
+package android.cnam.bookypocket.ui.bookyMap;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class GalleryViewModel extends ViewModel {
+public class BookyMapViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public GalleryViewModel() {
+    public BookyMapViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("This is gallery fragment");
     }

@@ -8,6 +8,18 @@
     <string name="action_settings">Paramètres</string>
 
     <string name="menu_home">Accueil</string>
-    <string name="menu_gallery">BookyMap</string>
-    <string name="menu_slideshow">Lectures</string>
+    <string name="menu_map">BookyMap</string>
+    <string name="menu_readings">Lectures</string>
+    <string name="title_activity_booky_map">Carte</string>
+
+    <!-- User informations -->
+    <string name="pseudoUser">test@test</string>
+    <string name="mailUser">TEST test</string>
+
+    <!-- HOME BUTTONS -->
+    <string name="home_button_findLibrary">Trouver une bibliothèque</string>
+    <string name="home_button_seeReadings">Consutlter mes lectures</string>
+    <string name="home_button_registerBook">Saisir un nouvel ouvrage</string>
+    <string name="home_button_manageAccount">Gérer mon compte</string>
+
 </resources>

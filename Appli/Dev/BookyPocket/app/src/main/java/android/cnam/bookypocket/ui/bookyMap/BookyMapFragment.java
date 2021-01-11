@@ -1,4 +1,4 @@
-package android.cnam.bookypocket.ui.slideshow;
+package android.cnam.bookypocket.ui.bookyMap;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.cnam.bookypocket.R;
 
-public class SlideshowFragment extends Fragment {
+public class BookyMapFragment extends Fragment {
 
-    private SlideshowViewModel slideshowViewModel;
+    private BookyMapViewModel bookyMapViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        slideshowViewModel =
-                ViewModelProviders.of(this).get(SlideshowViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_slideshow, container, false);
-        final TextView textView = root.findViewById(R.id.text_slideshow);
-        slideshowViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        bookyMapViewModel =
+                ViewModelProviders.of(this).get(BookyMapViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_bookymap, container, false);
+        final TextView textView = root.findViewById(R.id.text_bookymap);
+        bookyMapViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

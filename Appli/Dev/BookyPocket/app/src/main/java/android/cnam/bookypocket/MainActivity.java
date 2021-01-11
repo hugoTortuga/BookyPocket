@@ -1,5 +1,6 @@
 package android.cnam.bookypocket;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,6 +12,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -19,7 +21,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private AppBarConfiguration mAppBarConfiguration;
 
@@ -55,16 +57,77 @@ public class MainActivity extends AppCompatActivity {
         Menu menu = navigationView.getMenu();
         MenuItem homeItem = menu.findItem(R.id.nav_home);
 
-        MenuItem mapItem = menu.findItem(R.id.nav_home);
+        MenuItem mapItem = menu.findItem(R.id.nav_map);
 
-        MenuItem readingsItem = menu.findItem(R.id.nav_home);
+        MenuItem readingsItem = menu.findItem(R.id.nav_readings);
+        setNavigationViewListener();
 
         ImageView userPhoto = (ImageView)findViewById(R.id.imageUserView);
 
         //on devra peut être enregistrer les photos en local pour les retrouver avec un objet drawable
         //userPhoto.setImageResource(R.drawable.woman);
 
+        TextView textPseudoUser = (TextView) findViewById(R.id.pseudoUser);
+        //textView.setText("firstname + lastname");
+
+        TextView textMailUser = (TextView) findViewById(R.id.mailUser);
+        //textView.setText("mailUser");
+
     }
+
+    private void setNavigationViewListener() {
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        // Handle navigation view item clicks here.
+        switch (item.getItemId()) {
+            case R.id.nav_home:
+                //open home/main activity
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+
+                return true;
+            case R.id.nav_map:
+                //open map activity
+                Intent mapIntent = new Intent(this, BookyMapActivity.class);
+                startActivity(mapIntent);
+                return true;
+            case R.id.nav_readings:
+                //open readings activity
+                Intent readingsIntent = new Intent(this, ReadingsActivity.class);
+                startActivity(readingsIntent);
+                return true;
+        }
+                return true;
+//            default:
+//                return super.onOptionsItemSelected(item);
+
+    }
+
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle item selection
+//        switch (item.getItemId()) {
+//            case R.id.nav_home:
+//                //open home/main activity
+//
+//                return true;
+//            case R.id.nav_map:
+//                //open map activity
+//                Intent intent = new Intent(this, BookyMapActivity.class);
+//                startActivity(intent);
+//                return true;
+//            case R.id.nav_readings:
+//                //open readings activity
+//
+//                return true;
+//            default:
+//                return super.onOptionsItemSelected(item);
+//        }
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
