@@ -57,4 +57,15 @@
     <string name="details_genreValue"></string>
     <string name="details_backCoverText">Back Cover</string>
 
+    <!-- MANAGE ACCOUNT ACTIVITY-->
+    <string name="manage_changePhotoButton">Change photo</string>
+    <string name="manage_lastName">Last name</string>
+    <string name="manage_lastNameValue"></string>
+    <string name="manage_firstName">First name</string>
+    <string name="manage_firstNameValue"></string>
+    <string name="manage_DateOfBirth">Date of birth</string>
+    <string name="manage_passwordText">Password</string>
+    <string name="manage_passwordValue"></string>
+    <string name="manage_modifyPswdButton">Change password</string>
+
 </resources>

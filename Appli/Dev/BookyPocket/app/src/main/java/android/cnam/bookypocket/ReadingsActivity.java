@@ -6,10 +6,14 @@ import androidx.lifecycle.MutableLiveData;
 
 import android.app.ListActivity;
 import android.cnam.bookypocket.ui.ReadingsListAdapter;
+import android.graphics.drawable.AdaptiveIconDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,6 +21,14 @@ import java.util.List;
 
 public class ReadingsActivity extends AppCompatActivity {
     private MutableLiveData<String> mText;
+
+    private SearchView searchView;
+    private ImageButton itemImageButton;
+
+    //image button will change
+    private Drawable addIcon = getResources().getDrawable( R.drawable.plus );
+    private Drawable removeIcon = getResources().getDrawable( R.drawable.minus );
+
 
     private ArrayList<String> titleList = new ArrayList<>(
             Arrays.asList("Buenos Aires", "Córdoba", "La Plata"));

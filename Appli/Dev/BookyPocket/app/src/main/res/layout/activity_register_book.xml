@@ -17,7 +17,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/detailsBookText"
+                android:id="@+id/registerNewBookText"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:gravity="center_horizontal|center_vertical"
@@ -25,7 +25,7 @@
                 android:textScaleX="1.5" />
 
             <TextView
-                android:id="@+id/details_titleText"
+                android:id="@+id/register_titleText"
                 android:layout_width="143dp"
                 android:layout_height="wrap_content"
                 android:paddingLeft="30dp"
@@ -34,7 +34,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/details_titleValue"
+                android:id="@+id/register_titleValue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -50,7 +50,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/details_authorText"
+                android:id="@+id/register_authorText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="30dp"
@@ -75,7 +75,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/details_publicationYearText"
+                android:id="@+id/register_publicationYearText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="30dp"
@@ -99,7 +99,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/details_categoryText"
+                android:id="@+id/register_categoryText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="30dp"
@@ -127,7 +127,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/details_genreText"
+                android:id="@+id/register_genreText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="30dp"
@@ -154,7 +154,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/details_backCoverText"
+                android:id="@+id/register_scanText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="30dp"

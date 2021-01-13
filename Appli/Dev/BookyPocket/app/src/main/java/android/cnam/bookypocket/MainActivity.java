@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         manageAccountButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Intent registerBookIntent = new Intent(view.getContext(), BookDetailsActivity.class);
+                Intent registerBookIntent = new Intent(view.getContext(), ManageAccountActivity.class);
                 startActivity(registerBookIntent);
             }
         });
