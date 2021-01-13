@@ -22,5 +22,39 @@
     <string name="home_button_registerBook">Register a new book</string>
     <string name="home_button_manageAccount">Manage my account</string>
 
+    <!-- READINGS ACTIVITY-->
+    <string name="readings_textView">My readings</string>
+    <string name="readings_title">Test in a test</string>
+    <string name="readings_author">Test TEST</string>
+
+    <!-- REGISTER ACTIVITY-->
+    <string name="registerNewBookText">Register a book</string>
+    <string name="register_titleText">Title</string>
+    <string name="register_titleValue"></string>
+    <string name="register_authorText">Author</string>
+    <string name="register_authorValue"></string>
+    <string name="register_publicationYearText">Publication Year</string>
+    <string name="register_publicationYearValue"></string>
+    <string name="register_categoryText">Category</string>
+    <string name="register_categorySpinner"></string>
+    <string name="register_genreText">Genre</string>
+    <string name="register_genreSpinner"></string>
+    <string name="register_scanText">Back Cover</string>
+    <string name="register_scanButton">Scan barCode or take a picture</string>
+
+
+    <!-- BOOK DETAILS ACTIVITY-->
+    <string name="detailsBookText">Book details</string>
+    <string name="details_titleText">Title</string>
+    <string name="details_titleValue"></string>
+    <string name="details_authorText">Author</string>
+    <string name="details_authorValue"></string>
+    <string name="details_publicationYearText">Publication Year</string>
+    <string name="details_publicationYearValue"></string>
+    <string name="details_categoryText">Category</string>
+    <string name="details_categoryValue"></string>
+    <string name="details_genreText">Genre</string>
+    <string name="details_genreValue"></string>
+    <string name="details_backCoverText">Back Cover</string>
 
 </resources>

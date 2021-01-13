@@ -1,10 +1,12 @@
 package android.cnam.bookypocket;
 
+import android.cnam.bookypocket.ui.readings.ReadingsFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,6 +26,13 @@ import androidx.appcompat.widget.Toolbar;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private AppBarConfiguration mAppBarConfiguration;
+
+    private Button findLibraryButton;
+    private Button seeReadingsButton;
+    private Button registerBookButton;
+    private Button manageAccountButton;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +81,45 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         TextView textMailUser = (TextView) findViewById(R.id.mailUser);
         //textView.setText("mailUser");
+
+        createButtons();
+    }
+    private void createButtons(){
+        findLibraryButton = (Button) findViewById(R.id.home_button_findLibrary) ;
+        findLibraryButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent registerBookIntent = new Intent(view.getContext(), BookyMapActivity.class);
+                startActivity(registerBookIntent);
+            }
+        });
+
+        seeReadingsButton = (Button) findViewById(R.id.home_button_seeReadings) ;
+        seeReadingsButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent registerBookIntent = new Intent(view.getContext(), ReadingsFragment.class);
+                startActivity(registerBookIntent);
+            }
+        });
+
+        registerBookButton = (Button) findViewById(R.id.home_button_registerBook) ;
+        registerBookButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent registerBookIntent = new Intent(view.getContext(), RegisterBookActivity.class);
+                startActivity(registerBookIntent);
+            }
+        });
+
+        manageAccountButton = (Button) findViewById(R.id.home_button_manageAccount) ;
+        manageAccountButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent registerBookIntent = new Intent(view.getContext(), BookDetailsActivity.class);
+                startActivity(registerBookIntent);
+            }
+        });
 
     }
 

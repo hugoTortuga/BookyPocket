@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BookDetailsActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="144dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/detailsBookText"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="@string/detailsBookText"
+                android:textScaleX="1.5" />
+
+            <TextView
+                android:id="@+id/details_titleText"
+                android:layout_width="143dp"
+                android:layout_height="wrap_content"
+                android:paddingLeft="30dp"
+                android:text="@string/details_titleText"
+                android:textColor="#E5B81D"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/details_titleValue"
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:paddingLeft="30dp"
+                android:paddingTop="10dp"
+                android:text="@string/details_titleValue" />
+
+            <View
+                android:id="@+id/divider4"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="20dp"
+                android:background="?android:attr/listDivider" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="101dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/details_authorText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="30dp"
+                android:text="@string/details_authorText"
+                android:textColor="#E5B81D"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/details_authorValue"
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:paddingLeft="30dp"
+                android:paddingTop="10dp"
+                android:text="@string/details_authorValue" />
+
+            <View
+                android:id="@+id/divider3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="20dp"
+                android:background="?android:attr/listDivider" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="101dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/details_publicationYearText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="30dp"
+                android:text="@string/details_publicationYearText"
+                android:textColor="#e5b81d"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/details_publicationYearValue"
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:paddingLeft="30dp"
+                android:paddingTop="10dp"
+                android:text="@string/details_publicationYearValue" />
+
+            <View
+                android:id="@+id/divider2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="20dp"
+                android:background="?android:attr/listDivider" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="101dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/details_categoryText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="30dp"
+                android:text="@string/details_categoryText"
+                android:textColor="#E5B81D"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/details_categoryValue"
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:paddingLeft="30dp"
+                android:paddingTop="10dp"
+                android:text="@string/details_categoryValue" />
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="347dp"
+                android:layout_height="1dp"
+                android:layout_marginLeft="20dp"
+                android:background="?android:attr/listDivider" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="101dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/details_genreText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="30dp"
+                android:text="@string/details_genreText"
+                android:textColor="#E5B81D"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/details_genreValue"
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:paddingLeft="30dp"
+                android:paddingTop="10dp"
+                android:text="@string/details_genreValue" />
+
+            <View
+                android:id="@+id/divider5"
+                android:layout_width="347dp"
+                android:layout_height="1dp"
+                android:layout_marginLeft="20dp"
+                android:background="?android:attr/listDivider" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/details_backCoverText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="30dp"
+                android:text="@string/details_backCoverText"
+                android:textColor="#E5B81D"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="223dp"
+                android:layout_height="124dp"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_marginTop="20dp"
+                app:srcCompat="@drawable/no_image" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
