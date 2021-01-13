@@ -89,19 +89,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         findLibraryButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Intent registerBookIntent = new Intent(view.getContext(), BookyMapActivity.class);
+                Intent registerBookIntent = new Intent(view.getContext(), BookyMapTestActivity.class);
                 startActivity(registerBookIntent);
             }
         });
 
-        seeReadingsButton = (Button) findViewById(R.id.home_button_seeReadings) ;
-        seeReadingsButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                Intent registerBookIntent = new Intent(view.getContext(), ReadingsFragment.class);
-                startActivity(registerBookIntent);
-            }
-        });
+//        seeReadingsButton = (Button) findViewById(R.id.home_button_seeReadings) ;
+//        seeReadingsButton.setOnClickListener(new View.OnClickListener(){
+//            @Override
+//            public void onClick(View view) {
+//                Intent registerBookIntent = new Intent(view.getContext(), ReadingsFragment.class);
+//                startActivity(registerBookIntent);
+//            }
+//        });
 
         registerBookButton = (Button) findViewById(R.id.home_button_registerBook) ;
         registerBookButton.setOnClickListener(new View.OnClickListener(){
