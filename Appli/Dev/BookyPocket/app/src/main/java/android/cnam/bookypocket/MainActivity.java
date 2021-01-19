@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //        seeReadingsButton.setOnClickListener(new View.OnClickListener(){
 //            @Override
 //            public void onClick(View view) {
-//                Intent registerBookIntent = new Intent(view.getContext(), ReadingsFragment.class);
+//                Intent registerBookIntent = new Intent(view.getContext(), ReadingsActivity.class);
 //                startActivity(registerBookIntent);
 //            }
 //        });

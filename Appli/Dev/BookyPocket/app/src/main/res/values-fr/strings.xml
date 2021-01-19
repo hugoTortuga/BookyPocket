@@ -67,4 +67,18 @@
     <string name="manage_passwordValue"></string>
     <string name="manage_modifyPswdButton">Changer le mot de passe</string>
 
+    <!-- LOGIN ACTIVITY-->
+    <string name="login_adrMail">Adresse email</string>
+    <string name="login_password">Mot de passe</string>
+    <string name="login_connexion">Connexion</string>
+    <string name="login_signUp">Pas encore de compte ? Inscrivez-vous !</string>
+
+    <!-- SIGNUP ACTIVITY-->
+    <string name="signup_email">Adresse email</string>
+    <string name="signup_lastname">Nom</string>
+    <string name="signup_firstname">Prénom</string>
+    <string name="signup_password">Mot de passe</string>
+    <string name="signup_DOB">Date de naissance</string>
+    <string name="signup_button">S\'inscrire</string>
+
 </resources>
