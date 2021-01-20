@@ -67,6 +67,7 @@
     <string name="manage_passwordText">Password</string>
     <string name="manage_passwordValue"></string>
     <string name="manage_modifyPswdButton">Change password</string>
+    <string name="manage_deleteAccount">Delete my account</string>
 
     <!-- LOGIN ACTIVITY-->
     <string name="login_adrMail">Email address</string>

@@ -23,20 +23,22 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="140dp"
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:id="@+id/imageView2"
+                        android:id="@+id/manage_userPhotoView"
                         android:layout_width="175dp"
-                        android:layout_height="wrap_content"
-                        tools:srcCompat="@tools:sample/avatars" />
+                        android:layout_height="match_parent"
+                        tools:srcCompat="@drawable/woman" />
 
                     <Button
-                        android:id="@+id/button"
+                        android:id="@+id/manage_changePhotoButton"
                         android:layout_width="195dp"
                         android:layout_height="65dp"
                         android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
                         android:layout_weight="1"
                         android:background="@drawable/button_style"
                         android:foregroundGravity="center_vertical|center_horizontal"
@@ -48,15 +50,109 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="1094dp"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <ImageView
-                        android:id="@+id/imageView3"
+                    <TextView
+                        android:id="@+id/manage_lastName"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        app:srcCompat="@drawable/camera" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:text="@string/manage_lastName" />
+
+                    <EditText
+                        android:id="@+id/manage_lastNameValue"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="textPersonName"
+                        android:text="@string/manage_lastName" />
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/manage_firstName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/manage_firstName" />
+
+                    <EditText
+                        android:id="@+id/manage_firstNameValue"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="textPersonName"
+                        android:text="" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/manage_DateOfBirth"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/manage_DateOfBirth" />
+
+                    <EditText
+                        android:id="@+id/editTextDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="date" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/manage_passwordText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/manage_passwordText" />
+
+                    <EditText
+                        android:id="@+id/manage_passwordValue"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="textPassword" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/manage_modifyPswdButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/manage_modifyPswdButton" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/manage_deleteAccount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/manage_deleteAccount" />
+                </LinearLayout>
+
             </LinearLayout>
         </ScrollView>
 

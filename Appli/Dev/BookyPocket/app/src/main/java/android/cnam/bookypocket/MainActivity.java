@@ -32,6 +32,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Button registerBookButton;
     private Button manageAccountButton;
 
+    //private User user;
+    //user info to request
+    private String firstName;
+    private String lastName;
+    private String email;
 
 
     @Override

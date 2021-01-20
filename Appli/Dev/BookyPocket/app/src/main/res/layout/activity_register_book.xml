@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/register"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RegisterBookActivity">
@@ -150,7 +151,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="109dp"
             android:orientation="vertical">
 
             <TextView
@@ -172,6 +173,19 @@
                 android:text="@string/register_scanButton"
                 android:textColor="#FFFFFF"
                 android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="164dp"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/register_addButton"
+                android:layout_width="match_parent"
+                android:layout_height="74dp"
+                app:srcCompat="@drawable/plus" />
         </LinearLayout>
 
     </LinearLayout>

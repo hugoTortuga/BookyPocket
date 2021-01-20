@@ -101,7 +101,8 @@
             <Spinner
                 android:id="@+id/register_categorySpinner"
                 android:layout_width="match_parent"
-                android:layout_height="50dp" />
+                android:layout_height="50dp"
+                android:spinnerMode="dropdown"/>
 
             <View
                 android:id="@+id/divider"
@@ -127,7 +128,8 @@
             <Spinner
                 android:id="@+id/register_genreSpinner"
                 android:layout_width="match_parent"
-                android:layout_height="50dp" />
+                android:layout_height="50dp"
+                android:spinnerMode="dropdown"/>
 
             <View
                 android:id="@+id/divider5"
