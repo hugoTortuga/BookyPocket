@@ -1,6 +1,7 @@
 package android.cnam.bookypocket;
 
 import android.cnam.bookypocket.Model.Reader;
+import android.cnam.bookypocket.utils.Alert;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,6 +26,8 @@ public class SignUpActivity extends AppCompatActivity {
 
     private Button signup;
 
+    final Context context = this;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,31 +49,55 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.i("SIGNUPTAG", "Inscription demandée");
+
+                //Test des champs
+                String emailStr = email.getText().toString();
+                String pwdStr = password.getText().toString();
+                String lastNameStr = lastName.getText().toString();
+                String firstNameStr = firstName.getText().toString();
+
+                //On test les valeurs d'entrée
+                if(emailStr == null || emailStr.trim().isEmpty()){
+                    Alert.ShowDialog(ctx, "Paramètre non renseigné", "Veuillez remplir l'adresse email");
+                    return;
+                }
+                if(pwdStr == null || pwdStr.trim().isEmpty()){
+                    Alert.ShowDialog(ctx, "Paramètre non renseigné", "Veuillez remplir le mot de passe");
+                    return;
+                }
+                if(lastNameStr == null || lastNameStr.trim().isEmpty()){
+                    Alert.ShowDialog(ctx, "Paramètre non renseigné", "Veuillez remplir le nom de famille");
+                    return;
+                }
+                if(firstNameStr == null || firstNameStr.trim().isEmpty()){
+                    Alert.ShowDialog(ctx, "Paramètre non renseigné", "Veuillez remplir le prénom");
+                    return;
+                }
+
                 try {
 
                     //On hash le password
-                    //TODO
+                    //TODO appel à l'API
 
                     //On instancie un nouveau reader
-                    Reader reader = new Reader(email.getText().toString(),
-                            password.getText().toString(),
-                            lastName.getText().toString(),
-                            firstName.getText().toString(),
-                            null,
-                            null);
+                    Reader reader = new Reader(emailStr, pwdStr, lastNameStr, firstNameStr, null, null);
 
                     //On insère notre reader
                     ORMSQLiteManager db = new ORMSQLiteManager(ctx);
                     db.insertObjectInDB(reader, Reader.class);
                     db.close();
 
-
-                    Log.i("SIGNUPTAG", "Inscription terminée");
+                    Alert.ShowDialog(ctx, "Succès", "Inscription terminée");
 
                     //On retourne à l'écran de connexion
                     goToHome();
+
                 } catch (Exception ex) {
-                    Log.i("SIGNUPTAG", "Erreur " + ex);
+                    if(ex.getClass() == java.sql.SQLException.class)
+                        Alert.ShowDialog(ctx, "Erreur", "L'adresse email est déjà utilisé");
+                    else
+                        Alert.ShowDialog(ctx, "Erreur", ex.getMessage());
+
                 }
             }
         });

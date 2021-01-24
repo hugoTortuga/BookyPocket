@@ -130,15 +130,20 @@ public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
         }
     }
 
-    public Genre getGenreByName(String nomGenre) {
+    public Genre getGenreByName(String nomGenre) throws SQLException {
         Genre genre = null;
-        try {
-            Dao<Genre, Integer> dao = getDao(Genre.class);
-            genre = (Genre) dao.queryBuilder().where().eq("name", nomGenre).queryForFirst();
-        } catch (Exception ex) {
-            Log.e("DATABASE", "Erreur lors de la récupération d'un genre");
-        }
+        Dao<Genre, Integer> dao = getDao(Genre.class);
+        genre = (Genre) dao.queryBuilder().where().eq("name", nomGenre).queryForFirst();
         return genre;
     }
 
+    public Reader getUserByCreditential(String emailStr, String pwdStr) throws SQLException {
+        Reader rdr = null;
+        Dao<Reader, Integer> dao = getDao(Reader.class);
+
+        //TODO hasher le pwd
+
+        rdr = (Reader) dao.queryBuilder().where().eq("emailAddress", emailStr).and().eq("password",pwdStr).queryForFirst();
+        return rdr;
+    }
 }
