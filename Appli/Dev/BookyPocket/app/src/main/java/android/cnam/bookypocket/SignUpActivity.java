@@ -1,7 +1,9 @@
 package android.cnam.bookypocket;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -26,11 +28,19 @@ public class SignUpActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-            Button connexion = (Button) findViewById(R.id.signup_button);
-            connexion.setOnClickListener(new View.OnClickListener() {
+            Button inscriptionButton = (Button) findViewById(R.id.signup_button);
+            inscriptionButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    goToHome(view);
+                    Log.i("SIGN UP", "Inscription demandée");
+                    try{
+                        Log.i("SIGN UP", "Inscription terminée");
+
+                        goToHome(view);
+                    }
+                    catch (Exception ex){
+                        Log.i("SIGN UP", "Erreur " + ex);
+                    }
                 }
             });
     }
@@ -56,4 +66,10 @@ public class SignUpActivity extends AppCompatActivity
             startActivity(intent);
             this.finish();
         }
-}
+
+        /**
+         * Sign up
+         */
+        public void SignUp(){
+        }
+    }

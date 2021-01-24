@@ -21,7 +21,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private TextView signUp;
 
-    //https://stackoverflow.com/questions/39189827/launch-login-activity-instead-of-mainactivity-if-app-is-on-its-first-run
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
