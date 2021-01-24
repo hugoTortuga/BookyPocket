@@ -29,7 +29,7 @@ public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
      */
     @Override
     public void onCreate(SQLiteDatabase database, ConnectionSource connectionSource) {
-        try{
+        try {
             TableUtils.createTableIfNotExists(connectionSource, Category.class);
             TableUtils.createTableIfNotExists(connectionSource, Genre.class);
             TableUtils.createTableIfNotExists(connectionSource, Photo.class);
@@ -43,9 +43,9 @@ public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
             TableUtils.createTableIfNotExists(connectionSource, LibraryBook.class);
             TableUtils.createTableIfNotExists(connectionSource, ReaderBook.class);
             TableUtils.createTableIfNotExists(connectionSource, PhotoBook.class);
-            Log.i("DATABASE","Création de la base de données réussie");
-        }catch(Exception ex){
-            Log.e("DATABASE","Erreur lors de la création de la base" + ex.getMessage());
+            Log.i("DATABASE", "Création de la base de données réussie");
+        } catch (Exception ex) {
+            Log.e("DATABASE", "Erreur lors de la création de la base" + ex.getMessage());
         }
     }
 
@@ -55,7 +55,7 @@ public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
      */
     @Override
     public void onUpgrade(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion, int newVersion) {
-        try{
+        try {
             //Un peu extrême à changer plus tard
             TableUtils.dropTable(connectionSource, Category.class, true);
             TableUtils.dropTable(connectionSource, Genre.class, true);
@@ -72,43 +72,40 @@ public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
             TableUtils.dropTable(connectionSource, PhotoBook.class, true);
 
             onCreate(database, connectionSource);
+        } catch (Exception ex) {
+            Log.e("DATABASE", "Erreur lors de la mise à jour de la base" + ex.getMessage());
         }
-        catch(Exception ex){
-            Log.e("DATABASE","Erreur lors de la mise à jour de la base" + ex.getMessage());
-        }
-        Log.i("DATABASE","Upgrade from " + oldVersion + " to " + newVersion);
+        Log.i("DATABASE", "Upgrade from " + oldVersion + " to " + newVersion);
     }
 
     /**
      * Permet d'insérer dans la bd un objet qui appartient à la couche modèle (Genre, Personne, Photo...)
+     *
      * @param object l'object à insérer
      * @param classe la classe de l'objet exemple : Library.class
      */
-    public <typeObject> void insertObjectInDB(Object object, Class classe) {
-        try {
-            Dao<typeObject, Integer> dao = getDao(classe);
-            dao.create((typeObject)object);
-            Log.i("DATABASE","Object " + object + " créé en base");
-        } catch (SQLException ex) {
-            Log.e("DATABASE", "Erreur lors de l'insert de l'objet \n" + ex.getMessage());
-        }
+    public <typeObject> void insertObjectInDB(Object object, Class classe) throws SQLException {
+        Dao<typeObject, Integer> dao = getDao(classe);
+        dao.create((typeObject) object);
+        Log.i("DATABASE", "Object " + object + " créé en base");
     }
 
     /**
      * Requete tous les objets d'un type donné exemple : tous les livres
+     *
      * @param classe
      * @param <typeObject>
      * @return
      */
-    public <typeObject> List<typeObject> getAllObjects(Class classe){
+    public <typeObject> List<typeObject> getAllObjects(Class classe) {
         List<typeObject> objects = null;
         try {
             Dao<typeObject, Integer> dao = getDao(classe);
             objects = dao.queryForAll();
-            if(objects != null)
-                Log.i("DATABASE",classe.getName() + " requêté(e): " + objects.size() + " objets.");
+            if (objects != null)
+                Log.i("DATABASE", classe.getName() + " requêté(e): " + objects.size() + " objets.");
             else
-                Log.i("DATABASE",classe.getName() + "Objects requêtées : aucun objet");
+                Log.i("DATABASE", classe.getName() + "Objects requêtées : aucun objet");
         } catch (SQLException ex) {
             Log.e("DATABASE", "Erreur lors de la récupération des bokks");
         }
@@ -117,13 +114,14 @@ public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
 
     /**
      * Supprime un objet de la base
+     *
      * @param object objet à supprimer
      * @param classe classe de l'objet à supprimer
      */
-    public <typeObject> boolean deleteObjectFromDB(Object object, Class classe){
+    public <typeObject> boolean deleteObjectFromDB(Object object, Class classe) {
         try {
             Dao<typeObject, Integer> dao = getDao(classe);
-            dao.delete((typeObject)object);
+            dao.delete((typeObject) object);
             Log.i("DATABASE", "Suppression de " + object);
             return true;
         } catch (SQLException ex) {
@@ -132,13 +130,12 @@ public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
         }
     }
 
-    public Genre getGenreByName(String nomGenre){
+    public Genre getGenreByName(String nomGenre) {
         Genre genre = null;
-        try{
+        try {
             Dao<Genre, Integer> dao = getDao(Genre.class);
             genre = (Genre) dao.queryBuilder().where().eq("name", nomGenre).queryForFirst();
-        }
-        catch (Exception ex){
+        } catch (Exception ex) {
             Log.e("DATABASE", "Erreur lors de la récupération d'un genre");
         }
         return genre;
