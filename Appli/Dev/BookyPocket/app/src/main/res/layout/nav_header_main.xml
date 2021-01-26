@@ -14,9 +14,9 @@
 
     <ImageView
         android:id="@+id/imageUserView"
-        android:layout_width="103dp"
+        android:layout_width="89dp"
         android:layout_height="89dp"
-        android:background="@drawable/woman"
+        android:background="@drawable/user"
         android:contentDescription="@string/nav_header_desc"
         android:paddingTop="@dimen/nav_header_vertical_spacing" />
 
@@ -25,12 +25,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text="@string/pseudoUser"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
         android:id="@+id/mailUser"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/mailUser" />
+        android:layout_height="wrap_content" />
 </LinearLayout>

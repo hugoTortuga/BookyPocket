@@ -1,6 +1,7 @@
 package android.cnam.bookypocket;
 
 import android.cnam.bookypocket.DBManager.ORMSQLiteManager;
+import android.cnam.bookypocket.DBManager.Session;
 import android.cnam.bookypocket.Model.Reader;
 import android.cnam.bookypocket.utils.Alert;
 import android.content.Intent;
@@ -32,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
         Button connexion = (Button) findViewById(R.id.login_connexion);
         email = (EditText) findViewById(R.id.login_adrMail);
         password = (EditText) findViewById(R.id.login_password);
-        
+
         connexion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,6 +74,7 @@ public class LoginActivity extends AppCompatActivity {
                 Alert.ShowDialog(this, "Identifiants", "Identifiants non reconnu");
             else{
                 Alert.ShowDialog(this, "Identifiants", "Bienvenue " + reader.getFirstName());
+                Session.setCurrentUser(reader);
                 goToHome();
             }
 

@@ -146,4 +146,10 @@ public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
         rdr = (Reader) dao.queryBuilder().where().eq("emailAddress", emailStr).and().eq("password",pwdStr).queryForFirst();
         return rdr;
     }
+
+    public boolean doesBookExistInDB(Book book){
+
+        // TODO
+        return true;
+    }
 }

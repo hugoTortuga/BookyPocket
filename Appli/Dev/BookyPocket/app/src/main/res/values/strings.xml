@@ -12,9 +12,7 @@
     <string name="menu_readings">Readings</string>
     <string name="title_activity_booky_map">Map</string>
 
-    <!-- User informations -->
-    <string name="pseudoUser">test@test</string>
-    <string name="mailUser">TEST test</string>
+
 
     <!-- HOME BUTTONS -->
     <string name="home_button_findLibrary">Find a library</string>

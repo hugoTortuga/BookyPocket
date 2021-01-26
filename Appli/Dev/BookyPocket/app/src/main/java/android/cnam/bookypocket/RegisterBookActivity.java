@@ -2,6 +2,11 @@ package android.cnam.bookypocket;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.cnam.bookypocket.DBManager.ORMSQLiteManager;
+import android.cnam.bookypocket.DBManager.Session;
+import android.cnam.bookypocket.Model.*;
+import android.cnam.bookypocket.utils.Alert;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Adapter;
@@ -11,9 +16,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
-import android.widget.Toast;
-
-import java.util.Locale;
 
 public class RegisterBookActivity extends AppCompatActivity {
 
@@ -29,9 +31,11 @@ public class RegisterBookActivity extends AppCompatActivity {
     private Button scanButton;
     private ImageButton addBookButton;
 
+    private Context context;
+
     //will be fulled with model data
-    String[] categories = {"Hello", "World"};
-    String[] genres = {"Epic", "Romantic"};
+    Category[] categories = {new Category("test", false),new Category("test2", false)};
+    Genre[] genres = {new Genre("Oui"), new Genre("non")};
 
     //private Category category;
     //private Genre genre;
@@ -40,7 +44,11 @@ public class RegisterBookActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_book);
+        context = this;
+        InitializeViewComponents();
+    }
 
+    private void InitializeViewComponents(){
         //details of the book to register
         titleValue = (EditText)findViewById(R.id.register_titleValue);
         this.title = titleValue.getText().toString();
@@ -65,17 +73,61 @@ public class RegisterBookActivity extends AppCompatActivity {
         });
 
         addBookButton = findViewById(R.id.register_addButton);
+        RegisterBook();
+    }
+
+    private void RegisterBook(){
         addBookButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //addBook();
+                try {
+
+                    Book book = getInfoBookFromForm();
+                    if(book == null)
+                        return;
+
+                    Reader reader = Session.getCurrentUser();
+
+                    ReaderBook readerBook = new ReaderBook(reader, book);
+
+                    if(reader != null){
+                        //On insère notre reader
+                        ORMSQLiteManager db = new ORMSQLiteManager(context);
+                        db.insertObjectInDB(book, Book.class);
+                        db.insertObjectInDB(readerBook, ReaderBook.class);
+                        db.close();
+                        Alert.ShowDialog(context, "Succès", "Livre enregistré");
+                    }
+
+                    //On retourne à l'écran de connexion
+                    //goToHome();
+
+                } catch (Exception ex) {
+                    if(ex.getClass() == java.sql.SQLException.class)
+                        Alert.ShowDialog(context, "Erreur", "Le livre a été enregistré");
+                    else
+                        Alert.ShowDialog(context, "Erreur", ex.getMessage());
+
+                }
             }
         });
     }
 
+    private Book getInfoBookFromForm() {
+        Book b = new Book();
+        if(title == null || title.trim().equals("")){
+            Alert.ShowDialog(this, "Information manquante", "Le titre n'est pas renseigné");
+            return null;
+        }
+        // TODO check all info
+        b.setCategory((Category)this.categorySpinner.getSelectedItem());
+
+        return b;
+    }
+
     private void createCategorySpinner(){
         categorySpinner = (Spinner) findViewById(R.id.register_categorySpinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<Category> adapter = new ArrayAdapter<Category>(this,
                 android.R.layout.simple_spinner_item,
                 categories);
 
@@ -101,7 +153,7 @@ public class RegisterBookActivity extends AppCompatActivity {
     private void createGenreSpinner(){
         genreSpinner = (Spinner) findViewById(R.id.register_genreSpinner);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<Genre> adapter = new ArrayAdapter<Genre>(this,
                 android.R.layout.simple_spinner_item,
                 genres);
 

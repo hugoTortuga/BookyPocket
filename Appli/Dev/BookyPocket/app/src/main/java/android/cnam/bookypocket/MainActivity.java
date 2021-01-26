@@ -1,5 +1,7 @@
 package android.cnam.bookypocket;
 
+import android.cnam.bookypocket.DBManager.Session;
+import android.cnam.bookypocket.Model.Reader;
 import android.cnam.bookypocket.ui.readings.ReadingsFragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -45,18 +47,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
 
 
         int nav_home = R.id.nav_home;
@@ -76,22 +68,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         MenuItem readingsItem = menu.findItem(R.id.nav_readings);
         setNavigationViewListener();
 
-        ImageView userPhoto = (ImageView)findViewById(R.id.imageUserView);
+        //ImageView userPhoto = (ImageView) findViewById(R.id.imageUserView);
 
         //on devra peut être enregistrer les photos en local pour les retrouver avec un objet drawable
         //userPhoto.setImageResource(R.drawable.woman);
 
-        TextView textPseudoUser = (TextView) findViewById(R.id.pseudoUser);
-        //textView.setText("firstname + lastname");
+        //TextView textPseudoUser = (TextView) findViewById(R.id.pseudoUser);
+        //TextView textMailUser = (TextView) findViewById(R.id.mailUser);
 
-        TextView textMailUser = (TextView) findViewById(R.id.mailUser);
-        //textView.setText("mailUser");
+        Reader user = Session.getCurrentUser();
+
+        //if (textPseudoUser == null || textMailUser == null || user == null)
+        //    return;
+
+        //textPseudoUser.setText(user.getFirstName());
+        //textMailUser.setText(user.getEmailAddress());
 
         createButtons();
     }
-    private void createButtons(){
-        findLibraryButton = (Button) findViewById(R.id.home_button_findLibrary) ;
-        findLibraryButton.setOnClickListener(new View.OnClickListener(){
+
+    private void createButtons() {
+        findLibraryButton = (Button) findViewById(R.id.home_button_findLibrary);
+        findLibraryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent registerBookIntent = new Intent(view.getContext(), BookyMapTestActivity.class);
@@ -99,17 +97,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-//        seeReadingsButton = (Button) findViewById(R.id.home_button_seeReadings) ;
-//        seeReadingsButton.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View view) {
-//                Intent registerBookIntent = new Intent(view.getContext(), ReadingsActivity.class);
-//                startActivity(registerBookIntent);
-//            }
-//        });
+        seeReadingsButton = (Button) findViewById(R.id.home_button_seeReadings);
+        seeReadingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent registerBookIntent = new Intent(view.getContext(), ReadingsActivity.class);
+                startActivity(registerBookIntent);
+            }
+        });
 
-        registerBookButton = (Button) findViewById(R.id.home_button_registerBook) ;
-        registerBookButton.setOnClickListener(new View.OnClickListener(){
+        registerBookButton = (Button) findViewById(R.id.home_button_registerBook);
+        registerBookButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent registerBookIntent = new Intent(view.getContext(), RegisterBookActivity.class);
@@ -117,8 +115,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        manageAccountButton = (Button) findViewById(R.id.home_button_manageAccount) ;
-        manageAccountButton.setOnClickListener(new View.OnClickListener(){
+        manageAccountButton = (Button) findViewById(R.id.home_button_manageAccount);
+        manageAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent registerBookIntent = new Intent(view.getContext(), ManageAccountActivity.class);
@@ -154,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(readingsIntent);
                 return true;
         }
-                return true;
+        return true;
 //            default:
 //                return super.onOptionsItemSelected(item);
 
