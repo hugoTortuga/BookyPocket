@@ -17,7 +17,6 @@
     <!--        app:layout_constraintStart_toStartOf="parent"-->
     <!--        app:layout_constraintTop_toTopOf="parent">-->
 
-
     <LinearLayout
         android:id="@+id/linearLayout3"
         android:layout_width="0dp"
@@ -36,11 +35,11 @@
 
             <ImageView
                 android:id="@+id/manage_userPhotoView"
-                android:layout_width="192dp"
-                android:layout_height="146dp"
+                android:layout_width="92dp"
+                android:layout_height="152dp"
                 android:layout_gravity="center_horizontal|center_vertical"
                 android:layout_weight="1"
-                tools:srcCompat="@drawable/woman" />
+                android:background="@drawable/woman" />
 
             <Button
                 android:id="@+id/manage_changePhotoButton"
@@ -136,7 +135,7 @@
                 android:id="@+id/manage_passwordText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="t@string/manage_passwordTex"
+                android:text="t@string/manage_passwordText"
                 android:textColor="#E5B81D"
                 android:textStyle="bold" />
 
@@ -165,6 +164,5 @@
         </LinearLayout>
 
     </LinearLayout>
-    <!--    </ScrollView>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

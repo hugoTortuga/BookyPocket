@@ -47,13 +47,13 @@ public class ManageAccountActivity extends AppCompatActivity {
             }
         });
 
-        deleteAccount = findViewById(R.id.manage_deleteAccount);
-        deleteAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                deleteUserAccount();
-            }
-        });
+//        deleteAccount = findViewById(R.id.manage_deleteAccount);
+//        deleteAccount.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                deleteUserAccount();
+//            }
+//        });
     }
 
     private void changeUserPhoto(){
