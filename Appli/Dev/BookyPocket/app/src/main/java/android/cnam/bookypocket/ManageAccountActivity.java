@@ -29,6 +29,7 @@ public class ManageAccountActivity extends AppCompatActivity {
         setContentView(R.layout.activity_manage_account);
 
         //user info
+        /*
         EditText lastNameValue = (EditText)findViewById(R.id.manage_lastNameValue);
         this.lastName = lastNameValue.getText().toString();
 
@@ -54,6 +55,9 @@ public class ManageAccountActivity extends AppCompatActivity {
                 deleteUserAccount();
             }
         });
+
+
+         */
     }
 
     private void changeUserPhoto(){

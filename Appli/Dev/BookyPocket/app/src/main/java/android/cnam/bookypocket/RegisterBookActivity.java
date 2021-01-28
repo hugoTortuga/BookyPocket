@@ -119,6 +119,7 @@ public class RegisterBookActivity extends AppCompatActivity {
             Alert.ShowDialog(this, "Information manquante", "Le titre n'est pas renseigné");
             return null;
         }
+
         // TODO check all info
         b.setCategory((Category)this.categorySpinner.getSelectedItem());
 

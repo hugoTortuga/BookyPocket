@@ -39,6 +39,7 @@
     <string name="register_genreSpinner"></string>
     <string name="register_scanText">Back Cover</string>
     <string name="register_scanButton">Scan barCode or take a picture</string>
+    <string name="registerbook_button">Save</string>
 
 
     <!-- BOOK DETAILS ACTIVITY-->
