@@ -73,7 +73,6 @@ public class LoginActivity extends AppCompatActivity {
             if(reader == null)
                 Alert.ShowDialog(this, "Identifiants", "Identifiants non reconnu");
             else{
-                Alert.ShowDialog(this, "Identifiants", "Bienvenue " + reader.getFirstName());
                 Session.setCurrentUser(reader);
                 goToHome();
             }

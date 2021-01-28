@@ -19,6 +19,7 @@
     <string name="home_button_seeReadings">See my readings</string>
     <string name="home_button_registerBook">Register a new book</string>
     <string name="home_button_manageAccount">Manage my account</string>
+    <string name="find_book_button">Find a book</string>
 
     <!-- READINGS ACTIVITY-->
     <string name="readings_textView">My readings</string>
@@ -39,6 +40,7 @@
     <string name="register_genreSpinner"></string>
     <string name="register_scanText">Back Cover</string>
     <string name="register_scanButton">Scan barCode or take a picture</string>
+    <string name="registerbook_button">Save</string>
 
 
     <!-- BOOK DETAILS ACTIVITY-->

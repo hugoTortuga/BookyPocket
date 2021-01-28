@@ -29,6 +29,7 @@ public class ManageAccountActivity extends AppCompatActivity {
         setContentView(R.layout.activity_manage_account);
 
         //user info
+        /*
         EditText lastNameValue = (EditText)findViewById(R.id.manage_lastNameValue);
         this.lastName = lastNameValue.getText().toString();
 
@@ -47,6 +48,7 @@ public class ManageAccountActivity extends AppCompatActivity {
             }
         });
 
+<<<<<<< HEAD
 //        deleteAccount = findViewById(R.id.manage_deleteAccount);
 //        deleteAccount.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -54,6 +56,18 @@ public class ManageAccountActivity extends AppCompatActivity {
 //                deleteUserAccount();
 //            }
 //        });
+=======
+        deleteAccount = findViewById(R.id.manage_deleteAccount);
+        deleteAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteUserAccount();
+            }
+        });
+
+
+         */
+>>>>>>> 8577780b6b29b8c5d03d94efef6fe02816926cb8
     }
 
     private void changeUserPhoto(){
