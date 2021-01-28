@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login2);
+        setContentView(R.layout.activity_login);
 
         Button connexion = (Button) findViewById(R.id.login_connexion);
         email = (EditText) findViewById(R.id.login_adrMail);
@@ -46,6 +45,7 @@ public class LoginActivity extends AppCompatActivity {
         //Test des champs
         if(email == null || password == null)
         {
+            //get string from values/string, possible ?
             Alert.ShowDialog(this, "Paramètre non renseigné", "Veuillez remplir les champs");
             return;
         }

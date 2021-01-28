@@ -15,7 +15,7 @@
 
     <!-- HOME BUTTONS -->
     <string name="home_button_findLibrary">Trouver une bibliothèque</string>
-    <string name="home_button_seeReadings">Consutlter mes lectures</string>
+    <string name="home_button_seeReadings">Consulter mes lectures</string>
     <string name="home_button_registerBook">Saisir un nouvel ouvrage</string>
     <string name="home_button_manageAccount">Gérer mon compte</string>
 
@@ -79,7 +79,9 @@
     <string name="signup_lastname">Nom</string>
     <string name="signup_firstname">Prénom</string>
     <string name="signup_password">Mot de passe</string>
+    <string name="signup_confirmPassword">Confirmer mot de passe</string>
     <string name="signup_DOB">Date de naissance</string>
     <string name="signup_button">S\'inscrire</string>
+
 
 </resources>

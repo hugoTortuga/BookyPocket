@@ -4,165 +4,191 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center_horizontal|center_vertical"
-    android:gravity="center_horizontal|center_vertical"
-    tools:context=".ManageAccountActivity">
-
-    <!--    <ScrollView-->
-    <!--        android:id="@+id/scrollView2"-->
-    <!--        android:layout_width="0dp"-->
-    <!--        android:layout_height="873dp"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent">-->
+    android:layout_gravity="clip_vertical|center_vertical"
+    android:foregroundGravity="center_vertical|center_horizontal">
 
     <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:isScrollContainer="true"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-        >
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="152dp"
-            android:orientation="horizontal">
+            android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/manage_userPhotoView"
-                android:layout_width="92dp"
-                android:layout_height="152dp"
-                android:layout_gravity="center_horizontal|center_vertical"
-                android:layout_weight="1"
-                android:background="@drawable/woman" />
-
-            <Button
-                android:id="@+id/manage_changePhotoButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|center_vertical"
-                android:layout_weight="1"
-                android:background="@drawable/button_style"
-                android:text="@string/manage_changePhotoButton"
-                android:textColor="#FFFFFF"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="102dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/manage_lastName"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:gravity="center|left"
-                android:text="@string/manage_lastName"
-                android:textColor="#e5b81d"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/manage_lastNameValue"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="@string/manage_lastNameValue" />
+                android:orientation="vertical">
 
-        </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="140dp"
+                    android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="102dp"
-            android:orientation="vertical">
+                    <ImageView
+                        android:id="@+id/manage_userPhotoView"
+                        android:layout_width="164dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/woman" />
 
-            <TextView
-                android:id="@+id/manage_firstName"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:text="@string/manage_firstName"
-                android:textColor="#e5b81d"
-                android:textStyle="bold" />
+                    <Button
+                        android:id="@+id/manage_changePhotoButton"
+                        android:layout_width="201dp"
+                        android:layout_height="46dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button_style"
+                        android:foregroundGravity="center_vertical|center_horizontal"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:text="@string/manage_changePhotoButton"
+                        android:textColor="#FFFFFF"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
-            <EditText
-                android:id="@+id/manage_firstNameValue"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="@string/manage_firstNameValue" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-        </LinearLayout>
+                    <TextView
+                        android:id="@+id/manage_lastName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="30dp"
+                        android:text="@string/manage_lastName"
+                        android:textColor="#E5B81D"
+                        android:textStyle="bold" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="330dp"
-            android:orientation="vertical">
+                    <EditText
+                        android:id="@+id/manage_lastNameValue"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:ems="10"
+                        android:inputType="textPersonName"
+                        android:text="@string/manage_lastName" />
+                </LinearLayout>
 
-            <TextView
-                android:id="@+id/manage_DateOfBirth"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/manage_DateOfBirth"
-                android:textColor="#E5B81D"
-                android:textStyle="bold" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:orientation="vertical">
 
-            <CalendarView
-                android:id="@+id/manage_DoBCalendar"
-                android:layout_width="match_parent"
-                android:layout_height="296dp" />
+                    <TextView
+                        android:id="@+id/manage_firstName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/manage_firstName"
+                        android:textColor="#e5b81d"
+                        android:textStyle="bold" />
 
-            <View
-                android:id="@+id/divider8"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="?android:attr/listDivider" />
+                    <EditText
+                        android:id="@+id/manage_firstNameValue"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="textPersonName"
+                        android:text="" />
+                </LinearLayout>
 
-        </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/manage_DateOfBirth"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="30dp"
+                        android:text="@string/manage_DateOfBirth"
+                        android:textColor="#E5B81D"
+                        android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/manage_passwordText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="t@string/manage_passwordText"
-                android:textColor="#E5B81D"
-                android:textStyle="bold" />
+                    <EditText
+                        android:id="@+id/editTextDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:ems="10"
+                        android:inputType="date" />
+                </LinearLayout>
 
-            <EditText
-                android:id="@+id/manage_passwordValue"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPassword" />
-        </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="115dp"
-            android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/manage_passwordText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:text="@string/manage_passwordText"
+                        android:textColor="#E5B81D"
+                        android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/manage_modifyPswdButton"
-                android:layout_width="184dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|center_vertical"
-                android:background="@drawable/button_style"
-                android:text="@string/manage_modifyPswdButton"
-                android:textColor="#FFFFFF"
-                android:textStyle="bold" />
-        </LinearLayout>
+                    <EditText
+                        android:id="@+id/manage_passwordValue"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:ems="10"
+                        android:inputType="textPassword" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="93dp"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:foregroundGravity="center_vertical|center_horizontal"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/manage_modifyPswdButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="50dp"
+                        android:layout_marginRight="50dp"
+                        android:background="@drawable/button_style"
+                        android:text="@string/manage_modifyPswdButton"
+                        android:textColor="#FFFFFF"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="74dp"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/manage_deleteAccount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="50dp"
+                        android:layout_marginRight="50dp"
+                        android:background="@drawable/button_style"
+                        android:text="@string/manage_deleteAccount"
+                        android:textColor="#FFFFFF"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
 
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

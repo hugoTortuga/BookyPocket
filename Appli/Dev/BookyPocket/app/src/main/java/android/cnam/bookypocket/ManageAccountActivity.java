@@ -5,9 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 
 public class ManageAccountActivity extends AppCompatActivity {
 
@@ -48,7 +46,6 @@ public class ManageAccountActivity extends AppCompatActivity {
             }
         });
 
-<<<<<<< HEAD
 //        deleteAccount = findViewById(R.id.manage_deleteAccount);
 //        deleteAccount.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -56,7 +53,6 @@ public class ManageAccountActivity extends AppCompatActivity {
 //                deleteUserAccount();
 //            }
 //        });
-=======
         deleteAccount = findViewById(R.id.manage_deleteAccount);
         deleteAccount.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,7 +63,6 @@ public class ManageAccountActivity extends AppCompatActivity {
 
 
          */
->>>>>>> 8577780b6b29b8c5d03d94efef6fe02816926cb8
     }
 
     private void changeUserPhoto(){
