@@ -29,7 +29,7 @@ public class RegisterBookActivity extends AppCompatActivity {
     private Spinner categorySpinner;
     private Spinner genreSpinner;
     private Button scanButton;
-    private ImageButton addBookButton;
+    private Button addBookButton;
 
     private Context context;
 

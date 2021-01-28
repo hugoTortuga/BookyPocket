@@ -3,6 +3,7 @@ package android.cnam.bookypocket;
 import android.cnam.bookypocket.DBManager.Session;
 import android.cnam.bookypocket.Model.Reader;
 import android.cnam.bookypocket.ui.readings.ReadingsFragment;
+import android.cnam.bookypocket.utils.Alert;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Button seeReadingsButton;
     private Button registerBookButton;
     private Button manageAccountButton;
+    private Button findBookButton;
 
     //private User user;
     //user info to request
@@ -123,7 +125,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(registerBookIntent);
             }
         });
-
+        findBookButton = (Button) findViewById(R.id.find_book_button);
+        findBookButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent registerBookIntent = new Intent(view.getContext(), ReadingsActivity.class);
+                startActivity(registerBookIntent);
+            }
+        });
     }
 
     private void setNavigationViewListener() {
@@ -158,27 +167,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle item selection
-//        switch (item.getItemId()) {
-//            case R.id.nav_home:
-//                //open home/main activity
-//
-//                return true;
-//            case R.id.nav_map:
-//                //open map activity
-//                Intent intent = new Intent(this, BookyMapActivity.class);
-//                startActivity(intent);
-//                return true;
-//            case R.id.nav_readings:
-//                //open readings activity
-//
-//                return true;
-//            default:
-//                return super.onOptionsItemSelected(item);
-//        }
-//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

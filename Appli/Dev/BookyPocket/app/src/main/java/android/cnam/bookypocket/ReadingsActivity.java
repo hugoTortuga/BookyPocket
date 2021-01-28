@@ -20,14 +20,13 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ReadingsActivity extends AppCompatActivity {
-    private MutableLiveData<String> mText;
 
     private SearchView searchView;
     private ImageButton itemImageButton;
 
     //image button will change
-    private Drawable addIcon = getResources().getDrawable( R.drawable.plus );
-    private Drawable removeIcon = getResources().getDrawable( R.drawable.minus );
+    //private Drawable addIcon = getResources().getDrawable( R.drawable.plus );
+    //private Drawable removeIcon = getResources().getDrawable( R.drawable.minus );
 
 
     private ArrayList<String> titleList = new ArrayList<>(
@@ -38,34 +37,19 @@ public class ReadingsActivity extends AppCompatActivity {
     //DEFINING A STRING ADAPTER WHICH WILL HANDLE THE DATA OF THE LISTVIEW
     private ArrayAdapter<String> adapter;
 
-    public ReadingsActivity() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is readings activity");
-    }
-
-
-    public LiveData<String> getText() {
-        return mText;
-    }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_readings);
-
-
-
+/*
         readingsList = (ListView) findViewById(R.id.readings_list);
-        adapter=new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1,
-                titleList);
+        adapter=new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, titleList);
         readingsList.setAdapter(adapter);
 
-        //createList();
+        createList();*/
     }
 
-    //METHOD WHICH WILL HANDLE DYNAMIC INSERTION
     public void addItems(View v) {
         adapter.add("New Item");
     }

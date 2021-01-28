@@ -39,6 +39,7 @@
     <string name="register_scanText">Couverture</string>
     <string name="register_scanButton">Scanner ou prendre une photo</string>
     <string name="registerbook_button">Enregister</string>
+    <string name="find_book_button">Trouver un ouvrage</string>
 
     <!-- BOOK DETAILS ACTIVITY-->
     <string name="detailsBookText">Détails de l\'ouvrage</string>
