@@ -4,7 +4,7 @@ import android.cnam.bookypocket.DBManager.ORMSQLiteManager;
 import android.cnam.bookypocket.DBManager.Session;
 import android.cnam.bookypocket.Model.Reader;
 import android.cnam.bookypocket.utils.Alert;
-import android.content.Intent;
+import android.cnam.bookypocket.utils.ChangeActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -20,7 +20,6 @@ public class LoginActivity extends AppCompatActivity {
     private EditText password;
 
     private Button login;
-
     private TextView signUp;
 
     @Override
@@ -74,7 +73,9 @@ public class LoginActivity extends AppCompatActivity {
                 Alert.ShowDialog(this, "Identifiants", "Identifiants non reconnu");
             else{
                 Session.setCurrentUser(reader);
-                goToHome();
+
+                //On redirige à l'accueil
+                ChangeActivity.ChangeActivity(this, MainActivity.class);
             }
 
         } catch (Exception ex) {
@@ -86,24 +87,12 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * Go to home activity
-     */
-    public void goToHome()
-    {
-        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-        startActivity(intent);
-        LoginActivity.this.finish();
-    }
-
-    /**
      * Go to sign up activity
      * @param view
      */
     public void goTosignUp(View view)
     {
-        Intent intent = new Intent(this, SignUpActivity.class);
-        startActivity(intent);
-        this.finish();
+        ChangeActivity.ChangeActivity(this, SignUpActivity.class);
     }
 
 

@@ -1,9 +1,10 @@
 package android.cnam.bookypocket;
 
+import android.app.Activity;
 import android.cnam.bookypocket.Model.Reader;
 import android.cnam.bookypocket.utils.Alert;
+import android.cnam.bookypocket.utils.ChangeActivity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -26,7 +27,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     private Button signup;
 
-    final Context context = this;
+    final Activity context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +91,7 @@ public class SignUpActivity extends AppCompatActivity {
                     Alert.ShowDialog(ctx, "Succès", "Inscription terminée");
 
                     //On retourne à l'écran de connexion
-                    goToHome();
+                    ChangeActivity.ChangeActivity(context, LoginActivity.class);
 
                 } catch (Exception ex) {
                     if(ex.getClass() == java.sql.SQLException.class)
@@ -103,26 +104,4 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
-    public void goToHome() {
-        Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
-        startActivity(intent);
-        SignUpActivity.this.finish();
-    }
-
-    /**
-     * Go to sign up activity
-     *
-     * @param view
-     */
-    public void goTosignUp(View view) {
-        Intent intent = new Intent(this, SignUpActivity.class);
-        startActivity(intent);
-        this.finish();
-    }
-
-    /**
-     * Sign up
-     */
-    public void SignUp() {
-    }
 }

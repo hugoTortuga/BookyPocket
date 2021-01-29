@@ -2,7 +2,6 @@ package android.cnam.bookypocket;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
 import android.widget.Button;
@@ -69,13 +68,5 @@ public class ManageAccountActivity extends AppCompatActivity {
         //open file system and get new image file path
         //Image newImage = ...;
         //this.userPhoto = newImage;
-    }
-
-    private void deleteUserAccount(){
-        //delete user account return to login activity
-        //open "Are you sure you want to delete your account" dialog
-        Intent intent = new Intent(this, SignUpActivity.class);
-        startActivity(intent);
-        this.finish();
     }
 }

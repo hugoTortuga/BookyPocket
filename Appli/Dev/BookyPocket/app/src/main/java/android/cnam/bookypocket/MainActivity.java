@@ -4,7 +4,7 @@ import android.cnam.bookypocket.DBManager.Session;
 import android.cnam.bookypocket.Model.Reader;
 import android.cnam.bookypocket.ui.readings.ReadingsFragment;
 import android.cnam.bookypocket.utils.Alert;
-import android.content.Intent;
+import android.cnam.bookypocket.utils.ChangeActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -94,8 +94,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         findLibraryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent registerBookIntent = new Intent(view.getContext(), BookyMapTestActivity.class);
-                startActivity(registerBookIntent);
+                ChangeActivity.ChangeActivity(view.getContext(),BookyMapTestActivity.class);
             }
         });
 
@@ -103,8 +102,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         seeReadingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent registerBookIntent = new Intent(view.getContext(), ReadingsActivity.class);
-                startActivity(registerBookIntent);
+                ChangeActivity.ChangeActivity(view.getContext(),ReadingsActivity.class);
             }
         });
 
@@ -112,8 +110,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         registerBookButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent registerBookIntent = new Intent(view.getContext(), RegisterBookActivity.class);
-                startActivity(registerBookIntent);
+                ChangeActivity.ChangeActivity(view.getContext(),RegisterBookActivity.class);
             }
         });
 
@@ -121,16 +118,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         manageAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent registerBookIntent = new Intent(view.getContext(), ManageAccountActivity.class);
-                startActivity(registerBookIntent);
+                ChangeActivity.ChangeActivity(view.getContext(),ManageAccountActivity.class);
             }
         });
         findBookButton = (Button) findViewById(R.id.find_book_button);
         findBookButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent registerBookIntent = new Intent(view.getContext(), ReadingsActivity.class);
-                startActivity(registerBookIntent);
+                ChangeActivity.ChangeActivity(view.getContext(),ReadingsActivity.class);
             }
         });
     }
@@ -145,20 +140,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Handle navigation view item clicks here.
         switch (item.getItemId()) {
             case R.id.nav_home:
-                //open home/main activity
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
+                ChangeActivity.ChangeActivity(this,MainActivity.class);
 
                 return true;
             case R.id.nav_map:
                 //open map activity
-                Intent mapIntent = new Intent(this, BookyMapActivity.class);
-                startActivity(mapIntent);
+                ChangeActivity.ChangeActivity(this,BookyMapActivity.class);
                 return true;
             case R.id.nav_readings:
                 //open readings activity
-                Intent readingsIntent = new Intent(this, ReadingsActivity.class);
-                startActivity(readingsIntent);
+                ChangeActivity.ChangeActivity(this,ReadingsActivity.class);
                 return true;
         }
         return true;
