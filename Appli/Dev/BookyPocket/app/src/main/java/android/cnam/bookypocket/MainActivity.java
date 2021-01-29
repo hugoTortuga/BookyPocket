@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        //NavigationView navigationView = findViewById(R.id.nav_view);
 
 
         int nav_home = R.id.nav_home;
@@ -61,14 +61,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        NavigationUI.setupWithNavController(navigationView, navController);
-        Menu menu = navigationView.getMenu();
-        MenuItem homeItem = menu.findItem(R.id.nav_home);
-
-        MenuItem mapItem = menu.findItem(R.id.nav_map);
-
-        MenuItem readingsItem = menu.findItem(R.id.nav_readings);
-        setNavigationViewListener();
+//        NavigationUI.setupWithNavController(navigationView, navController);
+//        Menu menu = navigationView.getMenu();
+//        MenuItem homeItem = menu.findItem(R.id.nav_home);
+//
+//        MenuItem mapItem = menu.findItem(R.id.nav_map);
+//
+//        MenuItem readingsItem = menu.findItem(R.id.nav_readings);
+//        setNavigationViewListener();
 
         //ImageView userPhoto = (ImageView) findViewById(R.id.imageUserView);
 
@@ -131,8 +131,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void setNavigationViewListener() {
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        //NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        //navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override

@@ -84,4 +84,6 @@
     <string name="signup_DOB">Date of Birth</string>
     <string name="signup_button">Sign up</string>
 
+<!--    SEARCH BOOK ACTIVITY-->
+    <string name="search_button">Search</string>
 </resources>

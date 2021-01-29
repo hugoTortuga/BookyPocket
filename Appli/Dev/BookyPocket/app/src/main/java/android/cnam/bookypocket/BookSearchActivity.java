@@ -23,15 +23,19 @@ public class BookSearchActivity extends AppCompatActivity {
     private SearchView searchView;
     private ImageButton itemImageButton;
 
+
+
     //image button will change
     //private Drawable addIcon = getResources().getDrawable( R.drawable.plus );
     //private Drawable removeIcon = getResources().getDrawable( R.drawable.minus );
 
 
     private ArrayList<String> titleList = new ArrayList<>(
-            Arrays.asList("Buenos Aires", "Córdoba", "La Plata"));
+            Arrays.asList("Buenos Aires", "Córdoba", "La Plata","Buenos Aires", "Córdoba", "La Plata",
+                    "Buenos Aires", "Córdoba", "La Plata","Buenos Aires", "Córdoba", "La Plata",
+                    "Buenos Aires", "Córdoba", "La Plata","Buenos Aires", "Córdoba", "La Plata"));
 
-    private ListView readingsList;
+    private ListView found_list;
 
     //DEFINING A STRING ADAPTER WHICH WILL HANDLE THE DATA OF THE LISTVIEW
     private ArrayAdapter<String> adapter;
@@ -41,18 +45,19 @@ public class BookSearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.book_search);
-/*
-        readingsList = (ListView) findViewById(R.id.readings_list);
-        adapter=new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, titleList);
-        readingsList.setAdapter(adapter);
 
-        createList();*/
+
+        found_list = (ListView) findViewById(R.id.found_list);
+        adapter=new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, titleList);
+        found_list.setAdapter(adapter);
+        Alert.ShowDialog(this,"found list",""+found_list.getCount());
     }
 
     public void searchBook(View view){
         try{
             if(Session.isUserConnectedToInternet()){
-
+                Alert.ShowDialog(this, "Recherche",
+                        "x résultats");
             }
             else{
                 Alert.ShowDialog(this, "Pas de connexion internet",

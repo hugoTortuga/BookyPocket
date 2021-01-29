@@ -83,5 +83,8 @@
     <string name="signup_DOB">Date de naissance</string>
     <string name="signup_button">S\'inscrire</string>
 
+    <!--    SEARCH BOOK ACTIVITY-->
+    <string name="search_button">Rechercher</string>
+
 
 </resources>
