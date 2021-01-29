@@ -14,4 +14,8 @@ public class Session {
         CurrentUser = currentUser;
     }
 
+    public static boolean isUserConnectedToInternet() {
+        //TODO
+        return true;
+    }
 }

@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         findBookButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ChangeActivity.ChangeActivity(view.getContext(),ReadingsActivity.class);
+                ChangeActivity.ChangeActivity(view.getContext(),BookSearchActivity.class);
             }
         });
     }

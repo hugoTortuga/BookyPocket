@@ -18,73 +18,66 @@
         app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/mobile_navigation" />
 
-    <Button
-        android:id="@+id/home_button_findLibrary"
-        style="Widget.MaterialComponents.Button"
-        android:layout_width="246dp"
-        android:layout_height="47dp"
-        android:layout_marginTop="40dp"
-        android:background="@drawable/button_style"
-        android:text="@string/home_button_findLibrary"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <Button
+            android:id="@+id/home_button_findLibrary"
+            style="Widget.MaterialComponents.Button"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/button_style"
+            android:text="@string/home_button_findLibrary"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:layout_margin="20dp"/>
 
-    <Button
-        android:id="@+id/home_button_seeReadings"
-        style="Widget.MaterialComponents.Button"
-        android:layout_width="246dp"
-        android:layout_height="47dp"
-        android:layout_marginTop="120dp"
-        android:background="@drawable/button_style"
-        android:text="@string/home_button_seeReadings"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            android:id="@+id/home_button_seeReadings"
+            style="Widget.MaterialComponents.Button"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/button_style"
+            android:text="@string/home_button_seeReadings"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:layout_margin="20dp"/>
 
-    <Button
-        android:id="@+id/home_button_registerBook"
-        style="Widget.MaterialComponents.Button"
-        android:layout_width="246dp"
-        android:layout_height="47dp"
-        android:layout_marginTop="200dp"
-        android:background="@drawable/button_style"
-        android:text="@string/home_button_registerBook"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            android:id="@+id/home_button_registerBook"
+            style="Widget.MaterialComponents.Button"
+            android:layout_width="match_parent"
+            android:background="@drawable/button_style"
+            android:text="@string/home_button_registerBook"
+            android:textColor="#FFFFFF"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:layout_margin="20dp"/>
 
-    <Button
-        android:id="@+id/home_button_manageAccount"
-        style="Widget.MaterialComponents.Button"
-        android:layout_width="246dp"
-        android:layout_height="47dp"
-        android:layout_marginTop="280dp"
-        android:background="@drawable/button_style"
-        android:text="@string/home_button_manageAccount"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-    <Button
-        android:id="@+id/find_book_button"
-        style="Widget.MaterialComponents.Button"
-        android:layout_width="246dp"
-        android:layout_height="47dp"
-        android:layout_marginTop="360dp"
-        android:background="@drawable/button_style"
-        android:text="@string/find_book_button"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            android:id="@+id/home_button_manageAccount"
+            style="Widget.MaterialComponents.Button"
+            android:layout_width="match_parent"
+            android:background="@drawable/button_style"
+            android:text="@string/home_button_manageAccount"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:layout_margin="20dp"/>
+        <Button
+            android:id="@+id/find_book_button"
+            style="Widget.MaterialComponents.Button"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_margin="20dp"
+            android:background="@drawable/button_style"
+            android:text="@string/find_book_button"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

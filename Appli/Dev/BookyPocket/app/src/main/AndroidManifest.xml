@@ -36,6 +36,7 @@
         <activity android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".ReadingsActivity" />
+        <activity android:name=".BookSearchActivity" />
         <activity
             android:name=".BookyMapActivity"
             android:label="@string/title_activity_booky_map" />
