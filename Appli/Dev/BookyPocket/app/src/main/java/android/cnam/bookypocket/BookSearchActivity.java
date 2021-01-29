@@ -102,7 +102,7 @@ public class BookSearchActivity extends AppCompatActivity {
             books = new ArrayList<Book>();
 
             try {
-                books = API_GoogleBooks.Request(keyword);
+                books = API_GoogleBooks.Request(keyword, it);
             } catch (Exception ex) {
                 Log.e("FATAL","fatal 55555555" + ex);
                 Alert.ShowError(it, "Erreur lors de l'appel à l'api Google Books", "" + ex);

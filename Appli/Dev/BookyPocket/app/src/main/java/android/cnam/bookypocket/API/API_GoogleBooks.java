@@ -40,23 +40,33 @@ public class API_GoogleBooks {
             // On instancie le nouveau livre avec les infos du JSON
             Book book = new Book();
 
-            String publishedDate = volumeInfo.getString("publishedDate");
-            if(StringUtil.IsNullOrEmpty(publishedDate)){
-                int yearpublished = Integer.parseInt(publishedDate.substring(0,4));
-                book.setYearPublication(yearpublished);
-            }
+
 
             String title = volumeInfo.getString("title");
             book.setTitle(title);
 
-            String description = volumeInfo.getString("description");
-            if(StringUtil.IsNullOrEmpty(description))
-                book.setBackCover(description);
+            try{
+                String publishedDate = volumeInfo.getString("publishedDate");
+                if(StringUtil.IsNullOrEmpty(publishedDate)){
+                    int yearpublished = Integer.parseInt(publishedDate.substring(0,4));
+                    book.setYearPublication(yearpublished);
+                }
 
-            int pageCount = volumeInfo.getInt("pageCount");
-            book.setNbPages(pageCount);
+                String description = volumeInfo.getString("description");
+                if(StringUtil.IsNullOrEmpty(description))
+                    book.setBackCover(description);
+
+                int pageCount = volumeInfo.getInt("pageCount");
+                book.setNbPages(pageCount);
+            }
+            catch (Exception ex){
+                ex.printStackTrace();
+            }
 
 
+
+
+            /*
             JSONArray categories = volumeInfo.getJSONArray("categories");
             try{
                 Category categoryRequested = new Category((String)categories.get(0), false);
@@ -78,7 +88,7 @@ public class API_GoogleBooks {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
+        */
 
 
             books.add(book);
