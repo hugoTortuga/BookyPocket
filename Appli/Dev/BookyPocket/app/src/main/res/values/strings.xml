@@ -86,4 +86,5 @@
 
 <!--    SEARCH BOOK ACTIVITY-->
     <string name="search_button">Search</string>
+    <string name="find_book_title">Find your book</string>
 </resources>
