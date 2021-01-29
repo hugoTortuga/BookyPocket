@@ -137,6 +137,13 @@ public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
         return genre;
     }
 
+    public Category getCategoryByName(String nomCategory) throws SQLException {
+        Category category = null;
+        Dao<Category, Integer> dao = getDao(Category.class);
+        category = (Category) dao.queryBuilder().where().eq("name", nomCategory).queryForFirst();
+        return category;
+    }
+
     public Reader getUserByCreditential(String emailStr, String pwdStr) throws SQLException {
         Reader rdr = null;
         Dao<Reader, Integer> dao = getDao(Reader.class);

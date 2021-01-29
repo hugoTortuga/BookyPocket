@@ -4,6 +4,8 @@ import android.cnam.bookypocket.Model.Reader;
 
 public class Session {
 
+
+
     private static Reader CurrentUser;
 
     public static Reader getCurrentUser() {
