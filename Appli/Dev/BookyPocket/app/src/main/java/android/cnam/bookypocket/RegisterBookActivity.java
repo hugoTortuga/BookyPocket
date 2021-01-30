@@ -16,6 +16,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
 public class RegisterBookActivity extends AppCompatActivity {
 
     //User inputs for a book
@@ -32,7 +37,7 @@ public class RegisterBookActivity extends AppCompatActivity {
     private Context context;
 
     //will be fulled with model data
-    Category[] categories = {new Category("test", false),new Category("test2", false)};
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,28 +124,41 @@ public class RegisterBookActivity extends AppCompatActivity {
     }
 
     private void createCategorySpinner(){
-        categorySpinner = (Spinner) findViewById(R.id.register_categorySpinner);
-        ArrayAdapter<Category> adapter = new ArrayAdapter<Category>(this,
-                android.R.layout.simple_spinner_item,
-                categories);
 
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        this.categorySpinner.setAdapter(adapter);
-
-        // When user select a List-Item.
-        this.categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                onItemSelectedHandlerCategory(parent, view, position, id);
+        try{
+            List<Category> categories = new ArrayList<>();
+            ORMSQLiteManager DB_Manager = new ORMSQLiteManager(this);
+            categories = DB_Manager.getAllObjects(Category.class);
+            List<String> libelleCategories = new ArrayList<>();
+            for(Category cat : categories){
+                libelleCategories.add(cat.getName());
             }
+            Collections.sort(libelleCategories);
+            categorySpinner = (Spinner) findViewById(R.id.register_categorySpinner);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_spinner_item,
+                    libelleCategories);
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            this.categorySpinner.setAdapter(adapter);
 
-            }
-        });
+            // When user select a List-Item.
+            this.categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    onItemSelectedHandlerCategory(parent, view, position, id);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
+        }
     }
 
     private void onItemSelectedHandlerCategory(AdapterView<?> adapterView, View view, int position, long id) {
