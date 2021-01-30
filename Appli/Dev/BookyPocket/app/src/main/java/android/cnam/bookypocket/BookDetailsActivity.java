@@ -4,9 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.cnam.bookypocket.DBManager.ORMSQLiteManager;
 import android.cnam.bookypocket.Model.Book;
+import android.cnam.bookypocket.Utils.Alert;
 import android.cnam.bookypocket.Utils.ChangeActivity;
+import android.cnam.bookypocket.Utils.StringUtil;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -31,6 +35,8 @@ public class BookDetailsActivity extends AppCompatActivity {
     private TextView isbn_value;
     private ImageView image;
 
+    private Book currentBook;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +46,7 @@ public class BookDetailsActivity extends AppCompatActivity {
 
         Log.e("JSONME", "recevied book : " +book);
         initializeView();
+        currentBook = book;
         updateView(book);
         insertInDb(book);
     }
@@ -94,5 +101,23 @@ public class BookDetailsActivity extends AppCompatActivity {
 
     public void GoBack(View view) {
         ChangeActivity.ChangeActivity(this, BookSearchActivity.class);
+    }
+
+    public void addToMyReadings(View view) {
+
+    }
+
+    public void go_preview_page(View view) {
+        if(StringUtil.IsNullOrEmpty(currentBook.getPreviewLink())){
+            Alert.ShowDialog(this,"Information","Lien vide");
+            return;
+        }
+        try{
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(currentBook.getPreviewLink()));
+            startActivity(i);
+        }catch(Exception ex){
+            Alert.ShowDialog(this,"Information","Lien mort");
+        }
     }
 }

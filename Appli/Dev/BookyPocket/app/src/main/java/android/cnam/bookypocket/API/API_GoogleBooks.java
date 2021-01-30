@@ -37,7 +37,8 @@ public class API_GoogleBooks {
 
             // On instancie le nouveau livre avec les infos du JSON
             Book book = JSON_Book_Formator(item, context);
-            books.add(book);
+            if(!StringUtil.IsNullOrEmpty(book.getTitle()))
+                books.add(book);
         }
         return books;
     }
@@ -115,6 +116,14 @@ public class API_GoogleBooks {
 
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        //previewlink
+        try {
+            String previewLink = volumeInfo.getString("previewLink");
+            if (!StringUtil.IsNullOrEmpty(previewLink))
+                book.setPreviewLink(previewLink);
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
         DB_Manager.close();
 

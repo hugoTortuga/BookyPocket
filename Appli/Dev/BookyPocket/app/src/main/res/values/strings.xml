@@ -52,6 +52,8 @@
     <string name="details_categoryText">Category</string>
     <string name="details_categoryValue"></string>
     <string name="details_backCoverText">Back Cover</string>
+    <string name="add_to_my_readings">Add to my readings</string>
+    <string name="see_preview_link">Go to online preview page</string>
 
     <!-- MANAGE ACCOUNT ACTIVITY-->
     <string name="manage_changePhotoButton">Change photo</string>
@@ -84,4 +86,5 @@
     <string name="search_button">Search</string>
     <string name="find_book_title">Find your book</string>
     <string name="description_livre">Description</string>
+
 </resources>

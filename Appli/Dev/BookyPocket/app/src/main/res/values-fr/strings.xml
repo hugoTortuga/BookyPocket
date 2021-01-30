@@ -50,6 +50,8 @@
     <string name="details_categoryText">Catégorie</string>
     <string name="details_categoryValue"></string>
     <string name="details_backCoverText">Couverture</string>
+    <string name="add_to_my_readings">Ajouter à mes lectures</string>
+    <string name="see_preview_link">Aller à la page d\'aperçu</string>
 
     <!-- MANAGE ACCOUNT ACTIVITY-->
     <string name="manage_changePhotoButton">Changer ma photo</string>
