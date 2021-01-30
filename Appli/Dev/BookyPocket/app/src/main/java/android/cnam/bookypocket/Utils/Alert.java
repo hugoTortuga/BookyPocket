@@ -1,4 +1,4 @@
-package android.cnam.bookypocket.utils;
+package android.cnam.bookypocket.Utils;
 
 import android.app.AlertDialog;
 import android.content.Context;

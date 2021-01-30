@@ -2,8 +2,8 @@ package android.cnam.bookypocket;
 
 import android.app.Activity;
 import android.cnam.bookypocket.Model.Reader;
-import android.cnam.bookypocket.utils.Alert;
-import android.cnam.bookypocket.utils.ChangeActivity;
+import android.cnam.bookypocket.Utils.Alert;
+import android.cnam.bookypocket.Utils.ChangeActivity;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,8 +13,6 @@ import android.cnam.bookypocket.DBManager.*;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.util.Date;
 
 public class SignUpActivity extends AppCompatActivity {
 

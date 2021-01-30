@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.cnam.bookypocket.DBManager.ORMSQLiteManager;
 import android.cnam.bookypocket.DBManager.Session;
 import android.cnam.bookypocket.Model.*;
-import android.cnam.bookypocket.utils.Alert;
+import android.cnam.bookypocket.Utils.Alert;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
@@ -14,7 +14,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Spinner;
 
 public class RegisterBookActivity extends AppCompatActivity {
@@ -27,7 +26,6 @@ public class RegisterBookActivity extends AppCompatActivity {
     private EditText publicationYearValue;
     private String publicationYear;
     private Spinner categorySpinner;
-    private Spinner genreSpinner;
     private Button scanButton;
     private Button addBookButton;
 
@@ -35,10 +33,6 @@ public class RegisterBookActivity extends AppCompatActivity {
 
     //will be fulled with model data
     Category[] categories = {new Category("test", false),new Category("test2", false)};
-    Genre[] genres = {new Genre("Oui"), new Genre("non")};
-
-    //private Category category;
-    //private Genre genre;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,9 +53,7 @@ public class RegisterBookActivity extends AppCompatActivity {
         publicationYearValue = (EditText)findViewById(R.id.register_publicationYearValue);
         this.publicationYear = publicationYearValue.getText().toString();
 
-        //category and genre of the book to register
         createCategorySpinner();
-        createGenreSpinner();
 
         //Buttons
         scanButton = findViewById(R.id.register_scanButton);
@@ -151,31 +143,6 @@ public class RegisterBookActivity extends AppCompatActivity {
 
     }
 
-    private void createGenreSpinner(){
-        genreSpinner = (Spinner) findViewById(R.id.register_genreSpinner);
-
-        ArrayAdapter<Genre> adapter = new ArrayAdapter<Genre>(this,
-                android.R.layout.simple_spinner_item,
-                genres);
-
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        this.genreSpinner.setAdapter(adapter);
-
-        // When user select a List-Item.
-        this.genreSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                onItemSelectedHandlerGenre(parent, view, position, id);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-    }
-
     private void onItemSelectedHandlerCategory(AdapterView<?> adapterView, View view, int position, long id) {
         Adapter adapter = adapterView.getAdapter();
 //        Category category = (Category) adapter.getItem(position);
@@ -183,12 +150,6 @@ public class RegisterBookActivity extends AppCompatActivity {
 //        Toast.makeText(getApplicationContext(), "Selected Category : " + category.getName() ,Toast.LENGTH_SHORT).show();
     }
 
-    private void onItemSelectedHandlerGenre(AdapterView<?> adapterView, View view, int position, long id) {
-        Adapter adapter = adapterView.getAdapter();
-//        Genre genre = (Genre) adapter.getItem(position);
-        //this.genre = genre;
-//        Toast.makeText(getApplicationContext(), "Selected Genre: " + genre.getName() ,Toast.LENGTH_SHORT).show();
-    }
 
     private void scanOrTakePicture(){
 

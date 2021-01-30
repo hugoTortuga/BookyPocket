@@ -31,7 +31,6 @@ public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
     public void onCreate(SQLiteDatabase database, ConnectionSource connectionSource) {
         try {
             TableUtils.createTableIfNotExists(connectionSource, Category.class);
-            TableUtils.createTableIfNotExists(connectionSource, Genre.class);
             TableUtils.createTableIfNotExists(connectionSource, Photo.class);
             TableUtils.createTableIfNotExists(connectionSource, Book.class);
             TableUtils.createTableIfNotExists(connectionSource, Person.class);
@@ -58,7 +57,6 @@ public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
         try {
             //Un peu extrême à changer plus tard
             TableUtils.dropTable(connectionSource, Category.class, true);
-            TableUtils.dropTable(connectionSource, Genre.class, true);
             TableUtils.dropTable(connectionSource, Photo.class, true);
             TableUtils.dropTable(connectionSource, Book.class, true);
             TableUtils.dropTable(connectionSource, Person.class, true);
@@ -79,7 +77,7 @@ public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
     }
 
     /**
-     * Permet d'insérer dans la bd un objet qui appartient à la couche modèle (Genre, Personne, Photo...)
+     * Permet d'insérer dans la bd un objet qui appartient à la couche modèle (Personne, Photo...)
      *
      * @param object l'object à insérer
      * @param classe la classe de l'objet exemple : Library.class
@@ -128,13 +126,6 @@ public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
             Log.e("DATABASE", "Erreur lors de la suppression de " + object);
             return false;
         }
-    }
-
-    public Genre getGenreByName(String nomGenre) throws SQLException {
-        Genre genre = null;
-        Dao<Genre, Integer> dao = getDao(Genre.class);
-        genre = (Genre) dao.queryBuilder().where().eq("name", nomGenre).queryForFirst();
-        return genre;
     }
 
     public Category getCategoryByName(String nomCategory) throws SQLException {

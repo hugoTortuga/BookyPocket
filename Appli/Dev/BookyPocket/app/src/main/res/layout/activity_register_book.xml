@@ -124,32 +124,6 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="101dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/register_genreText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="30dp"
-                android:text="@string/register_genreText"
-                android:textColor="#E5B81D"
-                android:textStyle="bold" />
-
-            <Spinner
-                android:id="@+id/register_genreSpinner"
-                android:layout_width="match_parent"
-                android:layout_height="50dp" />
-
-            <View
-                android:id="@+id/divider5"
-                android:layout_width="347dp"
-                android:layout_height="1dp"
-                android:layout_marginLeft="20dp"
-                android:background="?android:attr/listDivider" />
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

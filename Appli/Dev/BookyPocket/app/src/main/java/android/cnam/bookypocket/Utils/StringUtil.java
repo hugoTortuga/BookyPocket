@@ -1,4 +1,4 @@
-package android.cnam.bookypocket.utils;
+package android.cnam.bookypocket.Utils;
 
 public class StringUtil {
 

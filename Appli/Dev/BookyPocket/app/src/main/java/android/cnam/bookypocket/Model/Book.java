@@ -28,8 +28,6 @@ public class Book implements Parcelable {
     @DatabaseField
     private int nbPages;
     @DatabaseField(canBeNull = true, foreign = true, foreignColumnName = "id", foreignAutoCreate = true)
-    private Genre genre;
-    @DatabaseField(canBeNull = true, foreign = true, foreignColumnName = "id", foreignAutoCreate = true)
     public Category category;
     @DatabaseField(canBeNull = true, foreign = true, foreignColumnName = "id", foreignAutoCreate = true)
     public Photo photo;
@@ -90,14 +88,6 @@ public class Book implements Parcelable {
         this.nbPages = nbPages;
     }
 
-    public Genre getGenre() {
-        return genre;
-    }
-
-    public void setGenre(Genre genre) {
-        this.genre = genre;
-    }
-
     public Category getCategory() {
         return category;
     }
@@ -109,7 +99,7 @@ public class Book implements Parcelable {
     public Book() {
     }
 
-    public Book(String ISBN, String title, String backCover, int yearPublication, int yearEdition, String previewLink, int nbPages, Genre genre, Category category) {
+    public Book(String ISBN, String title, String backCover, int yearPublication, int yearEdition, String previewLink, int nbPages, Category category) {
         this.ISBN = ISBN;
         this.title = title;
         this.backCover = backCover;
@@ -117,7 +107,6 @@ public class Book implements Parcelable {
         this.yearEdition = yearEdition;
         this.previewLink = previewLink;
         this.nbPages = nbPages;
-        this.genre = genre;
         this.category = category;
     }
 
@@ -130,7 +119,6 @@ public class Book implements Parcelable {
                 ", yearPublication=" + yearPublication +
                 ", yearEdition=" + yearEdition +
                 ", nbPages=" + nbPages +
-                ", genre=" + genre +
                 ", category=" + category +
                 '}';
     }

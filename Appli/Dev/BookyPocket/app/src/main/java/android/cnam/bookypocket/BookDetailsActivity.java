@@ -2,8 +2,9 @@ package android.cnam.bookypocket;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.cnam.bookypocket.DBManager.ORMSQLiteManager;
 import android.cnam.bookypocket.Model.Book;
-import android.cnam.bookypocket.utils.ChangeActivity;
+import android.cnam.bookypocket.Utils.ChangeActivity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -12,6 +13,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.sql.SQLException;
 
 public class BookDetailsActivity extends AppCompatActivity {
 
@@ -23,9 +26,9 @@ public class BookDetailsActivity extends AppCompatActivity {
     private TextView author;
     private TextView publicationYear;
     private TextView category;
-    private TextView genre;
     private TextView description;
     private TextView nbPages;
+    private TextView isbn_value;
     private ImageView image;
 
     @Override
@@ -38,18 +41,28 @@ public class BookDetailsActivity extends AppCompatActivity {
         Log.e("JSONME", "recevied book : " +book);
         initializeView();
         updateView(book);
+        insertInDb(book);
+    }
 
+    private void insertInDb(Book book) {
+        try{
+            ORMSQLiteManager db = new ORMSQLiteManager(this);
+            db.insertObjectInDB(book, Book.class);
+            db.close();
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
+        }
     }
 
     private void initializeView() {
-
         title = (TextView) findViewById(R.id.details_titleValue);
         author = (TextView) findViewById(R.id.details_authorValue);
         publicationYear = (TextView) findViewById(R.id.details_publicationYearValue);
         category = (TextView) findViewById(R.id.details_categoryValue);
-        genre = (TextView) findViewById(R.id.details_genreValue);
         description = (TextView) findViewById(R.id.description_textview);
         nbPages = (TextView) findViewById(R.id.nb_pages);
+        isbn_value = (TextView) findViewById(R.id.isbn_value);
         image = (ImageView) findViewById(R.id.imageView);
     }
 
@@ -58,6 +71,8 @@ public class BookDetailsActivity extends AppCompatActivity {
         publicationYear.setText(""+book.getYearPublication());
         description.setText(book.getBackCover());
         nbPages.setText(book.getNbPages() + " pages");
+        isbn_value.setText("ISBN : " + book.getISBN());
+
         if(book.getCategory() != null)
             category.setText(book.getCategory().getName());
         try{

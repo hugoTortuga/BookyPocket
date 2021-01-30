@@ -4,11 +4,8 @@ import android.cnam.bookypocket.DBManager.ORMSQLiteManager;
 import android.cnam.bookypocket.Model.Book;
 import android.cnam.bookypocket.Model.Category;
 import android.cnam.bookypocket.Model.Photo;
-import android.cnam.bookypocket.utils.StringUtil;
+import android.cnam.bookypocket.Utils.StringUtil;
 import android.content.Context;
-import android.util.Log;
-
-import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -48,14 +45,13 @@ public class API_GoogleBooks {
     private static Book JSON_Book_Formator(JSONObject item, Context context) throws JSONException {
         Book book = new Book();
         JSONObject volumeInfo = item.getJSONObject("volumeInfo");
-        Log.i("JSONME", "volumeInfo : " + volumeInfo);
         String title = volumeInfo.getString("title");
         book.setTitle(title);
-        Log.i("JSONME", "title : " + title);
 
+        ORMSQLiteManager DB_Manager = new ORMSQLiteManager(context);
+        //published date
         try {
             String publishedDate = volumeInfo.getString("publishedDate");
-            Log.i("JSONME", "published : " + publishedDate);
             if (!StringUtil.IsNullOrEmpty(publishedDate)) {
                 int yearpublished = Integer.parseInt(publishedDate.substring(0, 4));
                 book.setYearPublication(yearpublished);
@@ -64,30 +60,27 @@ public class API_GoogleBooks {
             ex.printStackTrace();
         }
 
+        // description
         try {
             String description = volumeInfo.getString("description");
             if (!StringUtil.IsNullOrEmpty(description))
                 book.setBackCover(description);
-
-            Log.i("JSONME", "description : " + description);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
 
-
+        //nb page
         try {
             int pageCount = volumeInfo.getInt("pageCount");
-            Log.i("JSONME", "pageCount : " +pageCount);
             book.setNbPages(pageCount);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        ORMSQLiteManager DB_Manager = new ORMSQLiteManager(context);
+
+        //Category
         try {
             JSONArray categories = volumeInfo.getJSONArray("categories");
             Category categoryRequested = new Category((String) categories.get(0), false);
-
-            Log.i("JSONME", "categories : " + categoryRequested);
 
             Category categoryInDB = DB_Manager.getCategoryByName(categoryRequested.getName());
 
@@ -101,16 +94,12 @@ public class API_GoogleBooks {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        finally {
-            DB_Manager.close();
-        }
 
         //ISBN 13
         try {
             JSONArray identifiants = volumeInfo.getJSONArray("industryIdentifiers");
             String isbn13 = ((JSONObject) identifiants.get(0)).getString("identifier");
-            Log.i("JSONME", "isbn : " +isbn13);
-            if (!StringUtil.IsNullOrEmpty(isbn13) && isbn13.length() == 13)
+            if (!StringUtil.IsNullOrEmpty(isbn13))
                 book.setISBN(isbn13);
         } catch (Exception e) {
             e.printStackTrace();
@@ -120,7 +109,6 @@ public class API_GoogleBooks {
         try {
             JSONObject links = volumeInfo.getJSONObject("imageLinks");
             String smallImageURL = links.getString("smallThumbnail");
-            Log.i("JSONME", "photo : " + smallImageURL);
 
             Photo photo = new Photo(API_GetImageCouverture.GetByteArrayImageFromURL(smallImageURL));
             book.setPhoto(photo);
@@ -128,7 +116,7 @@ public class API_GoogleBooks {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        DB_Manager.close();
 
         return book;
     }

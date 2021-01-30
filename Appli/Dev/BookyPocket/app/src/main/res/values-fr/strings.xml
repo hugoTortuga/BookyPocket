@@ -34,8 +34,6 @@
     <string name="register_publicationYearValue"></string>
     <string name="register_categoryText">Catégorie</string>
     <string name="register_categorySpinner"></string>
-    <string name="register_genreText">Genre</string>
-    <string name="register_genreSpinner"></string>
     <string name="register_scanText">Couverture</string>
     <string name="register_scanButton">Scanner ou prendre une photo</string>
     <string name="registerbook_button">Enregister</string>
@@ -51,8 +49,6 @@
     <string name="details_publicationYearValue"></string>
     <string name="details_categoryText">Catégorie</string>
     <string name="details_categoryValue"></string>
-    <string name="details_genreText">Genre</string>
-    <string name="details_genreValue"></string>
     <string name="details_backCoverText">Couverture</string>
 
     <!-- MANAGE ACCOUNT ACTIVITY-->

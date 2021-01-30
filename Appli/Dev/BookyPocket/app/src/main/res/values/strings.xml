@@ -36,8 +36,6 @@
     <string name="register_publicationYearValue"></string>
     <string name="register_categoryText">Category</string>
     <string name="register_categorySpinner"></string>
-    <string name="register_genreText">Genre</string>
-    <string name="register_genreSpinner"></string>
     <string name="register_scanText">Back Cover</string>
     <string name="register_scanButton">Scan barCode or take a picture</string>
     <string name="registerbook_button">Save</string>
@@ -53,8 +51,6 @@
     <string name="details_publicationYearValue"></string>
     <string name="details_categoryText">Category</string>
     <string name="details_categoryValue"></string>
-    <string name="details_genreText">Genre</string>
-    <string name="details_genreValue"></string>
     <string name="details_backCoverText">Back Cover</string>
 
     <!-- MANAGE ACCOUNT ACTIVITY-->

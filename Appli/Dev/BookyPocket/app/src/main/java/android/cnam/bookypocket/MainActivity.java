@@ -2,19 +2,13 @@ package android.cnam.bookypocket;
 
 import android.cnam.bookypocket.DBManager.Session;
 import android.cnam.bookypocket.Model.Reader;
-import android.cnam.bookypocket.ui.readings.ReadingsFragment;
-import android.cnam.bookypocket.utils.Alert;
-import android.cnam.bookypocket.utils.ChangeActivity;
+import android.cnam.bookypocket.Utils.ChangeActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;

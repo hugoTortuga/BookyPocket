@@ -1,12 +1,7 @@
-package android.cnam.bookypocket.utils;
+package android.cnam.bookypocket.Utils;
 
-import android.app.Activity;
-import android.cnam.bookypocket.LoginActivity;
-import android.cnam.bookypocket.MainActivity;
 import android.content.Context;
 import android.content.Intent;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 public class ChangeActivity {
 
