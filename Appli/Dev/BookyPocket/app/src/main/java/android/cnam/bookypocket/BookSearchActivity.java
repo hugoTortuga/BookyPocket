@@ -40,9 +40,21 @@ public class BookSearchActivity extends AppCompatActivity implements AdapterView
 
         searchView = (SearchView) findViewById(R.id.search_book_button);
         found_list = (ListView) findViewById(R.id.found_list);
-        adapter=new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, titleList);
-        found_list.setAdapter(adapter);
-        found_list.setOnItemClickListener(this);
+        updateListInterface();
+    }
+
+    public void updateListInterface(){
+        List<Book> bookInSession = Session.getBooks();
+        if(bookInSession != null){
+            List<String> livres = new ArrayList<>();
+            for (Book b: bookInSession) {
+                livres.add(b.getTitle());
+            }
+            books_list = bookInSession;
+            adapter=new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, livres);
+            found_list.setAdapter(adapter);
+            found_list.setOnItemClickListener(this);
+        }
     }
 
     public void searchBook(View view){
@@ -84,12 +96,10 @@ public class BookSearchActivity extends AppCompatActivity implements AdapterView
         }
     }
 
-    public void updateBookListInterface(){
-
-    }
 
     public void setBookCollection(List<Book> _books){
         books_list = _books;
+        Session.setBooks(_books);
     }
 
     /**
@@ -133,14 +143,8 @@ public class BookSearchActivity extends AppCompatActivity implements AdapterView
         protected void onPostExecute(String result) {
 
             try {
-                List<String> livres = new ArrayList<>();
-                for (Book b: books) {
-                    livres.add(b.getTitle());
-                }
-                //found_list = (ListView) findViewById(R.id.found_list);
-                adapter=new ArrayAdapter<String>(it, android.R.layout.simple_list_item_1, livres);
-                found_list.setAdapter(adapter);
                 setBookCollection(books);
+                updateListInterface();
             } catch (Exception ex) {
                 Alert.ShowError(it, "Erreur lors de l'affichage des données", "" + ex);
             }
