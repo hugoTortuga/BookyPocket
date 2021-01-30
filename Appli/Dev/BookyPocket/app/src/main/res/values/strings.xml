@@ -64,8 +64,10 @@
     <string name="manage_DateOfBirth">Date of birth</string>
     <string name="manage_passwordText">Password</string>
     <string name="manage_passwordValue"></string>
-    <string name="manage_modifyPswdButton">Change password</string>
+    <string name="manage_modifyPswdButton">Save</string>
     <string name="manage_deleteAccount">Delete my account</string>
+    <string name="manage_email_libelle">Email</string>
+    <string name="my_account_libelle">My account</string>
 
     <!-- LOGIN ACTIVITY-->
     <string name="login_adrMail">Email address</string>
@@ -86,5 +88,7 @@
     <string name="search_button">Search</string>
     <string name="find_book_title">Find your book</string>
     <string name="description_livre">Description</string>
+
+
 
 </resources>

@@ -62,8 +62,10 @@
     <string name="manage_DateOfBirth">Date de naissance</string>
     <string name="manage_passwordText">Mot de passe</string>
     <string name="manage_passwordValue"></string>
-    <string name="manage_modifyPswdButton">Changer le mot de passe</string>
+    <string name="manage_modifyPswdButton">Sauvegarder</string>
     <string name="manage_deleteAccount">Supprimer mon compte</string>
+    <string name="manage_email_libelle">Email</string>
+    <string name="my_account_libelle">Mon compte</string>
 
 
     <!-- LOGIN ACTIVITY-->

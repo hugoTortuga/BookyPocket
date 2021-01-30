@@ -2,71 +2,89 @@ package android.cnam.bookypocket;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
+import android.cnam.bookypocket.DBManager.Session;
+import android.cnam.bookypocket.Model.Reader;
+import android.cnam.bookypocket.Utils.Alert;
+import android.cnam.bookypocket.Utils.ChangeActivity;
 import android.media.Image;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 public class ManageAccountActivity extends AppCompatActivity {
 
     //User inputs for a book
-    private String email;
-    private String firstName;
-    private String lastName;
-    private String password;
-    private String dateOfBirth;
+    private EditText email;
+    private EditText firstName;
+    private EditText lastName;
+    private EditText password;
+    private EditText dateOfBirth;
 
-    private Button changePhoto;
-    private Button deleteAccount;
+    private ImageView userPhoto;
 
-    private Image userPhoto;
+    private Reader currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_account);
 
-        //user info
-        /*
-        EditText lastNameValue = (EditText)findViewById(R.id.manage_lastNameValue);
-        this.lastName = lastNameValue.getText().toString();
+        initilizeForm();
+    }
 
-        EditText firstNameValue = (EditText)findViewById(R.id.manage_firstNameValue);
-        this.firstName = firstNameValue.getText().toString();
+    private void initilizeForm() {
 
-        //need to verify pswrd
-        EditText passwordValue = (EditText)findViewById(R.id.manage_passwordValue);
-        this.password = passwordValue.getText().toString();
+        if(Session.getCurrentUser() == null)
+        {
+            Alert.ShowDialog(this,"Information", "L'utilisateur courant n'a pas pu être récupéré");
+            return;
+        }
 
-        changePhoto = findViewById(R.id.manage_changePhotoButton);
-        changePhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                changeUserPhoto();
-            }
-        });
+        currentUser = Session.getCurrentUser();
 
-//        deleteAccount = findViewById(R.id.manage_deleteAccount);
-//        deleteAccount.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                deleteUserAccount();
-//            }
-//        });
-        deleteAccount = findViewById(R.id.manage_deleteAccount);
-        deleteAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                deleteUserAccount();
-            }
-        });
+        lastName = (EditText) findViewById(R.id.manage_lastNameValue);
+        firstName = (EditText) findViewById(R.id.manage_firstNameValue);
+        email = (EditText) findViewById(R.id.manage_email_edit);
+        password = (EditText) findViewById(R.id.manage_passwordValue);
+        try{
+            dateOfBirth = (EditText) findViewById(R.id.manage_DateOfBirth);
+            dateOfBirth.setText(currentUser.getDateOfBirth().toString());
+        }
+        catch (Exception ex){
+
+        }
+        try{
+            lastName.setText(currentUser.getLastName());
+            firstName.setText(currentUser.getFirstName());
+            email.setText(currentUser.getEmailAddress());
+            password.setText("******");
+        }
+        catch (Exception ex){
+
+        }
 
 
-         */
     }
 
     private void changeUserPhoto(){
         //open file system and get new image file path
         //Image newImage = ...;
         //this.userPhoto = newImage;
+    }
+
+    public void GoHome(View view) {
+        ChangeActivity.ChangeActivity(this, MainActivity.class);
+    }
+
+    public void save(View view) {
+        // TODO save modifications
+    }
+
+    public void deleteAccount(View view) {
+        //TODO delete account
     }
 }
