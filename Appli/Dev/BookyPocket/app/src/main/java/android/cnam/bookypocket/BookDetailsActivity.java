@@ -46,6 +46,7 @@ public class BookDetailsActivity extends AppCompatActivity {
 
     private void insertInDb(Book book) {
         try{
+
             ORMSQLiteManager db = new ORMSQLiteManager(this);
             db.insertObjectInDB(book, Book.class);
             db.close();

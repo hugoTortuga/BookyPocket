@@ -51,8 +51,10 @@ public class BookSearchActivity extends AppCompatActivity implements AdapterView
                 livres.add(b.getTitle());
             }
             books_list = bookInSession;
-            adapter=new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, livres);
-            found_list.setAdapter(adapter);
+
+            CustomAdapter ca = new CustomAdapter(this, (ArrayList<Book>) books_list);
+            //adapter=new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, livres);
+            found_list.setAdapter(ca);
             found_list.setOnItemClickListener(this);
         }
     }
@@ -141,7 +143,6 @@ public class BookSearchActivity extends AppCompatActivity implements AdapterView
 
         @Override
         protected void onPostExecute(String result) {
-
             try {
                 setBookCollection(books);
                 updateListInterface();

@@ -5,6 +5,11 @@ import android.cnam.bookypocket.Model.Reader;
 
 import java.util.List;
 
+/**
+ * Classe contenant des variables de session
+ * implémentation dangereuse à cause des possibles effets de bords
+ * à utiliser avec parcimonie
+ */
 public class Session {
 
     private static List<Book> Books;

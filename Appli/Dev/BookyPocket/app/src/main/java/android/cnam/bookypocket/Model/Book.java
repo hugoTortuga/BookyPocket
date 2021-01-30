@@ -6,10 +6,11 @@ import android.os.Parcelable;
 
 import androidx.annotation.RequiresApi;
 
+import com.j256.ormlite.dao.BaseDaoImpl;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
-@DatabaseTable(tableName = "Book")
+@DatabaseTable(tableName = "Book", daoClass = BaseDaoImpl.class)
 public class Book implements Parcelable {
 
     @DatabaseField(unique = true, id=true)
