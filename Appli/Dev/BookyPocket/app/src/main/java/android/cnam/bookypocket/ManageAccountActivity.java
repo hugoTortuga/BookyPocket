@@ -66,8 +66,6 @@ public class ManageAccountActivity extends AppCompatActivity {
         catch (Exception ex){
 
         }
-
-
     }
 
     private void changeUserPhoto(){
