@@ -1,7 +1,10 @@
 package android.cnam.bookypocket.Model;
 
+import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import androidx.annotation.RequiresApi;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -19,12 +22,25 @@ public class Book implements Parcelable {
     private int yearPublication;
     @DatabaseField
     private int yearEdition;
+
+    @DatabaseField
+    private String previewLink;
     @DatabaseField
     private int nbPages;
     @DatabaseField(canBeNull = true, foreign = true, foreignColumnName = "id", foreignAutoCreate = true)
     private Genre genre;
     @DatabaseField(canBeNull = true, foreign = true, foreignColumnName = "id", foreignAutoCreate = true)
     public Category category;
+    @DatabaseField(canBeNull = true, foreign = true, foreignColumnName = "id", foreignAutoCreate = true)
+    public Photo photo;
+
+    public Photo getPhoto() { return photo; }
+
+    public void setPhoto(Photo photo) { this.photo = photo; }
+
+    public String getPreviewLink() { return previewLink;   }
+
+    public void setPreviewLink(String previewLink) { this.previewLink = previewLink; }
 
     public String getISBN() {
         return ISBN;
@@ -93,12 +109,13 @@ public class Book implements Parcelable {
     public Book() {
     }
 
-    public Book(String ISBN, String title, String backCover, int yearPublication, int yearEdition, int nbPages, Genre genre, Category category) {
+    public Book(String ISBN, String title, String backCover, int yearPublication, int yearEdition, String previewLink, int nbPages, Genre genre, Category category) {
         this.ISBN = ISBN;
         this.title = title;
         this.backCover = backCover;
         this.yearPublication = yearPublication;
         this.yearEdition = yearEdition;
+        this.previewLink = previewLink;
         this.nbPages = nbPages;
         this.genre = genre;
         this.category = category;
@@ -127,6 +144,9 @@ public class Book implements Parcelable {
         yearPublication = in.readInt();
         yearEdition = in.readInt();
         nbPages = in.readInt();
+        previewLink = in.readString();
+        category = (Category) in.readParcelable(Category.class.getClassLoader());
+        photo = (Photo) in.readParcelable(Photo.class.getClassLoader());
     }
 
     public static final Creator<Book> BOOK = new Creator<Book>() {
@@ -158,6 +178,7 @@ public class Book implements Parcelable {
         return 0;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.R)
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(ISBN);
@@ -166,5 +187,8 @@ public class Book implements Parcelable {
         dest.writeInt(yearPublication);
         dest.writeInt(yearEdition);
         dest.writeInt(nbPages);
+        dest.writeString(previewLink);
+        dest.writeParcelable(category, flags);
+        dest.writeParcelable(photo, flags);
     }
 }

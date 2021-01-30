@@ -38,7 +38,7 @@ public class DB_Utils {
                             "peut-être, de toute la littérature policière, où, pour mener son enquête, le petit détective belge a le choix entre une princesse russe, une Américaine fantasque, " +
                             "le secrétaire de la victime, un couple de Hongrois distingués, l'inévitable colonel de retour des Indes, les domestiques de ce beau monde et le contrôleur du wagon. " +
                             "Un meurtre incompréhensible, à moins qu'on ne puisse établir que tous ces voyageurs sont moins étrangers les uns aux autres qu'ils ne veulent bien le prétendre...",
-                    1934, 2014, 416, roman_policier, category);
+                    1934, 2014, "previewLink", 416, roman_policier, category);
 
             DBManager.insertObjectInDB(author, Author.class);
             DBManager.insertObjectInDB(book, Book.class);

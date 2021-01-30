@@ -4,11 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.cnam.bookypocket.API.API_GoogleBooks;
 import android.cnam.bookypocket.DBManager.Session;
 import android.cnam.bookypocket.Model.Book;
+import android.cnam.bookypocket.Model.Category;
 import android.cnam.bookypocket.utils.Alert;
 import android.cnam.bookypocket.utils.ChangeActivity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -74,7 +76,6 @@ public class BookSearchActivity extends AppCompatActivity implements AdapterView
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         try{
             Intent intent = new Intent(this, BookDetailsActivity.class);
-            // TODO à tester ce cast
             Book bookToSend = books_list.get(position);
             intent.putExtra("book", bookToSend);
             this.startActivity(intent);
@@ -111,7 +112,12 @@ public class BookSearchActivity extends AppCompatActivity implements AdapterView
 
         @Override
         protected String doInBackground(Void... params) {
-            Alert.ShowError(it, "Début recherche", "" + keyword);
+            try{
+                Looper.prepare();
+            }catch(Exception ex){
+                ex.printStackTrace();
+            }
+
             books = new ArrayList<Book>();
 
             try {

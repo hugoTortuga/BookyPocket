@@ -3,8 +3,10 @@ package android.cnam.bookypocket.API;
 import android.cnam.bookypocket.DBManager.ORMSQLiteManager;
 import android.cnam.bookypocket.Model.Book;
 import android.cnam.bookypocket.Model.Category;
+import android.cnam.bookypocket.Model.Photo;
 import android.cnam.bookypocket.utils.StringUtil;
 import android.content.Context;
+import android.util.Log;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 
@@ -32,7 +34,7 @@ public class API_GoogleBooks {
         JSONArray items = json.getJSONArray("items");
         int nbitems = json.getInt("totalItems");
 
-        for(int i = 0; i < 30; i++){
+        for (int i = 0; i < 10; i++) {
             //pour chaque livre on récupère les informations qui nous intéresse
             JSONObject item = items.getJSONObject(i);
 
@@ -46,49 +48,88 @@ public class API_GoogleBooks {
     private static Book JSON_Book_Formator(JSONObject item, Context context) throws JSONException {
         Book book = new Book();
         JSONObject volumeInfo = item.getJSONObject("volumeInfo");
+        Log.i("JSONME", "volumeInfo : " + volumeInfo);
         String title = volumeInfo.getString("title");
         book.setTitle(title);
+        Log.i("JSONME", "title : " + title);
 
-
-        try{
+        try {
             String publishedDate = volumeInfo.getString("publishedDate");
-            if(StringUtil.IsNullOrEmpty(publishedDate)){
-                int yearpublished = Integer.parseInt(publishedDate.substring(0,4));
+            Log.i("JSONME", "published : " + publishedDate);
+            if (!StringUtil.IsNullOrEmpty(publishedDate)) {
+                int yearpublished = Integer.parseInt(publishedDate.substring(0, 4));
                 book.setYearPublication(yearpublished);
             }
-
-            String description = volumeInfo.getString("description");
-            if(StringUtil.IsNullOrEmpty(description))
-                book.setBackCover(description);
-
-            int pageCount = volumeInfo.getInt("pageCount");
-            book.setNbPages(pageCount);
-        }
-        catch (Exception ex){
-            ex.printStackTrace();
-        }
-        try{
-            JSONArray categories = volumeInfo.getJSONArray("categories");
-            Category categoryRequested = new Category((String)categories.get(0), false);
-            ORMSQLiteManager DB_Manager = new ORMSQLiteManager(context);
-            Category categoryInDB = DB_Manager.getCategoryByName(categoryRequested.getName());
-
-            if(categoryInDB != null){
-                book.setCategory(categoryInDB);
-            }
-        }
-        catch(Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
 
         try {
+            String description = volumeInfo.getString("description");
+            if (!StringUtil.IsNullOrEmpty(description))
+                book.setBackCover(description);
+
+            Log.i("JSONME", "description : " + description);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+
+        try {
+            int pageCount = volumeInfo.getInt("pageCount");
+            Log.i("JSONME", "pageCount : " +pageCount);
+            book.setNbPages(pageCount);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        ORMSQLiteManager DB_Manager = new ORMSQLiteManager(context);
+        try {
+            JSONArray categories = volumeInfo.getJSONArray("categories");
+            Category categoryRequested = new Category((String) categories.get(0), false);
+
+            Log.i("JSONME", "categories : " + categoryRequested);
+
+            Category categoryInDB = DB_Manager.getCategoryByName(categoryRequested.getName());
+
+            if (categoryInDB != null) {
+                book.setCategory(categoryInDB);
+            }
+            else{
+                book.setCategory(categoryRequested);
+                DB_Manager.insertObjectInDB(categoryRequested, Category.class);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        finally {
+            DB_Manager.close();
+        }
+
+        //ISBN 13
+        try {
             JSONArray identifiants = volumeInfo.getJSONArray("industryIdentifiers");
             String isbn13 = ((JSONObject) identifiants.get(0)).getString("identifier");
-            if(StringUtil.IsNullOrEmpty(isbn13) && isbn13.length() == 13)
+            Log.i("JSONME", "isbn : " +isbn13);
+            if (!StringUtil.IsNullOrEmpty(isbn13) && isbn13.length() == 13)
                 book.setISBN(isbn13);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        //SMALL PICTURE
+        try {
+            JSONObject links = volumeInfo.getJSONObject("imageLinks");
+            String smallImageURL = links.getString("smallThumbnail");
+            Log.i("JSONME", "photo : " + smallImageURL);
+
+            Photo photo = new Photo(API_GetImageCouverture.GetByteArrayImageFromURL(smallImageURL));
+            book.setPhoto(photo);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
         return book;
     }
 
@@ -101,7 +142,7 @@ public class API_GoogleBooks {
         return sb.toString();
     }
 
-    private static String ReadStringJSON(String url) throws IOException{
+    private static String ReadStringJSON(String url) throws IOException {
         InputStream is = new URL(url).openStream();
         try {
             BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
@@ -117,11 +158,11 @@ public class API_GoogleBooks {
     }
 
     public static List<Book> Request(String keyword, Context context) throws Exception {
-        if(keyword == null || keyword.trim().equals(""))
+        if (keyword == null || keyword.trim().equals(""))
             throw new Exception("Le champ de recherche est vide");
 
         keyword = keyword.replace(' ', '+');
-        JSONObject json = API_GoogleBooks.ReadJsonFromUrl("https://www.googleapis.com/books/v1/volumes?q=" + keyword +  " &maxResults=30");
+        JSONObject json = API_GoogleBooks.ReadJsonFromUrl("https://www.googleapis.com/books/v1/volumes?q=" + keyword + " &maxResults=10");
         return JSON_Decryptor(json, context);
     }
 
