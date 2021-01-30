@@ -1,10 +1,13 @@
 package android.cnam.bookypocket.Model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName = "Book")
-public class Book {
+public class Book implements Parcelable {
 
     @DatabaseField(unique = true, id=true)
     private String ISBN;
@@ -113,5 +116,55 @@ public class Book {
                 ", genre=" + genre +
                 ", category=" + category +
                 '}';
+    }
+
+    // Cette partie sert à rendre parcelable la classe book
+
+    protected Book(Parcel in) {
+        ISBN = in.readString();
+        title = in.readString();
+        backCover = in.readString();
+        yearPublication = in.readInt();
+        yearEdition = in.readInt();
+        nbPages = in.readInt();
+    }
+
+    public static final Creator<Book> BOOK = new Creator<Book>() {
+        @Override
+        public Book createFromParcel(Parcel in) {
+            return new Book(in);
+        }
+
+        @Override
+        public Book[] newArray(int size) {
+            return new Book[size];
+        }
+    };
+
+    public static final Creator<Book> CREATOR = new Creator<Book>() {
+        @Override
+        public Book createFromParcel(Parcel in) {
+            return new Book(in);
+        }
+
+        @Override
+        public Book[] newArray(int size) {
+            return new Book[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(ISBN);
+        dest.writeString(title);
+        dest.writeString(backCover);
+        dest.writeInt(yearPublication);
+        dest.writeInt(yearEdition);
+        dest.writeInt(nbPages);
     }
 }

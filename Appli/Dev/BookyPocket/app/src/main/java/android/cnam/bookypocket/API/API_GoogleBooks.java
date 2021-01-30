@@ -35,68 +35,61 @@ public class API_GoogleBooks {
         for(int i = 0; i < 30; i++){
             //pour chaque livre on récupère les informations qui nous intéresse
             JSONObject item = items.getJSONObject(i);
-            JSONObject volumeInfo = item.getJSONObject("volumeInfo");
 
             // On instancie le nouveau livre avec les infos du JSON
-            Book book = new Book();
-
-
-
-            String title = volumeInfo.getString("title");
-            book.setTitle(title);
-
-            try{
-                String publishedDate = volumeInfo.getString("publishedDate");
-                if(StringUtil.IsNullOrEmpty(publishedDate)){
-                    int yearpublished = Integer.parseInt(publishedDate.substring(0,4));
-                    book.setYearPublication(yearpublished);
-                }
-
-                String description = volumeInfo.getString("description");
-                if(StringUtil.IsNullOrEmpty(description))
-                    book.setBackCover(description);
-
-                int pageCount = volumeInfo.getInt("pageCount");
-                book.setNbPages(pageCount);
-            }
-            catch (Exception ex){
-                ex.printStackTrace();
-            }
-
-
-
-
-            /*
-            JSONArray categories = volumeInfo.getJSONArray("categories");
-            try{
-                Category categoryRequested = new Category((String)categories.get(0), false);
-                ORMSQLiteManager DB_Manager = new ORMSQLiteManager(context);
-                Category categoryInDB = DB_Manager.getCategoryByName(categoryRequested.getName());
-
-                if(categoryInDB != null){
-                    book.setCategory(categoryInDB);
-                }
-            }
-            catch(Exception ex){
-                ex.printStackTrace();
-            }
-            JSONArray identifiants = volumeInfo.getJSONArray("industryIdentifiers");
-            try {
-                String isbn13 = ((JSONObject) identifiants.get(0)).getString("identifier");
-                if(StringUtil.IsNullOrEmpty(isbn13) && isbn13.length() == 13)
-                    book.setISBN(isbn13);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        */
-
-
+            Book book = JSON_Book_Formator(item, context);
             books.add(book);
         }
-
-
-
         return books;
+    }
+
+    private static Book JSON_Book_Formator(JSONObject item, Context context) throws JSONException {
+        Book book = new Book();
+        JSONObject volumeInfo = item.getJSONObject("volumeInfo");
+        String title = volumeInfo.getString("title");
+        book.setTitle(title);
+
+
+        try{
+            String publishedDate = volumeInfo.getString("publishedDate");
+            if(StringUtil.IsNullOrEmpty(publishedDate)){
+                int yearpublished = Integer.parseInt(publishedDate.substring(0,4));
+                book.setYearPublication(yearpublished);
+            }
+
+            String description = volumeInfo.getString("description");
+            if(StringUtil.IsNullOrEmpty(description))
+                book.setBackCover(description);
+
+            int pageCount = volumeInfo.getInt("pageCount");
+            book.setNbPages(pageCount);
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
+        }
+        try{
+            JSONArray categories = volumeInfo.getJSONArray("categories");
+            Category categoryRequested = new Category((String)categories.get(0), false);
+            ORMSQLiteManager DB_Manager = new ORMSQLiteManager(context);
+            Category categoryInDB = DB_Manager.getCategoryByName(categoryRequested.getName());
+
+            if(categoryInDB != null){
+                book.setCategory(categoryInDB);
+            }
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
+        }
+
+        try {
+            JSONArray identifiants = volumeInfo.getJSONArray("industryIdentifiers");
+            String isbn13 = ((JSONObject) identifiants.get(0)).getString("identifier");
+            if(StringUtil.IsNullOrEmpty(isbn13) && isbn13.length() == 13)
+                book.setISBN(isbn13);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return book;
     }
 
     private static String readAll(Reader rd) throws IOException {

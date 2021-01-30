@@ -1,43 +1,32 @@
 package android.cnam.bookypocket;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.ListActivity;
 import android.cnam.bookypocket.API.API_GoogleBooks;
 import android.cnam.bookypocket.DBManager.Session;
 import android.cnam.bookypocket.Model.Book;
-import android.cnam.bookypocket.ui.ReadingsListAdapter;
 import android.cnam.bookypocket.utils.Alert;
 import android.cnam.bookypocket.utils.ChangeActivity;
-import android.content.Context;
-import android.graphics.drawable.AdaptiveIconDrawable;
-import android.graphics.drawable.Drawable;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SearchView;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-public class BookSearchActivity extends AppCompatActivity {
+public class BookSearchActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     private SearchView searchView;
     private ImageButton itemImageButton;
-
-    private ArrayList<String> titleList = new ArrayList<>(
-            Arrays.asList("Liste des ouvrages"));
+    private ArrayList<String> titleList = new ArrayList<>();
 
     private ListView found_list;
+    public List<Book> books_list;
 
     //DEFINING A STRING ADAPTER WHICH WILL HANDLE THE DATA OF THE LISTVIEW
     private ArrayAdapter<String> adapter;
@@ -52,6 +41,7 @@ public class BookSearchActivity extends AppCompatActivity {
         found_list = (ListView) findViewById(R.id.found_list);
         adapter=new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, titleList);
         found_list.setAdapter(adapter);
+        found_list.setOnItemClickListener(this);
     }
 
     public void searchBook(View view){
@@ -62,16 +52,12 @@ public class BookSearchActivity extends AppCompatActivity {
 
                 else{
                     String keyword = searchView.getQuery().toString();
-                    MyAsyncTask task = new MyAsyncTask(this,keyword);
+                    CallGoogleBookAPI task = new CallGoogleBookAPI(this, keyword);
                     task.execute();
                 }
-
-
-
             }
             else{
-                Alert.ShowDialog(this, "Pas de connexion internet",
-                        "La recherche de livre est impossible sans connexion internet");
+                Alert.ShowDialog(this, "Pas de connexion internet","La recherche de livre est impossible sans connexion internet");
             }
 
         }catch(Exception ex){
@@ -84,13 +70,40 @@ public class BookSearchActivity extends AppCompatActivity {
         ChangeActivity.ChangeActivity(this, MainActivity.class);
     }
 
-    public class MyAsyncTask extends AsyncTask<Void, Void, String> {
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        try{
+            Intent intent = new Intent(this, BookDetailsActivity.class);
+            // TODO à tester ce cast
+            Book bookToSend = books_list.get(position);
+            intent.putExtra("book", bookToSend);
+            this.startActivity(intent);
+        }
+        catch (Exception ex){
+            Alert.ShowDialog(this, "Erreur lors du changement de page", "" + ex);
+        }
+    }
+
+    public void updateBookListInterface(){
+
+    }
+
+    public void setBookCollection(List<Book> _books){
+        books_list = _books;
+    }
+
+    /**
+    * Classe interne qui ne sert qu'à faire des appels asynchrone à l'api google BOOK
+    * obligatoire pour ne pas encombre le thread UI principal
+    * voir pour externaliser cette portion de code dans un fichier ?
+    */
+    private class CallGoogleBookAPI extends AsyncTask<Void, Void, String> {
 
         private List<Book> books;
         private BookSearchActivity it;
         private String keyword;
 
-        public MyAsyncTask(BookSearchActivity _it, String _keyword) {
+        public CallGoogleBookAPI(BookSearchActivity _it, String _keyword) {
             super();
             it = _it;
             keyword = _keyword;
@@ -119,17 +132,14 @@ public class BookSearchActivity extends AppCompatActivity {
                 for (Book b: books) {
                     livres.add(b.getTitle());
                 }
-
                 //found_list = (ListView) findViewById(R.id.found_list);
                 adapter=new ArrayAdapter<String>(it, android.R.layout.simple_list_item_1, livres);
                 found_list.setAdapter(adapter);
+                setBookCollection(books);
             } catch (Exception ex) {
                 Alert.ShowError(it, "Erreur lors de l'affichage des données", "" + ex);
             }
-
-
         }
-
     }
 
 }
