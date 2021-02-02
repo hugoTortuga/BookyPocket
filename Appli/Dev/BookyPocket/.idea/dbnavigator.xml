@@ -24,13 +24,13 @@
     <autoscroll-from-editor value="true" />
     <show-object-properties value="true" />
     <loaded-nodes>
-      <connection connection-id="b73eafe3-5fc3-4f31-bb80-f6ac78772b16">
+      <connection connection-id="3bd44809-9f49-4206-87c0-ba095c4a25b5">
         <schema name="main" object-types="table, view" />
       </connection>
     </loaded-nodes>
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
-    <connection id="b73eafe3-5fc3-4f31-bb80-f6ac78772b16">
+    <connection id="3bd44809-9f49-4206-87c0-ba095c4a25b5">
       <console name="Connection" type="STANDARD" schema="main" session="Main" />
     </connection>
   </component>
@@ -38,10 +38,12 @@
     <open-files />
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
-    <connection id="b73eafe3-5fc3-4f31-bb80-f6ac78772b16" />
+    <connection id="3bd44809-9f49-4206-87c0-ba095c4a25b5" />
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
-    <filter-actions connection-id="b73eafe3-5fc3-4f31-bb80-f6ac78772b16" dataset="main.Reader" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="3bd44809-9f49-4206-87c0-ba095c4a25b5" dataset="main.ReaderBook" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="3bd44809-9f49-4206-87c0-ba095c4a25b5" dataset="main.Reader" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="3bd44809-9f49-4206-87c0-ba095c4a25b5" dataset="main.Book" active-filter-id="EMPTY_FILTER" />
   </component>
   <component name="DBNavigator.Project.EditorStateManager">
     <last-used-providers />
@@ -69,7 +71,7 @@
   </component>
   <component name="DBNavigator.Project.Settings">
     <connections>
-      <connection id="b73eafe3-5fc3-4f31-bb80-f6ac78772b16" active="true">
+      <connection id="3bd44809-9f49-4206-87c0-ba095c4a25b5" active="true">
         <database>
           <name value="Connection" />
           <description value="" />
@@ -84,7 +86,7 @@
           <port value="1234" />
           <database value="database" />
           <files>
-            <file path="C:\Users\Hugo\Desktop\bookypocket.db" schema="main" />
+            <file path="C:\Users\Hugo\Desktop\bookypocket2.db" schema="main" />
           </files>
           <type value="NONE" />
           <user value="" />

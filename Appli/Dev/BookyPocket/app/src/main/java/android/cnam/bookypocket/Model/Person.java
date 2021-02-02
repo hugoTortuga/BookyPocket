@@ -1,12 +1,15 @@
 package android.cnam.bookypocket.Model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import java.util.Date;
 
 @DatabaseTable(tableName = "Person")
-public class Person {
+public class Person implements Parcelable {
 
     @DatabaseField(generatedId = true)
     private int id;
@@ -18,6 +21,25 @@ public class Person {
     private Date dateOfBirth;
     @DatabaseField(canBeNull = true, foreign = true, foreignColumnName = "id", foreignAutoCreate = true)
     private Photo avatar;
+
+    protected Person(Parcel in) {
+        id = in.readInt();
+        lastName = in.readString();
+        firstName = in.readString();
+        avatar = in.readParcelable(Photo.class.getClassLoader());
+    }
+
+    public static final Creator<Person> CREATOR = new Creator<Person>() {
+        @Override
+        public Person createFromParcel(Parcel in) {
+            return new Person(in);
+        }
+
+        @Override
+        public Person[] newArray(int size) {
+            return new Person[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -78,5 +100,18 @@ public class Person {
                 ", dateOfBirth=" + dateOfBirth +
                 ", avatar=" + avatar +
                 '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(lastName);
+        dest.writeString(firstName);
+        dest.writeParcelable(avatar, flags);
     }
 }

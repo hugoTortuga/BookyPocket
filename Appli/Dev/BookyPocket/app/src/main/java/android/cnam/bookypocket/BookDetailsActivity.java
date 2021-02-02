@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.cnam.bookypocket.DBManager.ORMSQLiteManager;
 import android.cnam.bookypocket.DBManager.Session;
+import android.cnam.bookypocket.Model.Author;
 import android.cnam.bookypocket.Model.Book;
 import android.cnam.bookypocket.Model.ReaderBook;
 import android.cnam.bookypocket.Utils.Alert;
@@ -44,14 +45,20 @@ public class BookDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_details);
 
-        Book book = getIntent().getParcelableExtra("book");
-
-        Log.e("JSONME", "recevied book : " +book);
-        initializeView();
-        currentBook = book;
-        updateView(book);
-        insertInDb(book);
-        currentBook = book;
+        try{
+            Book book = getIntent().getParcelableExtra("book");
+            String authorParam = getIntent().getStringExtra("author");
+            author = (TextView) findViewById(R.id.details_author_value);
+            author.setText(authorParam);
+            initializeView();
+            currentBook = book;
+            updateView(book);
+            insertInDb(book);
+            currentBook = book;
+        }
+        catch (Exception ex){
+            Alert.ShowError(this, "Erreur" ,""+ ex);
+        }
     }
 
     private void insertInDb(Book book) {
@@ -68,7 +75,6 @@ public class BookDetailsActivity extends AppCompatActivity {
 
     private void initializeView() {
         title = (TextView) findViewById(R.id.details_titleValue);
-        author = (TextView) findViewById(R.id.details_authorValue);
         publicationYear = (TextView) findViewById(R.id.details_publicationYearValue);
         category = (TextView) findViewById(R.id.details_categoryValue);
         description = (TextView) findViewById(R.id.description_textview);
@@ -83,6 +89,8 @@ public class BookDetailsActivity extends AppCompatActivity {
         description.setText(book.getBackCover());
         nbPages.setText(book.getNbPages() + " pages");
         isbn_value.setText("ISBN : " + book.getISBN());
+        //if(book.getAuthor() != null)
+        //    author.setText(book.getAuthor().getArtistName());
 
         if(book.getCategory() != null)
             category.setText(book.getCategory().getName());

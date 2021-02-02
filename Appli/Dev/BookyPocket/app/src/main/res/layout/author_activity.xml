@@ -24,7 +24,8 @@
                 android:minHeight="30dp"
                 android:paddingVertical="10dp"
                 android:src="?attr/homeAsUpIndicator"
-                android:onClick="GoBackActivity"/>
+                android:onClick="GoBackActivity"
+                tools:ignore="OnClick" />
 
             <TextView
                 android:id="@+id/idNomAuthor"
@@ -38,14 +39,14 @@
         </RelativeLayout>
 
         <SearchView
-                android:id="@+id/search_book_button"
+                android:id="@+id/search_book_author"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="1"/>
 
         <ListView
-            android:id="@+id/found_list_my_readings"
+            android:id="@+id/found_list_book_author"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="20">

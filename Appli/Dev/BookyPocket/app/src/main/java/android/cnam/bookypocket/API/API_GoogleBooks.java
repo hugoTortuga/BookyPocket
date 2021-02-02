@@ -1,6 +1,7 @@
 package android.cnam.bookypocket.API;
 
 import android.cnam.bookypocket.DBManager.ORMSQLiteManager;
+import android.cnam.bookypocket.Model.Author;
 import android.cnam.bookypocket.Model.Book;
 import android.cnam.bookypocket.Model.Category;
 import android.cnam.bookypocket.Model.Photo;
@@ -123,6 +124,28 @@ public class API_GoogleBooks {
             if (!StringUtil.IsNullOrEmpty(previewLink))
                 book.setPreviewLink(previewLink);
         } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        //author
+        try{
+            JSONArray authors = volumeInfo.getJSONArray("authors");
+            if(authors != null) {
+                if(authors.length()>0){
+                    String authorA = authors.get(0).toString();
+                    Author a = DB_Manager.getAuthorFromName(authorA);
+                    if(a == null) {
+                        Author newAuthor = new Author();
+                        newAuthor.setArtistName(authorA);
+                        DB_Manager.insertObjectInDB(newAuthor, Author.class);
+                        book.setAuthor(newAuthor);
+                    }
+                    else
+                        book.setAuthor(a);
+
+                }
+            }
+        }
+        catch (Exception ex){
             ex.printStackTrace();
         }
         DB_Manager.close();

@@ -59,11 +59,11 @@ public class BookyMapTestActivity extends AppCompatActivity implements LocationL
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
             //asynchronous call for user permission
-            ActivityCompat.requestPermissions(this, new String[]{
+            /*ActivityCompat.requestPermissions(this, new String[]{
                     Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.ACCESS_COARSE_LOCATION
             }, PERMS_CALL_ID);
-
+*/
             return;
         }
         //Location_Service is provided by Android
