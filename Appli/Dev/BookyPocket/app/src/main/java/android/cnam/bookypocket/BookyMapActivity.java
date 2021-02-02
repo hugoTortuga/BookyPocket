@@ -13,16 +13,20 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class BookyMapActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    private GoogleMap mMap;
-
+    //private GoogleMap mMap;
+    GoogleMap mMap = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_booky_map);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+                .findFragmentById(R.id.google_map_map);
+
+        if(mapFragment != null)
+            mapFragment.getMapAsync(this);
+
+
     }
 
     /**
@@ -39,9 +43,9 @@ public class BookyMapActivity extends FragmentActivity implements OnMapReadyCall
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-49.25, 4.03);
-        mMap.addMarker(new MarkerOptions().position(sydney).title(""));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        LatLng reims = new LatLng(-49.25, 4.03);
+        mMap.addMarker(new MarkerOptions().position(reims).title("Reims"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(reims));
     }
 
 }

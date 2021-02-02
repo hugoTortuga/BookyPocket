@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         findLibraryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ChangeActivity.ChangeActivity(view.getContext(),BookyMapTestActivity.class);
+                ChangeActivity.ChangeActivity(view.getContext(),BookyMapActivity.class);
             }
         });
 
