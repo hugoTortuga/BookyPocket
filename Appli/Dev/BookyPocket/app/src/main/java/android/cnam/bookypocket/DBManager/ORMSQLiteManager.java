@@ -210,4 +210,22 @@ public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
         author = (Author) dao.queryBuilder().where().eq("artistName", artistName).queryForFirst();
         return author;
     }
+
+    public int getIdAuthorByArtistName(String artistName) throws SQLException {
+        Dao<Author, Integer> dao = getDao(Author.class);
+        Author a = (Author) dao.queryBuilder().where().eq("artistName", artistName).queryForFirst();
+        return a.getId();
+    }
+
+    public List<Book> getBooksByAuthorArtistName(String authorParam) throws SQLException {
+        List<AuthorBook> autBook = new ArrayList<>();
+        Dao<AuthorBook, Integer> dao = getDao(AuthorBook.class);
+        autBook = (List<AuthorBook>) dao.queryBuilder().where().in("author_id", getIdAuthorByArtistName(authorParam)).query();
+
+        List<Book> booksFound = new ArrayList<>();
+        for (AuthorBook rb: autBook) {
+            booksFound.add(rb.getBook());
+        }
+        return booksFound;
+    }
 }

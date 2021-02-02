@@ -107,11 +107,12 @@
                 android:id="@+id/details_author_value"
                 android:layout_width="match_parent"
                 android:layout_height="43dp"
-                android:paddingLeft="30dp"
-                android:paddingTop="10dp"
                 android:clickable="true"
                 android:onClick="GoToAuthorPage"
-                />
+                android:paddingLeft="30dp"
+
+                android:paddingTop="10dp"
+                android:textColor="#162780" />
 
             <View
                 android:id="@+id/divider3"

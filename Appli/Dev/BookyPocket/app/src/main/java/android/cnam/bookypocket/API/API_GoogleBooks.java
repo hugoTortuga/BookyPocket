@@ -91,7 +91,6 @@ public class API_GoogleBooks {
             }
             else{
                 book.setCategory(categoryRequested);
-                DB_Manager.insertObjectInDB(categoryRequested, Category.class);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -136,7 +135,6 @@ public class API_GoogleBooks {
                     if(a == null) {
                         Author newAuthor = new Author();
                         newAuthor.setArtistName(authorA);
-                        DB_Manager.insertObjectInDB(newAuthor, Author.class);
                         book.setAuthor(newAuthor);
                     }
                     else
