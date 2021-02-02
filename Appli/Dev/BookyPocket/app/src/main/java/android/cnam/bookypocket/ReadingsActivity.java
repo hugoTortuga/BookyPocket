@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import android.app.ListActivity;
+import android.cnam.bookypocket.Utils.ChangeActivity;
 import android.cnam.bookypocket.ui.ReadingsListAdapter;
 import android.graphics.drawable.AdaptiveIconDrawable;
 import android.graphics.drawable.Drawable;
@@ -65,4 +66,14 @@ public class ReadingsActivity extends AppCompatActivity {
 //        }
     }
 
+    public void GoHome(View view) {
+        ChangeActivity.ChangeActivity(this, MainActivity.class);
+    }
+
+    public void searchBook(View view) {
+    }
+
+    public void addBookToMyReading(View view) {
+        ChangeActivity.ChangeActivity(this, RegisterBookActivity.class);
+    }
 }

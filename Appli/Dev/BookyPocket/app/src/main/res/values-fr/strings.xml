@@ -23,6 +23,7 @@
     <string name="readings_textView">Mes lectures</string>
     <string name="readings_title">Test in a test</string>
     <string name="readings_author">Test TEST</string>
+    <string name="add_a_book_to_my_readings">Ajouter livre à mes lectures</string>
 
     <!-- REGISTER ACTIVITY-->
     <string name="registerNewBookText">Enregistrer un ouvrage</string>

@@ -2,6 +2,7 @@ package android.cnam.bookypocket;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.cnam.bookypocket.API.API_GoogleBooks;
+import android.cnam.bookypocket.DBManager.ORMSQLiteManager;
 import android.cnam.bookypocket.DBManager.Session;
 import android.cnam.bookypocket.Model.Book;
 import android.cnam.bookypocket.Utils.Alert;
@@ -40,6 +41,21 @@ public class BookSearchActivity extends AppCompatActivity implements AdapterView
         setContentView(R.layout.book_search);
 
         searchView = (SearchView) findViewById(R.id.search_book_button);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                searchBook(null);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return true;
+            }
+
+        });
+
         found_list = (ListView) findViewById(R.id.found_list);
         updateListInterface();
     }
@@ -47,16 +63,16 @@ public class BookSearchActivity extends AppCompatActivity implements AdapterView
     public void updateListInterface(){
         List<Book> bookInSession = Session.getBooks();
         if(bookInSession != null){
-            List<String> livres = new ArrayList<>();
-            for (Book b: bookInSession) {
-                livres.add(b.getTitle());
+            if(bookInSession.size() > 0){
+                books_list = bookInSession;
+                CustomAdapter ca = new CustomAdapter(this, (ArrayList<Book>) books_list);
+                //adapter=new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, livres);
+                found_list.setAdapter(ca);
+                found_list.setOnItemClickListener(this);
             }
-            books_list = bookInSession;
-
-            CustomAdapter ca = new CustomAdapter(this, (ArrayList<Book>) books_list);
-            //adapter=new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, livres);
-            found_list.setAdapter(ca);
-            found_list.setOnItemClickListener(this);
+            else{
+                Alert.ShowDialog(this, "Vide", "Aucun livre n'a été trouvé avec ces mots-clefs");
+            }
         }
     }
 
@@ -74,8 +90,16 @@ public class BookSearchActivity extends AppCompatActivity implements AdapterView
                     task.execute();
                 }
             }
+            //si on est pas connecté à internet on va chercher dans la base embarqué
             else{
-                Alert.ShowDialog(this, "Pas de connexion internet","La recherche de livre est impossible sans connexion internet");
+                Alert.ShowDialog(this, "Pas de connexion internet","La recherche de livre est limitée à la base embarquée");
+                String keyword = searchView.getQuery().toString();
+                ORMSQLiteManager manager = new ORMSQLiteManager(this);
+                List<Book> books = manager.getBooksByKeyWord(searchView.getQuery().toString().split(" "));
+                if(books != null)
+                    if(books.size()>0)
+                        Session.setBooks(books);
+                updateListInterface();
             }
 
         }catch(Exception ex){

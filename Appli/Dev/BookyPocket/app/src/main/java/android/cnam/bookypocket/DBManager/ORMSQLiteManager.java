@@ -19,7 +19,7 @@ import android.cnam.bookypocket.Model.*;
 public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
 
     private static final String DB_NAME = "bookypocket.db";
-    private static final int DB_VERSION = 1;
+    private static final int DB_VERSION = 3;
 
     public ORMSQLiteManager(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
