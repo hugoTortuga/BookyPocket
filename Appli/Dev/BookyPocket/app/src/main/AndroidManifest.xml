@@ -8,15 +8,18 @@
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- get an approximative location (WiFi, 3G/4G, IP) -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
-        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
         <activity android:name=".ManageAccountActivity" />
         <activity android:name=".BookyMapTestActivity" />
         <!--
@@ -31,11 +34,16 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyANwoe5yvq5KocIFHBDlngGeNSFsTp5pnI" />
 
+        <meta-data
+            android:name="com.google.android.gms.vision.DEPENDENCIES"
+            android:value="barcode" />
+
         <activity android:name=".BookDetailsActivity" />
         <activity android:name=".RegisterBookActivity" />
         <activity android:name=".SignUpActivity" />
-        <activity android:name=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ReadingsActivity" />
         <activity android:name=".BookSearchActivity" />
         <activity
@@ -52,7 +60,5 @@
             </intent-filter>
         </activity>
     </application>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
 
 </manifest>
