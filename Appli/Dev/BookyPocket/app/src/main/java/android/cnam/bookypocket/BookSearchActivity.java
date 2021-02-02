@@ -6,6 +6,7 @@ import android.cnam.bookypocket.DBManager.Session;
 import android.cnam.bookypocket.Model.Book;
 import android.cnam.bookypocket.Utils.Alert;
 import android.cnam.bookypocket.Utils.ChangeActivity;
+import android.cnam.bookypocket.Utils.Network;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -61,7 +62,9 @@ public class BookSearchActivity extends AppCompatActivity implements AdapterView
 
     public void searchBook(View view){
         try{
-            if(Session.isUserConnectedToInternet()){
+
+            // si on est connecté à internet, on cherche sur google books
+            if(Network.isNetworkAvailable( this)){
                 if(searchView.getQuery() == null || searchView.getQuery().equals(""))
                     Alert.ShowDialog(this, "0 résultat","Le champ de recherche est vide");
 

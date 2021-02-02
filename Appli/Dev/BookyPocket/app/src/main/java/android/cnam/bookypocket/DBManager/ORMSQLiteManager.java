@@ -11,6 +11,7 @@ import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import android.cnam.bookypocket.Model.*;
@@ -159,6 +160,17 @@ public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
             ex.printStackTrace();
             return false;
         }
+    }
+
+    public List<Book> getBooksByKeyWord(String[] keyword) throws SQLException {
+        List<Book> booksFound = new ArrayList<>();
+
+        Dao<Book, Integer> dao = getDao(Book.class);
+        booksFound = (List<Book>) dao.queryBuilder().where().in("ISBN", keyword)
+                .or().eq("title",keyword)
+                .or().eq("backCover",keyword).query();
+
+        return booksFound;
     }
 
     public boolean doesBookExistInDB(Book book){
