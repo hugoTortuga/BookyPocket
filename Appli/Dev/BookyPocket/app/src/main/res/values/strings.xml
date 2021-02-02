@@ -13,7 +13,6 @@
     <string name="title_activity_booky_map">Map</string>
 
 
-
     <!-- HOME BUTTONS -->
     <string name="home_button_findLibrary">Find a library</string>
     <string name="home_button_seeReadings">See my readings</string>
@@ -37,7 +36,7 @@
     <string name="register_categoryText">Category</string>
     <string name="register_categorySpinner"></string>
     <string name="register_scanText">Back Cover</string>
-    <string name="register_scanButton">Scan barCode or take a picture</string>
+    <string name="register_scanButton">Scan barCode</string>
     <string name="registerbook_button">Save</string>
 
 
@@ -84,11 +83,10 @@
     <string name="signup_DOB">Date of Birth</string>
     <string name="signup_button">Sign up</string>
 
-<!--    SEARCH BOOK ACTIVITY-->
+    <!--    SEARCH BOOK ACTIVITY-->
     <string name="search_button">Search</string>
     <string name="find_book_title">Find your book</string>
     <string name="description_livre">Description</string>
-
 
 
 </resources>

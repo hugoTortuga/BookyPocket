@@ -170,7 +170,7 @@ public class RegisterBookActivity extends AppCompatActivity {
 
 
     private void scanOrTakePicture(){
-
+        //BarcodeDetector barcodeDetector = new BarcodeDetector.Builder(context).build();
     }
 
     //Request to add a book
