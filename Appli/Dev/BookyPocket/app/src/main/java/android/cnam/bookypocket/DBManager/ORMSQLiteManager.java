@@ -1,5 +1,6 @@
 package android.cnam.bookypocket.DBManager;
 
+import android.cnam.bookypocket.Utils.Alert;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -143,6 +144,21 @@ public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
 
         rdr = (Reader) dao.queryBuilder().where().eq("emailAddress", emailStr).and().eq("password",pwdStr).queryForFirst();
         return rdr;
+    }
+
+    public boolean updateReaderInfo(Reader r){
+        try{
+            Dao<Reader, Integer> dao = getDao(Reader.class);
+            int nbRow = dao.update(r);
+            if(nbRow == 0)
+                return false;
+            else if(nbRow > 1)
+                throw new Exception("More than one rows was update during update account process !");
+            return true;
+        }catch (Exception ex){
+            ex.printStackTrace();
+            return false;
+        }
     }
 
     public boolean doesBookExistInDB(Book book){

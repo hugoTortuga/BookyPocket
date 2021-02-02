@@ -3,10 +3,14 @@ package android.cnam.bookypocket;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.cnam.bookypocket.DBManager.ORMSQLiteManager;
 import android.cnam.bookypocket.DBManager.Session;
 import android.cnam.bookypocket.Model.Reader;
 import android.cnam.bookypocket.Utils.Alert;
 import android.cnam.bookypocket.Utils.ChangeActivity;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
@@ -61,7 +65,7 @@ public class ManageAccountActivity extends AppCompatActivity {
             lastName.setText(currentUser.getLastName());
             firstName.setText(currentUser.getFirstName());
             email.setText(currentUser.getEmailAddress());
-            password.setText("******");
+            password.setText(currentUser.getPassword());
         }
         catch (Exception ex){
 
@@ -79,10 +83,69 @@ public class ManageAccountActivity extends AppCompatActivity {
     }
 
     public void save(View view) {
-        // TODO save modifications
+        ShowSaveDialog("Confirmation", "Etes-vous sur de vouloir sauvegarder ?");
     }
 
     public void deleteAccount(View view) {
         //TODO delete account
+        Alert.ShowDialog(this, "Confirmation", "Etes-vous sur de supprimer votre comptre ?");
     }
+
+    private Reader checkInfoReaderBeforeSave() throws Exception {
+
+        if(currentUser == null)
+            throw new Exception("L'utilisateur courant est null");
+
+        //TODO tester le formet des input pas trop long bien formé etc...
+
+        String emailStr = email.getText().toString();
+        String pwdStr = password.getText().toString();
+        String lastNameStr = lastName.getText().toString();
+        String firstNameStr = firstName.getText().toString();
+
+        //On test les valeurs d'entrée
+        if(emailStr != null && !emailStr.trim().isEmpty())
+            currentUser.setEmailAddress(emailStr.trim());
+
+        if(pwdStr != null && !pwdStr.trim().isEmpty())
+            currentUser.setPassword(pwdStr.trim());
+
+        if(lastNameStr != null && !lastNameStr.trim().isEmpty())
+            currentUser.setLastName(lastNameStr.trim());
+
+        if(firstNameStr != null && !firstNameStr.trim().isEmpty())
+            currentUser.setFirstName(firstNameStr.trim());
+
+        return currentUser;
+
+    }
+
+    private void ShowSaveDialog(String title, String msg){
+        Context currentContext = this;
+        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        alertDialog.setTitle(title);
+        alertDialog.setMessage(msg);
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Oui",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        ORMSQLiteManager manager = new ORMSQLiteManager(currentContext);
+                        try {
+                            manager.updateReaderInfo(checkInfoReaderBeforeSave());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        dialog.dismiss();
+                        Alert.ShowDialog(currentContext, "Succès", "Modification enregistrée");
+                    }
+                });
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Non",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
+
+    }
+
 }
