@@ -113,7 +113,8 @@ public class BookSearchActivity extends AppCompatActivity implements AdapterView
             Intent intent = new Intent(this, BookDetailsActivity.class);
             Book bookToSend = books_list.get(position);
             intent.putExtra("book", bookToSend);
-            intent.putExtra("author", bookToSend.getAuthor().getArtistName());
+            if(bookToSend.getAuthor() != null)
+                intent.putExtra("author", bookToSend.getAuthor().getArtistName());
             this.startActivity(intent);
         }
         catch (Exception ex){
