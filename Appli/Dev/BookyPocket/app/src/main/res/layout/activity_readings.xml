@@ -73,7 +73,7 @@
         </LinearLayout>
 
         <ListView
-            android:id="@+id/found_list"
+            android:id="@+id/found_list_my_readings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="20"></ListView>

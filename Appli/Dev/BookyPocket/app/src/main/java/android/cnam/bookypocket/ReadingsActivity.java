@@ -5,12 +5,19 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import android.app.ListActivity;
+import android.cnam.bookypocket.DBManager.ORMSQLiteManager;
+import android.cnam.bookypocket.DBManager.Session;
+import android.cnam.bookypocket.Model.Book;
+import android.cnam.bookypocket.Model.Reader;
+import android.cnam.bookypocket.Utils.Alert;
 import android.cnam.bookypocket.Utils.ChangeActivity;
 import android.cnam.bookypocket.ui.ReadingsListAdapter;
+import android.content.Intent;
 import android.graphics.drawable.AdaptiveIconDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -20,51 +27,36 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ReadingsActivity extends AppCompatActivity {
+public class ReadingsActivity extends AppCompatActivity implements AdapterView.OnItemClickListener  {
 
-    private SearchView searchView;
-    private ImageButton itemImageButton;
-
-    //image button will change
-    //private Drawable addIcon = getResources().getDrawable( R.drawable.plus );
-    //private Drawable removeIcon = getResources().getDrawable( R.drawable.minus );
-
-
-    private ArrayList<String> titleList = new ArrayList<>(
-            Arrays.asList("Buenos Aires", "Córdoba", "La Plata"));
-
-    private ListView readingsList;
-
-    //DEFINING A STRING ADAPTER WHICH WILL HANDLE THE DATA OF THE LISTVIEW
-    private ArrayAdapter<String> adapter;
+    private List<Book> books;
+    private ListView found_list;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_readings);
-/*
-        readingsList = (ListView) findViewById(R.id.readings_list);
-        adapter=new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, titleList);
-        readingsList.setAdapter(adapter);
+        found_list = (ListView) findViewById(R.id.found_list_my_readings);
 
-        createList();*/
+
+        try{
+            Reader reader = Session.getCurrentUser();
+            if(reader == null){
+                Alert.ShowDialog(this, "Anomalie", "L'utilisateur courant est vide");
+                return;
+            }
+
+            ORMSQLiteManager manager = new ORMSQLiteManager(this);
+            books = manager.getListFromBook(reader.getId());
+            updateListInterface();
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
+        }
+
     }
 
-    public void addItems(View v) {
-        adapter.add("New Item");
-    }
-
-    /**
-     * Create listAdapter
-     */
-    private void createList(){
-//        ArrayList<Book> books = Book.getAll();
-//        if(books != null){
-//            ListView readingsList = (ListView) findViewById(R.id.readings_list);
-//            ReadingsListAdapter adapter = new ReadingsListAdapter(this, books);
-//        }
-    }
 
     public void GoHome(View view) {
         ChangeActivity.ChangeActivity(this, MainActivity.class);
@@ -75,5 +67,19 @@ public class ReadingsActivity extends AppCompatActivity {
 
     public void addBookToMyReading(View view) {
         ChangeActivity.ChangeActivity(this, RegisterBookActivity.class);
+    }
+
+    public void updateListInterface(){
+        CustomAdapter ca = new CustomAdapter(this, (ArrayList<Book>) books);
+        found_list.setAdapter(ca);
+        found_list.setOnItemClickListener(this);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent = new Intent(this, BookDetailsActivity.class);
+        Book bookToSend = books.get(position);
+        intent.putExtra("book", bookToSend);
+        this.startActivity(intent);
     }
 }

@@ -25,14 +25,9 @@ import java.util.List;
 public class BookSearchActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     private SearchView searchView;
-    private ImageButton itemImageButton;
-    private ArrayList<String> titleList = new ArrayList<>();
 
     private ListView found_list;
     public List<Book> books_list;
-
-    //DEFINING A STRING ADAPTER WHICH WILL HANDLE THE DATA OF THE LISTVIEW
-    private ArrayAdapter<String> adapter;
 
 
     @Override

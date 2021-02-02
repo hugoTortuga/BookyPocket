@@ -3,7 +3,9 @@ package android.cnam.bookypocket;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.cnam.bookypocket.DBManager.ORMSQLiteManager;
+import android.cnam.bookypocket.DBManager.Session;
 import android.cnam.bookypocket.Model.Book;
+import android.cnam.bookypocket.Model.ReaderBook;
 import android.cnam.bookypocket.Utils.Alert;
 import android.cnam.bookypocket.Utils.ChangeActivity;
 import android.cnam.bookypocket.Utils.StringUtil;
@@ -49,6 +51,7 @@ public class BookDetailsActivity extends AppCompatActivity {
         currentBook = book;
         updateView(book);
         insertInDb(book);
+        currentBook = book;
     }
 
     private void insertInDb(Book book) {
@@ -104,6 +107,18 @@ public class BookDetailsActivity extends AppCompatActivity {
     }
 
     public void addToMyReadings(View view) {
+
+        try{
+            ReaderBook rb = new ReaderBook(Session.getCurrentUser(),currentBook);
+            ORMSQLiteManager ormsqLiteManager = new ORMSQLiteManager(this);
+            ormsqLiteManager.insertObjectInDB(rb, ReaderBook.class);
+            Alert.ShowDialog(this,"Succès","Ajout réussi à vos lectures");
+        }
+
+        catch(Exception ex){
+            ex.printStackTrace();
+            Alert.ShowError(this,"Erreur","" + ex);
+        }
 
     }
 
