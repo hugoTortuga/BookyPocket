@@ -66,7 +66,7 @@ public class RegisterBookActivity extends AppCompatActivity {
         scanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //scanOrTakePicture();
+                scanOrTakePicture();
             }
         });
 
@@ -171,7 +171,7 @@ public class RegisterBookActivity extends AppCompatActivity {
 
 
     private void scanOrTakePicture(){
-        //BarcodeDetector barcodeDetector = new BarcodeDetector.Builder(context).build();
+        ChangeActivity.ChangeActivity(this, BarCodeReaderActivity.class);
     }
 
     //Request to add a book
