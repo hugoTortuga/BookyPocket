@@ -38,12 +38,6 @@
                 tools:ignore="RtlCompat"></TextView>
         </RelativeLayout>
 
-        <SearchView
-                android:id="@+id/search_book_author"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_weight="1"/>
 
         <ListView
             android:id="@+id/found_list_book_author"
