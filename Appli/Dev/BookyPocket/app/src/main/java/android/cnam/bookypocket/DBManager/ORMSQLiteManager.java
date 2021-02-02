@@ -11,6 +11,7 @@ import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import android.cnam.bookypocket.Model.*;
@@ -18,7 +19,7 @@ import android.cnam.bookypocket.Model.*;
 public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
 
     private static final String DB_NAME = "bookypocket.db";
-    private static final int DB_VERSION = 1;
+    private static final int DB_VERSION = 3;
 
     public ORMSQLiteManager(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -159,6 +160,29 @@ public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
             ex.printStackTrace();
             return false;
         }
+    }
+
+    public List<Book> getBooksByKeyWord(String[] keyword) throws SQLException {
+        List<Book> booksFound = new ArrayList<>();
+
+        Dao<Book, Integer> dao = getDao(Book.class);
+        booksFound = (List<Book>) dao.queryBuilder().where().in("ISBN", keyword)
+                .or().eq("title",keyword)
+                .or().eq("backCover",keyword).query();
+
+        return booksFound;
+    }
+
+    public List<Book> getListFromBook(int reader_id) throws SQLException {
+        List<ReaderBook> booksReaderFound = new ArrayList<>();
+        Dao<ReaderBook, Integer> dao = getDao(ReaderBook.class);
+        booksReaderFound = (List<ReaderBook>) dao.queryBuilder().where().in("reader_id", reader_id).query();
+
+        List<Book> booksFound = new ArrayList<>();
+        for (ReaderBook rb: booksReaderFound) {
+            booksFound.add(rb.getBook());
+        }
+        return booksFound;
     }
 
     public boolean doesBookExistInDB(Book book){

@@ -2,10 +2,12 @@ package android.cnam.bookypocket;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.cnam.bookypocket.API.API_GoogleBooks;
+import android.cnam.bookypocket.DBManager.ORMSQLiteManager;
 import android.cnam.bookypocket.DBManager.Session;
 import android.cnam.bookypocket.Model.Book;
 import android.cnam.bookypocket.Utils.Alert;
 import android.cnam.bookypocket.Utils.ChangeActivity;
+import android.cnam.bookypocket.Utils.Network;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -23,14 +25,9 @@ import java.util.List;
 public class BookSearchActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     private SearchView searchView;
-    private ImageButton itemImageButton;
-    private ArrayList<String> titleList = new ArrayList<>();
 
     private ListView found_list;
     public List<Book> books_list;
-
-    //DEFINING A STRING ADAPTER WHICH WILL HANDLE THE DATA OF THE LISTVIEW
-    private ArrayAdapter<String> adapter;
 
 
     @Override
@@ -39,6 +36,21 @@ public class BookSearchActivity extends AppCompatActivity implements AdapterView
         setContentView(R.layout.book_search);
 
         searchView = (SearchView) findViewById(R.id.search_book_button);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                searchBook(null);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return true;
+            }
+
+        });
+
         found_list = (ListView) findViewById(R.id.found_list);
         updateListInterface();
     }
@@ -46,22 +58,24 @@ public class BookSearchActivity extends AppCompatActivity implements AdapterView
     public void updateListInterface(){
         List<Book> bookInSession = Session.getBooks();
         if(bookInSession != null){
-            List<String> livres = new ArrayList<>();
-            for (Book b: bookInSession) {
-                livres.add(b.getTitle());
+            if(bookInSession.size() > 0){
+                books_list = bookInSession;
+                CustomAdapter ca = new CustomAdapter(this, (ArrayList<Book>) books_list);
+                //adapter=new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, livres);
+                found_list.setAdapter(ca);
+                found_list.setOnItemClickListener(this);
             }
-            books_list = bookInSession;
-
-            CustomAdapter ca = new CustomAdapter(this, (ArrayList<Book>) books_list);
-            //adapter=new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, livres);
-            found_list.setAdapter(ca);
-            found_list.setOnItemClickListener(this);
+            else{
+                Alert.ShowDialog(this, "Vide", "Aucun livre n'a été trouvé avec ces mots-clefs");
+            }
         }
     }
 
     public void searchBook(View view){
         try{
-            if(Session.isUserConnectedToInternet()){
+
+            // si on est connecté à internet, on cherche sur google books
+            if(Network.isNetworkAvailable( this)){
                 if(searchView.getQuery() == null || searchView.getQuery().equals(""))
                     Alert.ShowDialog(this, "0 résultat","Le champ de recherche est vide");
 
@@ -71,8 +85,16 @@ public class BookSearchActivity extends AppCompatActivity implements AdapterView
                     task.execute();
                 }
             }
+            //si on est pas connecté à internet on va chercher dans la base embarqué
             else{
-                Alert.ShowDialog(this, "Pas de connexion internet","La recherche de livre est impossible sans connexion internet");
+                Alert.ShowDialog(this, "Pas de connexion internet","La recherche de livre est limitée à la base embarquée");
+                String keyword = searchView.getQuery().toString();
+                ORMSQLiteManager manager = new ORMSQLiteManager(this);
+                List<Book> books = manager.getBooksByKeyWord(searchView.getQuery().toString().split(" "));
+                if(books != null)
+                    if(books.size()>0)
+                        Session.setBooks(books);
+                updateListInterface();
             }
 
         }catch(Exception ex){

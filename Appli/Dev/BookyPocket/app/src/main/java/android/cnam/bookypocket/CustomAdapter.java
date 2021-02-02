@@ -18,6 +18,10 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
+/**
+ * Adapter pour ma liste de livre
+ * j'ai un libelle et une image par livre
+ */
 public class CustomAdapter extends ArrayAdapter<Book> {
 
     ArrayList<Book> dataSet;
@@ -25,10 +29,8 @@ public class CustomAdapter extends ArrayAdapter<Book> {
 
     public CustomAdapter(@NonNull Activity context, ArrayList<Book> dataSet) {
         super(context, R.layout.book_item_list, dataSet);
-
         this.dataSet = dataSet;
         this.mContext = context;
-
     }
 
     private static class ViewHolder {

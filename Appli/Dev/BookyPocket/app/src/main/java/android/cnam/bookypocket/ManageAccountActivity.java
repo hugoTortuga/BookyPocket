@@ -49,7 +49,6 @@ public class ManageAccountActivity extends AppCompatActivity {
         }
 
         currentUser = Session.getCurrentUser();
-
         lastName = (EditText) findViewById(R.id.manage_lastNameValue);
         firstName = (EditText) findViewById(R.id.manage_firstNameValue);
         email = (EditText) findViewById(R.id.manage_email_edit);
