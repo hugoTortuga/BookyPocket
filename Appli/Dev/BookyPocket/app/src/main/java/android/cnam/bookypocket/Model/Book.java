@@ -148,7 +148,7 @@ public class Book implements Parcelable {
         previewLink = in.readString();
         category = (Category) in.readParcelable(Category.class.getClassLoader());
         photo = (Photo) in.readParcelable(Photo.class.getClassLoader());
-        author = (Author) in.readParcelable(Author.class.getClassLoader());
+        //author = (Author) in.readParcelable(Author.class.getClassLoader());
     }
 
     public static final Creator<Book> BOOK = new Creator<Book>() {
@@ -192,6 +192,6 @@ public class Book implements Parcelable {
         dest.writeString(previewLink);
         dest.writeParcelable(category, flags);
         dest.writeParcelable(photo, flags);
-        dest.writeParcelable(author, flags);
+        //dest.writeParcelable(author, flags);
     }
 }

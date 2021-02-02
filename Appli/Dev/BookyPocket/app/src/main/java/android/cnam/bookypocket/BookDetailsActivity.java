@@ -39,6 +39,7 @@ public class BookDetailsActivity extends AppCompatActivity {
     private ImageView image;
 
     private Book currentBook;
+    private String authorName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +47,13 @@ public class BookDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_book_details);
 
         try{
+            //TODO arranger ce code, il est moche
             Book book = getIntent().getParcelableExtra("book");
             String authorParam = getIntent().getStringExtra("author");
+            Author authorOb = getIntent().getParcelableExtra("authorOb");
             author = (TextView) findViewById(R.id.details_author_value);
             author.setText(authorParam);
+            authorName = authorParam;
             initializeView();
             currentBook = book;
             updateView(book);
@@ -142,5 +146,19 @@ public class BookDetailsActivity extends AppCompatActivity {
         }catch(Exception ex){
             Alert.ShowDialog(this,"Information","Lien mort");
         }
+    }
+
+    public void GoToAuthorPage(View view) {
+        Intent intent = new Intent(this, AuthorActivity.class);
+        try{
+            if(!StringUtil.IsNullOrEmpty(authorName)){
+                intent.putExtra("author", authorName);
+            }
+            startActivity(intent);
+        }
+        catch (Exception ex){
+            Alert.ShowError(this,"Erreur","" + ex);
+        }
+
     }
 }

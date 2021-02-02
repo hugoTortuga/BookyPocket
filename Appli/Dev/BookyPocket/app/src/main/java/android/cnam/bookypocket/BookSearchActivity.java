@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.cnam.bookypocket.API.API_GoogleBooks;
 import android.cnam.bookypocket.DBManager.ORMSQLiteManager;
 import android.cnam.bookypocket.DBManager.Session;
+import android.cnam.bookypocket.Model.Author;
 import android.cnam.bookypocket.Model.Book;
 import android.cnam.bookypocket.Utils.Alert;
 import android.cnam.bookypocket.Utils.ChangeActivity;
@@ -113,8 +114,12 @@ public class BookSearchActivity extends AppCompatActivity implements AdapterView
             Intent intent = new Intent(this, BookDetailsActivity.class);
             Book bookToSend = books_list.get(position);
             intent.putExtra("book", bookToSend);
-            if(bookToSend.getAuthor() != null)
+            if(bookToSend.getAuthor() != null){
+                Author authorToSend = bookToSend.getAuthor();
                 intent.putExtra("author", bookToSend.getAuthor().getArtistName());
+                intent.putExtra("authorOb",authorToSend);
+            }
+
             this.startActivity(intent);
         }
         catch (Exception ex){

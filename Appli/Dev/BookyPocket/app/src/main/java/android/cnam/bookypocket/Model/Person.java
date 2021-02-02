@@ -22,24 +22,6 @@ public class Person implements Parcelable {
     @DatabaseField(canBeNull = true, foreign = true, foreignColumnName = "id", foreignAutoCreate = true)
     private Photo avatar;
 
-    protected Person(Parcel in) {
-        id = in.readInt();
-        lastName = in.readString();
-        firstName = in.readString();
-        avatar = in.readParcelable(Photo.class.getClassLoader());
-    }
-
-    public static final Creator<Person> CREATOR = new Creator<Person>() {
-        @Override
-        public Person createFromParcel(Parcel in) {
-            return new Person(in);
-        }
-
-        @Override
-        public Person[] newArray(int size) {
-            return new Person[size];
-        }
-    };
 
     public int getId() {
         return id;
@@ -84,7 +66,7 @@ public class Person implements Parcelable {
     public Person() {
     }
 
-    public Person(String lastName, String firstName, Date dateOfBirth, Photo avatar) {
+    public Person(String lastName, String firstName, Date dateOfBirth, Photo avatar){
         this.lastName = lastName;
         this.firstName = firstName;
         this.dateOfBirth = dateOfBirth;
@@ -114,4 +96,24 @@ public class Person implements Parcelable {
         dest.writeString(firstName);
         dest.writeParcelable(avatar, flags);
     }
+
+
+    protected Person(Parcel in) {
+        id = in.readInt();
+        lastName = in.readString();
+        firstName = in.readString();
+        avatar = in.readParcelable(Photo.class.getClassLoader());
+    }
+
+    public static final Creator<Person> CREATOR = new Creator<Person>() {
+        @Override
+        public Person createFromParcel(Parcel in) {
+            return new Person(in);
+        }
+
+        @Override
+        public Person[] newArray(int size) {
+            return new Person[size];
+        }
+    };
 }

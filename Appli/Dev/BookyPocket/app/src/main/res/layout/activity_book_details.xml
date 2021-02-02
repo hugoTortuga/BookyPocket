@@ -109,6 +109,8 @@
                 android:layout_height="43dp"
                 android:paddingLeft="30dp"
                 android:paddingTop="10dp"
+                android:clickable="true"
+                android:onClick="GoToAuthorPage"
                 />
 
             <View
