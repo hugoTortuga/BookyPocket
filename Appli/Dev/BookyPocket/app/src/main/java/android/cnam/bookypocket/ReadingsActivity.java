@@ -11,7 +11,6 @@ import android.cnam.bookypocket.Model.Book;
 import android.cnam.bookypocket.Model.Reader;
 import android.cnam.bookypocket.Utils.Alert;
 import android.cnam.bookypocket.Utils.ChangeActivity;
-import android.cnam.bookypocket.ui.ReadingsListAdapter;
 import android.content.Intent;
 import android.graphics.drawable.AdaptiveIconDrawable;
 import android.graphics.drawable.Drawable;

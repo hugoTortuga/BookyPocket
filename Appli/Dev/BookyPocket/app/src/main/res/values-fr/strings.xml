@@ -18,6 +18,7 @@
     <string name="home_button_seeReadings">Consulter mes lectures</string>
     <string name="home_button_registerBook">Saisir un nouvel ouvrage</string>
     <string name="home_button_manageAccount">Gérer mon compte</string>
+    <string name="text_my_friends">Mes ami(e)s</string>
 
     <!-- READINGS ACTIVITY-->
     <string name="readings_textView">Mes lectures</string>
