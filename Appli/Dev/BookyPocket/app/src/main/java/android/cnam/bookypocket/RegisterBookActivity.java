@@ -6,6 +6,7 @@ import android.cnam.bookypocket.DBManager.ORMSQLiteManager;
 import android.cnam.bookypocket.DBManager.Session;
 import android.cnam.bookypocket.Model.*;
 import android.cnam.bookypocket.Utils.Alert;
+import android.cnam.bookypocket.Utils.ChangeActivity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
@@ -65,7 +66,7 @@ public class RegisterBookActivity extends AppCompatActivity {
         scanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //scanOrTakePicture();
+                scanOrTakePicture();
             }
         });
 
@@ -170,7 +171,7 @@ public class RegisterBookActivity extends AppCompatActivity {
 
 
     private void scanOrTakePicture(){
-        //BarcodeDetector barcodeDetector = new BarcodeDetector.Builder(context).build();
+        ChangeActivity.ChangeActivity(this, BarCodeReaderActivity.class);
     }
 
     //Request to add a book

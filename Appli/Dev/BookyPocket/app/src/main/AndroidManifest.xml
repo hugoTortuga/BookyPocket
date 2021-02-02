@@ -20,6 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".BarCodeReaderActivity"></activity>
         <activity android:name=".ManageAccountActivity" />
         <activity android:name=".BookyMapTestActivity" />
         <!--
@@ -33,7 +34,6 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyANwoe5yvq5KocIFHBDlngGeNSFsTp5pnI" />
-
         <meta-data
             android:name="com.google.android.gms.vision.DEPENDENCIES"
             android:value="barcode" />
