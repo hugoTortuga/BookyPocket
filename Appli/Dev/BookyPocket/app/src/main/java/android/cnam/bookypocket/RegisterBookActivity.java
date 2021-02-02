@@ -6,6 +6,7 @@ import android.cnam.bookypocket.DBManager.ORMSQLiteManager;
 import android.cnam.bookypocket.DBManager.Session;
 import android.cnam.bookypocket.Model.*;
 import android.cnam.bookypocket.Utils.Alert;
+import android.cnam.bookypocket.Utils.ChangeActivity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
@@ -178,4 +179,7 @@ public class RegisterBookActivity extends AppCompatActivity {
 
     }
 
+    public void GoHome(View view) {
+        ChangeActivity.ChangeActivity(this, MainActivity.class);
+    }
 }

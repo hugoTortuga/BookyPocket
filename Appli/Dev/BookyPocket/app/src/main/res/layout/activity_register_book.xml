@@ -7,167 +7,196 @@
     android:layout_height="match_parent"
     tools:context=".RegisterBookActivity">
 
-    <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <LinearLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="144dp"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="30dp"
+                android:onClick="GoHome"
+                android:paddingVertical="10dp"
+                android:src="?attr/homeAsUpIndicator"
+                tools:ignore="MissingConstraints" />
 
             <TextView
-                android:id="@+id/registerNewBookText"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:gravity="center_horizontal|center_vertical"
-                android:text="@string/registerNewBookText"/>
-
-            <TextView
-                android:id="@+id/register_titleText"
-                android:layout_width="143dp"
-                android:layout_height="wrap_content"
-                android:paddingLeft="30dp"
-                android:text="@string/register_titleText"
-                android:textColor="#E5B81D"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/register_titleValue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:paddingLeft="30dp"
-                android:text="@string/register_titleValue" />
+                android:layout_centerInParent="true"
+                android:gravity="start|right"
+                android:text="@string/registerNewBookText"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:layout_weight="1"
+                tools:ignore="MissingConstraints,RtlCompat"></TextView>
 
         </LinearLayout>
-
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="101dp"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/register_authorText"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="30dp"
-                android:text="@string/register_authorText"
-                android:textColor="#E5B81D"
-                android:textStyle="bold" />
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/register_authorValue"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:paddingLeft="30dp"
-                android:text="@string/register_authorValue" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="144dp"
+                    android:orientation="vertical">
 
-        </LinearLayout>
+                    <TextView
+                        android:id="@+id/register_titleText"
+                        android:layout_width="143dp"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="30dp"
+                        android:text="@string/register_titleText"
+                        android:textColor="#E5B81D"
+                        android:textStyle="bold" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="101dp"
-            android:orientation="vertical">
+                    <EditText
+                        android:id="@+id/register_titleValue"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="textPersonName"
+                        android:paddingLeft="30dp"
+                        android:text="@string/register_titleValue" />
 
-            <TextView
-                android:id="@+id/register_publicationYearText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="30dp"
-                android:text="@string/register_publicationYearText"
-                android:textColor="#E5B81D"
-                android:textStyle="bold" />
+                </LinearLayout>
 
-            <EditText
-                android:id="@+id/register_publicationYearValue"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:ems="10"
-                android:inputType="date"
-                android:paddingLeft="30dp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="101dp"
+                    android:orientation="vertical">
 
-        </LinearLayout>
+                    <TextView
+                        android:id="@+id/register_authorText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="30dp"
+                        android:text="@string/register_authorText"
+                        android:textColor="#E5B81D"
+                        android:textStyle="bold" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="101dp"
-            android:orientation="vertical">
+                    <EditText
+                        android:id="@+id/register_authorValue"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="textPersonName"
+                        android:paddingLeft="30dp"
+                        android:text="@string/register_authorValue" />
 
-            <TextView
-                android:id="@+id/register_categoryText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="30dp"
-                android:text="@string/register_categoryText"
-                android:textColor="#E5B81D"
-                android:textStyle="bold" />
+                </LinearLayout>
 
-            <Spinner
-                android:id="@+id/register_categorySpinner"
-                android:layout_width="match_parent"
-                android:layout_height="50dp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="101dp"
+                    android:orientation="vertical">
 
-            <View
-                android:id="@+id/divider"
-                android:layout_width="347dp"
-                android:layout_height="1dp"
-                android:layout_marginLeft="20dp"
-                android:background="?android:attr/listDivider" />
+                    <TextView
+                        android:id="@+id/register_publicationYearText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="30dp"
+                        android:text="@string/register_publicationYearText"
+                        android:textColor="#E5B81D"
+                        android:textStyle="bold" />
 
-        </LinearLayout>
+                    <EditText
+                        android:id="@+id/register_publicationYearValue"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:ems="10"
+                        android:inputType="date"
+                        android:paddingLeft="30dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="101dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/register_categoryText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="30dp"
+                        android:text="@string/register_categoryText"
+                        android:textColor="#E5B81D"
+                        android:textStyle="bold" />
+
+                    <Spinner
+                        android:id="@+id/register_categorySpinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp" />
+
+                    <View
+                        android:id="@+id/divider"
+                        android:layout_width="347dp"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="20dp"
+                        android:background="?android:attr/listDivider" />
+
+                </LinearLayout>
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="109dp"
-            android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="109dp"
+                    android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/register_scanText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="30dp"
-                android:text="@string/register_scanText"
-                android:textColor="#E5B81D"
-                android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/register_scanText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="30dp"
+                        android:text="@string/register_scanText"
+                        android:textColor="#E5B81D"
+                        android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/register_scanButton"
-                android:layout_width="246dp"
-                android:layout_height="47dp"
-                android:layout_gravity="center_horizontal|center_vertical"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/button_style"
-                android:text="@string/register_scanButton"
-                android:textColor="#FFFFFF"
-                android:textStyle="bold" />
+                    <Button
+                        android:id="@+id/register_scanButton"
+                        android:layout_width="246dp"
+                        android:layout_height="47dp"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/button_style"
+                        android:text="@string/register_scanButton"
+                        android:textColor="#FFFFFF"
+                        android:textStyle="bold" />
 
-        </LinearLayout>
+                </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="164dp"
-            android:orientation="vertical">
-            <Button
-                android:id="@+id/register_addButton"
-                android:layout_width="246dp"
-                android:layout_height="47dp"
-                android:layout_gravity="center_horizontal|center_vertical"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/button_style"
-                android:text="@string/registerbook_button"
-                android:textColor="#FFFFFF"
-                android:textStyle="bold" />
-        </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="164dp"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/register_addButton"
+                        android:layout_width="246dp"
+                        android:layout_height="47dp"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/button_style"
+                        android:text="@string/registerbook_button"
+                        android:textColor="#FFFFFF"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
 
     </LinearLayout>
-    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
