@@ -1,29 +1,21 @@
-package android.cnam.bookypocket;
+package android.cnam.bookypocket.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
-import android.app.ListActivity;
 import android.cnam.bookypocket.DBManager.DataBaseSingleton;
 import android.cnam.bookypocket.DBManager.Session;
 import android.cnam.bookypocket.Model.Book;
 import android.cnam.bookypocket.Model.Reader;
+import android.cnam.bookypocket.R;
 import android.cnam.bookypocket.Utils.Alert;
 import android.cnam.bookypocket.Utils.ChangeActivity;
 import android.content.Intent;
-import android.graphics.drawable.AdaptiveIconDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.SearchView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class ReadingsActivity extends AppCompatActivity implements AdapterView.OnItemClickListener  {

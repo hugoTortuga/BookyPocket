@@ -1,5 +1,6 @@
-package android.cnam.bookypocket;
+package android.cnam.bookypocket.Activities;
 
+import android.cnam.bookypocket.R;
 import android.cnam.bookypocket.Utils.ChangeActivity;
 import android.os.Bundle;
 import android.view.View;

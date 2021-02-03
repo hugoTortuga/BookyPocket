@@ -181,4 +181,19 @@ public class API_GoogleBooks {
         return JSON_Decryptor(json, context);
     }
 
+    public static List<Book> RequestISBN(String ISBN, Context context) throws Exception {
+        if (StringUtil.IsNullOrEmpty(ISBN))
+            throw new Exception("Le champ de recherche est vide");
+        JSONObject json = API_GoogleBooks.ReadJsonFromUrl("https://www.googleapis.com/books/v1/volumes?q=+ISBN=" + ISBN + " &maxResults=1");
+        return JSON_Decryptor(json, context);
+    }
+
+    public static List<Book> RequestAuthor(String artistName, Context context) throws Exception {
+        if (StringUtil.IsNullOrEmpty(artistName))
+            throw new Exception("Le champ de recherche est vide");
+        artistName = artistName.replace(' ', '+');
+        JSONObject json = API_GoogleBooks.ReadJsonFromUrl("https://www.googleapis.com/books/v1/volumes?q=+inauthors=" + artistName + " &maxResults=1");
+        return JSON_Decryptor(json, context);
+    }
+
 }

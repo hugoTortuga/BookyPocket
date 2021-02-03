@@ -1,10 +1,11 @@
-package android.cnam.bookypocket;
+package android.cnam.bookypocket.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.cnam.bookypocket.R;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;

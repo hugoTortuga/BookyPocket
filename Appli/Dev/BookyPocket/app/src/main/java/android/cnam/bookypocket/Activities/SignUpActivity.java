@@ -1,7 +1,8 @@
-package android.cnam.bookypocket;
+package android.cnam.bookypocket.Activities;
 
 import android.app.Activity;
 import android.cnam.bookypocket.Model.Reader;
+import android.cnam.bookypocket.R;
 import android.cnam.bookypocket.Utils.Alert;
 import android.cnam.bookypocket.Utils.ChangeActivity;
 import android.cnam.bookypocket.Utils.StringUtil;
@@ -127,9 +128,6 @@ public class SignUpActivity extends AppCompatActivity {
         catch (Exception ex){
 
         }
-
-
-
         String regexEmail = "^(.+)@(.+)$";
 
         Pattern pattern = Pattern.compile(regexEmail);

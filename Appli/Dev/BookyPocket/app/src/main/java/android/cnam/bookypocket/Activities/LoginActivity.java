@@ -1,8 +1,9 @@
-package android.cnam.bookypocket;
+package android.cnam.bookypocket.Activities;
 
 import android.cnam.bookypocket.DBManager.DataBaseSingleton;
 import android.cnam.bookypocket.DBManager.Session;
 import android.cnam.bookypocket.Model.Reader;
+import android.cnam.bookypocket.R;
 import android.cnam.bookypocket.Utils.Alert;
 import android.cnam.bookypocket.Utils.ChangeActivity;
 import android.os.Bundle;

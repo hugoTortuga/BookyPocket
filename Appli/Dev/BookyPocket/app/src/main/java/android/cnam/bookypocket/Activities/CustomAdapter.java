@@ -1,7 +1,8 @@
-package android.cnam.bookypocket;
+package android.cnam.bookypocket.Activities;
 
 import android.app.Activity;
 import android.cnam.bookypocket.Model.Book;
+import android.cnam.bookypocket.R;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

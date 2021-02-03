@@ -26,9 +26,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".BarCodeReaderActivity"></activity>
-        <activity android:name=".ManageAccountActivity" />
-        <activity android:name=".BookyMapTestActivity" />
+        <activity android:name=".Activities.BarCodeReaderActivity"></activity>
+        <activity android:name=".Activities.ManageAccountActivity" />
+        <activity android:name=".Activities.BookyMapTestActivity" />
         <!--
      The API key for Google Maps-based APIs is defined as a string resource.
      (See the file "res/values/google_maps_api.xml").
@@ -47,20 +47,20 @@
             android:name="com.google.android.gms.vision.DEPENDENCIES"
             android:value="barcode" />
 
-        <activity android:name=".BookDetailsActivity" />
-        <activity android:name=".RegisterBookActivity" />
-        <activity android:name=".SignUpActivity" />
+        <activity android:name=".Activities.BookDetailsActivity" />
+        <activity android:name=".Activities.RegisterBookActivity" />
+        <activity android:name=".Activities.SignUpActivity" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ReadingsActivity" />
-        <activity android:name=".BookSearchActivity" />
-        <activity android:name=".AuthorActivity" />
+        <activity android:name=".Activities.ReadingsActivity" />
+        <activity android:name=".Activities.BookSearchActivity" />
+        <activity android:name=".Activities.AuthorActivity" />
         <activity
-            android:name=".BookyMapActivity"
+            android:name=".Activities.BookyMapActivity"
             android:label="@string/title_activity_booky_map" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".Activities.LoginActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

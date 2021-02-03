@@ -1,4 +1,4 @@
-package android.cnam.bookypocket;
+package android.cnam.bookypocket.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,7 @@ import android.cnam.bookypocket.Model.Author;
 import android.cnam.bookypocket.Model.AuthorBook;
 import android.cnam.bookypocket.Model.Book;
 import android.cnam.bookypocket.Model.ReaderBook;
+import android.cnam.bookypocket.R;
 import android.cnam.bookypocket.Utils.Alert;
 import android.cnam.bookypocket.Utils.ChangeActivity;
 import android.cnam.bookypocket.Utils.StringUtil;
@@ -17,12 +18,9 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import java.sql.SQLException;
 
 public class BookDetailsActivity extends AppCompatActivity {
 
@@ -133,7 +131,7 @@ public class BookDetailsActivity extends AppCompatActivity {
     }
 
     public void GoBack(View view) {
-        ChangeActivity.ChangeActivity(this, BookSearchActivity.class);
+        this.finish();
     }
 
     public void addToMyReadings(View view) {

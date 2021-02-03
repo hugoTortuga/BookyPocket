@@ -1,10 +1,11 @@
-package android.cnam.bookypocket;
+package android.cnam.bookypocket.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.cnam.bookypocket.DBManager.DataBaseSingleton;
 import android.cnam.bookypocket.DBManager.Session;
 import android.cnam.bookypocket.Model.*;
+import android.cnam.bookypocket.R;
 import android.cnam.bookypocket.Utils.Alert;
 import android.cnam.bookypocket.Utils.ChangeActivity;
 import android.content.Context;
@@ -18,7 +19,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 

@@ -1,7 +1,8 @@
-package android.cnam.bookypocket;
+package android.cnam.bookypocket.Activities;
 
 import androidx.fragment.app.FragmentActivity;
 
+import android.cnam.bookypocket.R;
 import android.os.Bundle;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
