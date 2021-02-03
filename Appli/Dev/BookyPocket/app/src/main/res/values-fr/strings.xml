@@ -90,4 +90,6 @@
     <string name="find_book_title">Rechercher un ouvrage</string>
     <string name="description_livre">Description</string>
 
+    <string name="add_a_friend">Ajouter un ami</string>
+
 </resources>

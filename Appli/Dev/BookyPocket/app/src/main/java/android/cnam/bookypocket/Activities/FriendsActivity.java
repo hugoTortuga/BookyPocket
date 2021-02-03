@@ -1,5 +1,7 @@
 package android.cnam.bookypocket.Activities;
 
+import android.cnam.bookypocket.DBManager.DataBaseSingleton;
+import android.cnam.bookypocket.DBManager.Session;
 import android.cnam.bookypocket.Model.Author;
 import android.cnam.bookypocket.Model.Book;
 import android.cnam.bookypocket.Model.Reader;
@@ -14,6 +16,7 @@ import android.widget.SearchView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,18 +35,26 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
 
         friends = new ArrayList<>();
 
-        Reader r = new Reader("maile", "password","nom","prenom", null, null);
-        friends.add(r);
-        friends.add(r);
-        friends.add(r);
+        if(Session.getCurrentUser() != null){
+            try {
+                friends = DataBaseSingleton.GetDataBaseSingleton(this).GetFriendsByReader(Session.getCurrentUser().getId());
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
 
-        friend_list = (ListView) findViewById(R.id.friends_list);
+            Reader r = new Reader("maile", "password","nom","prenom", null, null);
+            friends.add(r);
+            friends.add(r);
+            friends.add(r);
 
-        CustomReaderAdapter ca = new CustomReaderAdapter(this, (ArrayList<Reader>) friends);
-        friend_list.setAdapter(ca);
-        friend_list.setOnItemClickListener(this);
+            friend_list = (ListView) findViewById(R.id.friends_list);
 
-
+            CustomReaderAdapter ca = new CustomReaderAdapter(this, (ArrayList<Reader>) friends);
+            friend_list.setAdapter(ca);
+            friend_list.setOnItemClickListener(this);
+        }
+        else
+            Alert.ShowDialog(this,"Anomalie","L'utilisateur courant");
     }
 
     public void goBackFriendsActivity(View view){
@@ -63,4 +74,7 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
         }
     }
 
+    public void add_friend_button_click(View view) {
+        Alert.ShowDialog(this,"Information","Fonctionnalité pas encore implémenté");
+    }
 }

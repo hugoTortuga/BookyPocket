@@ -2,6 +2,7 @@ package android.cnam.bookypocket.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.cnam.bookypocket.DBManager.DataBaseSingleton;
 import android.cnam.bookypocket.DBManager.Session;
@@ -9,12 +10,16 @@ import android.cnam.bookypocket.Model.Reader;
 import android.cnam.bookypocket.R;
 import android.cnam.bookypocket.Utils.Alert;
 import android.cnam.bookypocket.Utils.ChangeActivity;
+import android.cnam.bookypocket.Utils.CheckForm;
+import android.cnam.bookypocket.Utils.StringUtil;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+
+import java.util.Date;
 
 public class ManageAccountActivity extends AppCompatActivity {
 
@@ -37,6 +42,7 @@ public class ManageAccountActivity extends AppCompatActivity {
         initilizeForm();
     }
 
+    @SuppressLint("WrongViewCast")
     private void initilizeForm() {
 
         if(Session.getCurrentUser() == null)
@@ -51,11 +57,13 @@ public class ManageAccountActivity extends AppCompatActivity {
         email = (EditText) findViewById(R.id.manage_email_edit);
         password = (EditText) findViewById(R.id.manage_passwordValue);
         try{
-            dateOfBirth = (EditText) findViewById(R.id.manage_DateOfBirth);
-            dateOfBirth.setText(currentUser.getDateOfBirth().toString());
+
+            dateOfBirth = (EditText) findViewById(R.id.editTextDate);
+            if(currentUser.getDateOfBirth() != null)
+                dateOfBirth.setText(currentUser.getDateOfBirth().toString());
         }
         catch (Exception ex){
-
+            ex.printStackTrace();
         }
         try{
             lastName.setText(currentUser.getLastName());
@@ -98,6 +106,7 @@ public class ManageAccountActivity extends AppCompatActivity {
         String pwdStr = password.getText().toString();
         String lastNameStr = lastName.getText().toString();
         String firstNameStr = firstName.getText().toString();
+        String date = dateOfBirth.getText().toString();
 
         //On test les valeurs d'entrée
         if(emailStr != null && !emailStr.trim().isEmpty())
@@ -111,6 +120,16 @@ public class ManageAccountActivity extends AppCompatActivity {
 
         if(firstNameStr != null && !firstNameStr.trim().isEmpty())
             currentUser.setFirstName(firstNameStr.trim());
+
+        Date dateBirth = null;
+        try{
+            dateBirth = CheckForm.CheckAndCastStringToDate(date,this);
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
+        }
+        if(dateBirth != null)
+            currentUser.setDateOfBirth(dateBirth);
 
         return currentUser;
 
