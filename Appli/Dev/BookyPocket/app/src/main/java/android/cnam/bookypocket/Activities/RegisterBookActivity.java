@@ -3,12 +3,14 @@ package android.cnam.bookypocket.Activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.cnam.bookypocket.DBManager.DataBaseSingleton;
+import android.cnam.bookypocket.DBManager.ORMSQLiteManager;
 import android.cnam.bookypocket.DBManager.Session;
 import android.cnam.bookypocket.Model.*;
 import android.cnam.bookypocket.R;
 import android.cnam.bookypocket.Utils.Alert;
 import android.cnam.bookypocket.Utils.ChangeActivity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Adapter;
@@ -18,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -37,6 +40,7 @@ public class RegisterBookActivity extends AppCompatActivity {
 
     private Context context;
 
+    private  String getISBNFromIntent;
     //will be fulled with model data
 
 
@@ -46,7 +50,12 @@ public class RegisterBookActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register_book);
         context = this;
         InitializeViewComponents();
+
+        Intent intent = getIntent();
+
+        getISBNFromIntent = intent.getStringExtra("ISBN");
     }
+
 
     private void InitializeViewComponents(){
         //details of the book to register
@@ -78,6 +87,7 @@ public class RegisterBookActivity extends AppCompatActivity {
         addBookButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                System.out.println("******************************ISBN******************************" + getISBNFromIntent);
                 try {
 
                     Book book = getInfoBookFromForm();
@@ -160,6 +170,14 @@ public class RegisterBookActivity extends AppCompatActivity {
         }
     }
 
+    private Book getBookFromScan() throws SQLException {
+        Book book = DataBaseSingleton.GetDataBaseSingleton(context).getBookByISBN(getISBNFromIntent);
+        if(book != null){
+            return book;
+        }
+        return null;
+    }
+
     private void onItemSelectedHandlerCategory(AdapterView<?> adapterView, View view, int position, long id) {
         Adapter adapter = adapterView.getAdapter();
 //        Category category = (Category) adapter.getItem(position);
@@ -170,11 +188,6 @@ public class RegisterBookActivity extends AppCompatActivity {
 
     private void scanOrTakePicture(){
         ChangeActivity.ChangeActivity(this, BarCodeReaderActivity.class);
-    }
-
-    //Request to add a book
-    private void addBook(){
-
     }
 
     public void GoHome(View view) {

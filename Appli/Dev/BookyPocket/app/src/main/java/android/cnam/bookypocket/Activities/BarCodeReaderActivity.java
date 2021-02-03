@@ -7,10 +7,10 @@ import androidx.core.app.ActivityCompat;
 import android.Manifest;
 import android.cnam.bookypocket.R;
 import android.cnam.bookypocket.Utils.BarCodeReader;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.TextView;
@@ -39,7 +39,7 @@ public class BarCodeReaderActivity extends AppCompatActivity{
         surfaceView = findViewById(R.id.surface_view);
         barcodeInfo = findViewById(R.id.barcode_text);
 
-        //Instanciate codeBarReader
+        //Instantiate codeBarReader
         barCodeReader = new BarCodeReader();
 
         //Check if Barcode Detector is available on the user system
@@ -82,8 +82,10 @@ public class BarCodeReaderActivity extends AppCompatActivity{
             }
         });
 
-
-
+        Intent data = new Intent(this, RegisterBookActivity.class);
+        data.putExtra("ISBN", barCodeReader.getBarcodeData());
+        this.setResult(AppCompatActivity.RESULT_OK, data);
+        this.finish();
     }
 
     private void checkCameraPermission() throws IOException {
