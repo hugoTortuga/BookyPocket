@@ -19,7 +19,11 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class ManageAccountActivity extends AppCompatActivity {
 
@@ -42,7 +46,6 @@ public class ManageAccountActivity extends AppCompatActivity {
         initilizeForm();
     }
 
-    @SuppressLint("WrongViewCast")
     private void initilizeForm() {
 
         if(Session.getCurrentUser() == null)
@@ -59,8 +62,18 @@ public class ManageAccountActivity extends AppCompatActivity {
         try{
 
             dateOfBirth = (EditText) findViewById(R.id.editTextDate);
-            if(currentUser.getDateOfBirth() != null)
-                dateOfBirth.setText(currentUser.getDateOfBirth().toString());
+            if(currentUser.getDateOfBirth() != null){
+                String month = ""+currentUser.getDateOfBirth().getMonth();
+                if(month.length() == 1)
+                    month  = "0" + month;
+
+                String day = ""+currentUser.getDateOfBirth().getDay();
+                if(day.length() == 1)
+                    day  = "0" + day;
+                String textDate = (currentUser.getDateOfBirth().getYear()+1900)+ "/" + month + "/" + day;
+                dateOfBirth.setText(textDate);
+            }
+
         }
         catch (Exception ex){
             ex.printStackTrace();

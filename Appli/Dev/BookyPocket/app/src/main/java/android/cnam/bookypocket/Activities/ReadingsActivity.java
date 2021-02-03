@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.cnam.bookypocket.DBManager.DataBaseSingleton;
 import android.cnam.bookypocket.DBManager.Session;
+import android.cnam.bookypocket.Model.Author;
 import android.cnam.bookypocket.Model.Book;
 import android.cnam.bookypocket.Model.Reader;
 import android.cnam.bookypocket.R;
@@ -70,6 +71,9 @@ public class ReadingsActivity extends AppCompatActivity implements AdapterView.O
         Intent intent = new Intent(this, BookDetailsActivity.class);
         Book bookToSend = books.get(position);
         intent.putExtra("book", bookToSend);
+        if(bookToSend.getAuthor() != null){
+            intent.putExtra("author", bookToSend.getAuthor().getArtistName());
+        }
         this.startActivity(intent);
     }
 }

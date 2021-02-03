@@ -7,6 +7,7 @@ import android.cnam.bookypocket.Model.Book;
 import android.cnam.bookypocket.Model.Reader;
 import android.cnam.bookypocket.R;
 import android.cnam.bookypocket.Utils.Alert;
+import android.cnam.bookypocket.Utils.ChangeActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -75,6 +76,6 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
     }
 
     public void add_friend_button_click(View view) {
-        Alert.ShowDialog(this,"Information","Fonctionnalité pas encore implémenté");
+        ChangeActivity.ChangeActivity(this, AddFriendActivity.class);
     }
 }
