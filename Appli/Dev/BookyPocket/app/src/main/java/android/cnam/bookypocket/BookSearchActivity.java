@@ -13,11 +13,8 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Looper;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SearchView;
 import java.util.ArrayList;
@@ -34,7 +31,7 @@ public class BookSearchActivity extends AppCompatActivity implements AdapterView
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.book_search);
+        setContentView(R.layout.activity_book_search);
 
         searchView = (SearchView) findViewById(R.id.search_book_button);
 

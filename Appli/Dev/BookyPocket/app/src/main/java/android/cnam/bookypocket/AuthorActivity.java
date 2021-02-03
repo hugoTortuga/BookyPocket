@@ -1,7 +1,6 @@
 package android.cnam.bookypocket;
 
 import android.cnam.bookypocket.DBManager.ORMSQLiteManager;
-import android.cnam.bookypocket.Model.Author;
 import android.cnam.bookypocket.Model.Book;
 import android.cnam.bookypocket.Utils.Alert;
 import android.cnam.bookypocket.Utils.StringUtil;
@@ -26,7 +25,7 @@ public class AuthorActivity extends AppCompatActivity implements AdapterView.OnI
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.author_activity);
+        setContentView(R.layout.activity_author);
         nameAuthor = (TextView) findViewById(R.id.idNomAuthor);
         try{
             String authorParam = getIntent().getStringExtra("author");

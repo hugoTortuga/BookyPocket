@@ -1,25 +1,13 @@
 package android.cnam.bookypocket;
 
-import android.cnam.bookypocket.DBManager.Session;
-import android.cnam.bookypocket.Model.Reader;
 import android.cnam.bookypocket.Utils.ChangeActivity;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.Menu;
 import android.widget.Button;
 import android.widget.ImageButton;
 
-import com.google.android.material.navigation.NavigationView;
-
-import androidx.annotation.NonNull;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_main);
+        setContentView(R.layout.activity_main);
         createButtons();
     }
 
