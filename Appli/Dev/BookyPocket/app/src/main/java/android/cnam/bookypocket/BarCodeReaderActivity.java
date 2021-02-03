@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.cnam.bookypocket.Utils.BarCodeReader;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,15 +16,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.vision.CameraSource;
-import com.google.android.gms.vision.Detector;
-import com.google.android.gms.vision.FocusingProcessor;
-import com.google.android.gms.vision.Tracker;
-import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import java.io.IOException;
 
 public class BarCodeReaderActivity extends AppCompatActivity{
+
+    private BarCodeReader barCodeReader;
 
     private SurfaceView surfaceView;
     private BarcodeDetector barcodeDetector;
@@ -31,9 +30,6 @@ public class BarCodeReaderActivity extends AppCompatActivity{
     private CameraSource cameraSource;
     private static final int REQUEST_CAMERA_PERMISSION = 201;
     private TextView barcodeInfo;
-    private String barcodeData;
-
-    private Barcode barcode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,20 +38,25 @@ public class BarCodeReaderActivity extends AppCompatActivity{
         surfaceView = findViewById(R.id.surface_view);
         barcodeInfo = findViewById(R.id.barcode_text);
 
-        barcodeDetector = new BarcodeDetector.Builder(this).setBarcodeFormats(Barcode.EAN_13).build();
+        //Instanciate codeBarReader
+        barCodeReader = new BarCodeReader();
 
-        if(!barcodeDetector.isOperational()){
+        //Check if Barcode Detector is available on the user system
+        if(barCodeReader.isBarcodeDetectorOperational(this)){
             barcodeInfo.setText("Sorry, Couldn't setup the detector");
             Toast.makeText(getApplicationContext(), "Sorry, Couldn't setup the detector", Toast.LENGTH_LONG).show();
             this.finish();
-        } else {
+        } else{
             barcodeInfo.setText("Detector is operational");
             Toast.makeText(getApplicationContext(), "Detector is operational", Toast.LENGTH_LONG).show();
         }
 
+        barcodeDetector = barCodeReader.setUpBarcodeDetector(this, barcodeInfo);
+
         cameraSource = new CameraSource.Builder(getApplicationContext(), barcodeDetector).setFacing(CameraSource.CAMERA_FACING_BACK).
                 setRequestedPreviewSize(1024,1024).setAutoFocusEnabled(true)
                 .build();
+
 
         surfaceView.getHolder().addCallback(new SurfaceHolder.Callback(){
 
@@ -80,55 +81,6 @@ public class BarCodeReaderActivity extends AppCompatActivity{
                 }
             });
 
-        barcodeDetector.setProcessor(new FocusingProcessor<Barcode>(barcodeDetector, new Tracker<Barcode>()) {
-
-            @Override
-            public void release() {
-                Toast.makeText(getApplicationContext(), "To prevent memory leaks barcode scanner has been stopped", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void receiveDetections(Detector.Detections<Barcode> detections) {
-
-                final SparseArray<Barcode> barcodes = detections.getDetectedItems();
-
-                if (barcodes.size() != 0) {
-                    barcodeInfo.post(new Runnable() {    // Use the post method of the TextView
-                        public void run() {
-                            barcodeInfo.setText(    // Update the TextView
-                                    barcodes.valueAt(0).displayValue
-                            );
-                        }
-                    });
-                }
-
-                //TEST 2
-//                final SparseArray<Barcode> barcodes = detections.getDetectedItems();
-//                if (barcodes.size() > 0) {
-//                    barcodeInfo.setText(barcodes.valueAt(0).displayValue);
-//                }
-                //TEST 3
-//                final SparseArray<Barcode> barcodes = detections.getDetectedItems();
-//                if (barcodes.size() != 0) {
-//                    barcodeInfo.post(new Runnable() {
-//
-//                        @Override
-//                        public void run() {
-//                            barcodeInfo.setText(barcodes.valueAt(0).displayValue);
-//                        }
-//                    });
-//                } else {
-//                    barcodeInfo.setText("No data available");
-//
-//                }
-            }
-
-            @Override
-            public int selectFocus(Detector.Detections<Barcode> detections) {
-                return 0;
-            }
-
-        });
 
 
     }
