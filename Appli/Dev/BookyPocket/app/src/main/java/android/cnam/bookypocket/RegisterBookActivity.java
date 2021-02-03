@@ -2,7 +2,7 @@ package android.cnam.bookypocket;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.cnam.bookypocket.DBManager.ORMSQLiteManager;
+import android.cnam.bookypocket.DBManager.DataBaseSingleton;
 import android.cnam.bookypocket.DBManager.Session;
 import android.cnam.bookypocket.Model.*;
 import android.cnam.bookypocket.Utils.Alert;
@@ -90,10 +90,9 @@ public class RegisterBookActivity extends AppCompatActivity {
 
                     if(reader != null){
                         //On insère notre reader
-                        ORMSQLiteManager db = new ORMSQLiteManager(context);
-                        db.insertObjectInDB(book, Book.class);
-                        db.insertObjectInDB(readerBook, ReaderBook.class);
-                        db.close();
+                        DataBaseSingleton.GetDataBaseSingleton(context).insertObjectInDB(book, Book.class);
+                        DataBaseSingleton.GetDataBaseSingleton(context).insertObjectInDB(readerBook, ReaderBook.class);
+                        DataBaseSingleton.GetDataBaseSingleton(context).close();
                         Alert.ShowDialog(context, "Succès", "Livre enregistré");
                     }
 
@@ -128,8 +127,7 @@ public class RegisterBookActivity extends AppCompatActivity {
 
         try{
             List<Category> categories = new ArrayList<>();
-            ORMSQLiteManager DB_Manager = new ORMSQLiteManager(this);
-            categories = DB_Manager.getAllObjects(Category.class);
+            categories = DataBaseSingleton.GetDataBaseSingleton(this).getAllObjects(Category.class);
             List<String> libelleCategories = new ArrayList<>();
             for(Category cat : categories){
                 libelleCategories.add(cat.getName());

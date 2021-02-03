@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.cnam.bookypocket.DBManager.ORMSQLiteManager;
+import android.cnam.bookypocket.DBManager.DataBaseSingleton;
 import android.cnam.bookypocket.DBManager.Session;
 import android.cnam.bookypocket.Model.Reader;
 import android.cnam.bookypocket.Utils.Alert;
@@ -127,9 +127,8 @@ public class ManageAccountActivity extends AppCompatActivity {
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Oui",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        ORMSQLiteManager manager = new ORMSQLiteManager(currentContext);
                         try {
-                            manager.updateReaderInfo(checkInfoReaderBeforeSave());
+                            DataBaseSingleton.GetDataBaseSingleton(currentContext).updateReaderInfo(checkInfoReaderBeforeSave());
                         } catch (Exception e) {
                             e.printStackTrace();
                         }

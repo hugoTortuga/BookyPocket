@@ -1,6 +1,6 @@
 package android.cnam.bookypocket;
 
-import android.cnam.bookypocket.DBManager.ORMSQLiteManager;
+import android.cnam.bookypocket.DBManager.DataBaseSingleton;
 import android.cnam.bookypocket.Model.Book;
 import android.cnam.bookypocket.Utils.Alert;
 import android.cnam.bookypocket.Utils.StringUtil;
@@ -31,8 +31,9 @@ public class AuthorActivity extends AppCompatActivity implements AdapterView.OnI
             String authorParam = getIntent().getStringExtra("author");
             nameAuthor.setText(authorParam);
             if(!StringUtil.IsNullOrEmpty(authorParam)){
-                ORMSQLiteManager manager = new ORMSQLiteManager(this);
-                books_list = manager.getBooksByAuthorArtistName(authorParam);
+
+                books_list =  DataBaseSingleton.GetDataBaseSingleton(this).getBooksByAuthorArtistName(authorParam);
+
                 found_list = (ListView) findViewById(R.id.found_list_book_author);
                 CustomAdapter ca = new CustomAdapter(this, (ArrayList<Book>) books_list);
                 found_list.setAdapter(ca);

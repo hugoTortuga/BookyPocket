@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import android.app.ListActivity;
-import android.cnam.bookypocket.DBManager.ORMSQLiteManager;
+import android.cnam.bookypocket.DBManager.DataBaseSingleton;
 import android.cnam.bookypocket.DBManager.Session;
 import android.cnam.bookypocket.Model.Book;
 import android.cnam.bookypocket.Model.Reader;
@@ -46,8 +46,7 @@ public class ReadingsActivity extends AppCompatActivity implements AdapterView.O
                 return;
             }
 
-            ORMSQLiteManager manager = new ORMSQLiteManager(this);
-            books = manager.getListFromBook(reader.getId());
+            books = DataBaseSingleton.GetDataBaseSingleton(this).getListFromBook(reader.getId());
             updateListInterface();
         }
         catch(Exception ex){

@@ -1,6 +1,6 @@
 package android.cnam.bookypocket;
 
-import android.cnam.bookypocket.DBManager.ORMSQLiteManager;
+import android.cnam.bookypocket.DBManager.DataBaseSingleton;
 import android.cnam.bookypocket.DBManager.Session;
 import android.cnam.bookypocket.Model.Reader;
 import android.cnam.bookypocket.Utils.Alert;
@@ -62,12 +62,11 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        ORMSQLiteManager db = new ORMSQLiteManager(this);
         try {
             //On hash le password
             //TODO appel à l'API
 
-            Reader reader = db.getUserByCreditential(emailStr, pwdStr);
+            Reader reader = DataBaseSingleton.GetDataBaseSingleton(this).getUserByCreditential(emailStr, pwdStr);
 
             if(reader == null)
                 Alert.ShowDialog(this, "Identifiants", "Identifiants non reconnu");
@@ -80,9 +79,6 @@ public class LoginActivity extends AppCompatActivity {
 
         } catch (Exception ex) {
                 Alert.ShowDialog(this, "Erreur", "Erreur lors de la connexion.\nVeuillez réessayer plus tard");
-        }
-        finally {
-            db.close();
         }
     }
 

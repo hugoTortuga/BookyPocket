@@ -2,7 +2,7 @@ package android.cnam.bookypocket;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.cnam.bookypocket.DBManager.ORMSQLiteManager;
+import android.cnam.bookypocket.DBManager.DataBaseSingleton;
 import android.cnam.bookypocket.DBManager.Session;
 import android.cnam.bookypocket.Model.Author;
 import android.cnam.bookypocket.Model.AuthorBook;
@@ -64,16 +64,15 @@ public class BookDetailsActivity extends AppCompatActivity {
     }
 
     private void insertInDb(Book book) {
-        ORMSQLiteManager db = new ORMSQLiteManager(this);
         try {
-            db.insertObjectInDB(book, Book.class);
+            DataBaseSingleton.GetDataBaseSingleton(this).insertObjectInDB(book, Book.class);
         }
         catch (Exception ex) {
             ex.printStackTrace();
         }
 
         try{
-            authorToInsert = db.getAuthorFromName(authorName);
+            authorToInsert = DataBaseSingleton.GetDataBaseSingleton(this).getAuthorFromName(authorName);
             if (authorToInsert == null) {
                 authorToInsert = new Author();
                 authorToInsert.setArtistName(authorName);
@@ -88,12 +87,11 @@ public class BookDetailsActivity extends AppCompatActivity {
         try {
             if (authorToInsert != null) {
                 AuthorBook ab = new AuthorBook(authorToInsert, book);
-                db.insertObjectInDB(ab, AuthorBook.class);
+                DataBaseSingleton.GetDataBaseSingleton(this).insertObjectInDB(ab, AuthorBook.class);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        db.close();
     }
 
     private void initializeView() {
@@ -142,8 +140,7 @@ public class BookDetailsActivity extends AppCompatActivity {
 
         try {
             ReaderBook rb = new ReaderBook(Session.getCurrentUser(), currentBook);
-            ORMSQLiteManager ormsqLiteManager = new ORMSQLiteManager(this);
-            ormsqLiteManager.insertObjectInDB(rb, ReaderBook.class);
+            DataBaseSingleton.GetDataBaseSingleton(this).insertObjectInDB(rb, ReaderBook.class);
             Alert.ShowDialog(this, "Succès", "Ajout réussi à vos lectures");
         } catch (Exception ex) {
             ex.printStackTrace();

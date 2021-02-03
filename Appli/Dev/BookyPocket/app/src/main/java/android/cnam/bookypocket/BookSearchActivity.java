@@ -1,8 +1,10 @@
 package android.cnam.bookypocket;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.ProgressDialog;
 import android.cnam.bookypocket.API.API_GoogleBooks;
-import android.cnam.bookypocket.DBManager.ORMSQLiteManager;
+import android.cnam.bookypocket.DBManager.DataBaseSingleton;
 import android.cnam.bookypocket.DBManager.Session;
 import android.cnam.bookypocket.Model.Author;
 import android.cnam.bookypocket.Model.Book;
@@ -87,8 +89,7 @@ public class BookSearchActivity extends AppCompatActivity implements AdapterView
             else{
                 Alert.ShowDialog(this, "Pas de connexion internet","La recherche de livre est limitée à la base embarquée");
                 String keyword = searchView.getQuery().toString();
-                ORMSQLiteManager manager = new ORMSQLiteManager(this);
-                List<Book> books = manager.getBooksByKeyWord(searchView.getQuery().toString().split(" "));
+                List<Book> books = DataBaseSingleton.GetDataBaseSingleton(this).getBooksByKeyWord(searchView.getQuery().toString().split(" "));
                 if(books != null)
                     if(books.size()>0)
                         Session.setBooks(books);
@@ -140,11 +141,20 @@ public class BookSearchActivity extends AppCompatActivity implements AdapterView
         private List<Book> books;
         private BookSearchActivity it;
         private String keyword;
+        private ProgressDialog dialog;
 
         public CallGoogleBookAPI(BookSearchActivity _it, String _keyword) {
             super();
             it = _it;
             keyword = _keyword;
+            dialog = new ProgressDialog(_it);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            dialog.setMessage("Chargement...");
+            dialog.setIndeterminate(true);
+            dialog.show();
         }
 
         @Override
@@ -154,21 +164,21 @@ public class BookSearchActivity extends AppCompatActivity implements AdapterView
             }catch(Exception ex){
                 ex.printStackTrace();
             }
-
             books = new ArrayList<Book>();
-
             try {
                 books = API_GoogleBooks.Request(keyword, it);
             } catch (Exception ex) {
                 Alert.ShowError(it, "Erreur lors de l'appel à l'api Google Books", "" + ex);
             }
-
             return "";
         }
+
+
 
         @Override
         protected void onPostExecute(String result) {
             try {
+                dialog.dismiss();
                 setBookCollection(books);
                 updateListInterface();
             } catch (Exception ex) {

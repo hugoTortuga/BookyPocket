@@ -1,21 +1,21 @@
 package android.cnam.bookypocket.DBManager;
 
 import android.cnam.bookypocket.Model.*;
+import android.content.Context;
 import android.util.Log;
 
 import java.util.Date;
 
 public class DB_Utils {
 
-    private static ORMSQLiteManager DBManager;
 
-    public static void fillDataBaseWithTests() {
+    public static void fillDataBaseWithTests(Context c) {
         try{
             //On insère des catégories
-            DBManager.insertObjectInDB(new Category("2-4ans", false), Category.class);
-            DBManager.insertObjectInDB(new Category("5-8ans", false), Category.class);
-            DBManager.insertObjectInDB(new Category("9-12ans", false), Category.class);
-            DBManager.insertObjectInDB(new Category("18+ans", true), Category.class);
+            DataBaseSingleton.GetDataBaseSingleton(c).insertObjectInDB(new Category("2-4ans", false), Category.class);
+            DataBaseSingleton.GetDataBaseSingleton(c).insertObjectInDB(new Category("5-8ans", false), Category.class);
+            DataBaseSingleton.GetDataBaseSingleton(c).insertObjectInDB(new Category("9-12ans", false), Category.class);
+            DataBaseSingleton.GetDataBaseSingleton(c).insertObjectInDB(new Category("18+ans", true), Category.class);
 
 
             //On insère 3 auteurs
@@ -29,11 +29,11 @@ public class DB_Utils {
                             "Un meurtre incompréhensible, à moins qu'on ne puisse établir que tous ces voyageurs sont moins étrangers les uns aux autres qu'ils ne veulent bien le prétendre...",
                     1934, 2014, "previewLink", 416, category);
 
-            DBManager.insertObjectInDB(author, Author.class);
-            DBManager.insertObjectInDB(book, Book.class);
+            DataBaseSingleton.GetDataBaseSingleton(c).insertObjectInDB(author, Author.class);
+            DataBaseSingleton.GetDataBaseSingleton(c).insertObjectInDB(book, Book.class);
 
             AuthorBook at = new AuthorBook(author, book);
-            DBManager.insertObjectInDB(at, AuthorBook.class);
+            DataBaseSingleton.GetDataBaseSingleton(c).insertObjectInDB(at, AuthorBook.class);
 
         } catch (Exception ex) {
             Log.e("DATABASE", "Erreur lors des insertions de test : " + ex.getMessage());

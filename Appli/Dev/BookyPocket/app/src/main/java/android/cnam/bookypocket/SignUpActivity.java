@@ -4,16 +4,19 @@ import android.app.Activity;
 import android.cnam.bookypocket.Model.Reader;
 import android.cnam.bookypocket.Utils.Alert;
 import android.cnam.bookypocket.Utils.ChangeActivity;
+import android.cnam.bookypocket.Utils.StringUtil;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.cnam.bookypocket.DBManager.*;
+import android.cnam.bookypocket.DBManager.DataBaseSingleton;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -70,6 +73,7 @@ public class SignUpActivity extends AppCompatActivity {
         String pwdConfirmStr = confirmPassword.getText().toString();
         String lastNameStr = lastName.getText().toString();
         String firstNameStr = firstName.getText().toString();
+        String dob = dateOfBirth.getText().toString();
 
         //On test les valeurs d'entrée
         if(emailStr == null || emailStr.trim().isEmpty()){
@@ -103,16 +107,40 @@ public class SignUpActivity extends AppCompatActivity {
             return null;
         }
 
-        String regex = "^(.+)@(.+)$";
+        if(StringUtil.IsNullOrEmpty(dob)){
+            Alert.ShowDialog(this, "Paramètre non renseigné", "Veuillez remplir votre date de naissance au format AAAA/MM/JJ");
+            return null;
+        }
+        Date dateBirth = null;
+        try{
+            String regexDate = "\\d{4}/\\d{2}/\\d{2}";
+            Pattern pattern = Pattern.compile(regexDate);
+            Matcher matcher = pattern.matcher(dob);
+            if(!matcher.find()){
+                Alert.ShowDialog(this, "Format invalide", "Veuillez remplir votre date de naissance au format AAAA/MM/JJ");
+                return null;
+            }
+            dob.replace('/','-');
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            dateBirth = format.parse(dob);
+        }
+        catch (Exception ex){
 
-        Pattern pattern = Pattern.compile(regex);
+        }
+
+
+
+        String regexEmail = "^(.+)@(.+)$";
+
+        Pattern pattern = Pattern.compile(regexEmail);
         Matcher matcher = pattern.matcher(emailStr);
         if(!matcher.find()){
             Alert.ShowDialog(this, "Paramètre invalide", "L'adresse email n'a pas un format valide");
             return null;
         }
 
-        Reader reader = new Reader(emailStr.trim(), pwdStr.trim(), lastNameStr.trim(), firstNameStr.trim(), null, null);
+
+        Reader reader = new Reader(emailStr.trim(), pwdStr.trim(), lastNameStr.trim(), firstNameStr.trim(), dateBirth, null);
         return reader;
     }
 
@@ -123,9 +151,7 @@ public class SignUpActivity extends AppCompatActivity {
             //TODO appel à l'API
 
             //On insère notre reader
-            ORMSQLiteManager db = new ORMSQLiteManager(this);
-            db.insertObjectInDB(reader, Reader.class);
-            db.close();
+            DataBaseSingleton.GetDataBaseSingleton(this).insertObjectInDB(reader, Reader.class);
 
             Alert.ShowDialog(this, "Succès", "Inscription terminée");
 

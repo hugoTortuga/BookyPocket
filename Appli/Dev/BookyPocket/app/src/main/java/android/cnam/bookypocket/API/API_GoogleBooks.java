@@ -1,6 +1,6 @@
 package android.cnam.bookypocket.API;
 
-import android.cnam.bookypocket.DBManager.ORMSQLiteManager;
+import android.cnam.bookypocket.DBManager.DataBaseSingleton;
 import android.cnam.bookypocket.Model.Author;
 import android.cnam.bookypocket.Model.Book;
 import android.cnam.bookypocket.Model.Category;
@@ -49,8 +49,6 @@ public class API_GoogleBooks {
         JSONObject volumeInfo = item.getJSONObject("volumeInfo");
         String title = volumeInfo.getString("title");
         book.setTitle(title);
-
-        ORMSQLiteManager DB_Manager = new ORMSQLiteManager(context);
         //published date
         try {
             String publishedDate = volumeInfo.getString("publishedDate");
@@ -84,7 +82,7 @@ public class API_GoogleBooks {
             JSONArray categories = volumeInfo.getJSONArray("categories");
             Category categoryRequested = new Category((String) categories.get(0), false);
 
-            Category categoryInDB = DB_Manager.getCategoryByName(categoryRequested.getName());
+            Category categoryInDB = DataBaseSingleton.GetDataBaseSingleton(context).getCategoryByName(categoryRequested.getName());
 
             if (categoryInDB != null) {
                 book.setCategory(categoryInDB);
@@ -131,7 +129,7 @@ public class API_GoogleBooks {
             if(authors != null) {
                 if(authors.length()>0){
                     String authorA = authors.get(0).toString();
-                    Author a = DB_Manager.getAuthorFromName(authorA);
+                    Author a = DataBaseSingleton.GetDataBaseSingleton(context).getAuthorFromName(authorA);
                     if(a == null) {
                         Author newAuthor = new Author();
                         newAuthor.setArtistName(authorA);
@@ -146,7 +144,6 @@ public class API_GoogleBooks {
         catch (Exception ex){
             ex.printStackTrace();
         }
-        DB_Manager.close();
 
         return book;
     }
@@ -180,7 +177,7 @@ public class API_GoogleBooks {
             throw new Exception("Le champ de recherche est vide");
 
         keyword = keyword.replace(' ', '+');
-        JSONObject json = API_GoogleBooks.ReadJsonFromUrl("https://www.googleapis.com/books/v1/volumes?q=" + keyword + " &maxResults=10");
+        JSONObject json = API_GoogleBooks.ReadJsonFromUrl("https://www.googleapis.com/books/v1/volumes?q=" + keyword + " &maxResults=20");
         return JSON_Decryptor(json, context);
     }
 
