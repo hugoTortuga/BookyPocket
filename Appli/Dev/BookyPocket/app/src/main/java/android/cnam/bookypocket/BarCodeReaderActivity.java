@@ -13,23 +13,23 @@ import android.view.SurfaceView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-//import com.google.android.gms.vision.CameraSource;
-//import com.google.android.gms.vision.Detector;
-//import com.google.android.gms.vision.barcode.Barcode;
-//import com.google.android.gms.vision.barcode.BarcodeDetector;
+import com.google.android.gms.vision.CameraSource;
+import com.google.android.gms.vision.Detector;
+import com.google.android.gms.vision.barcode.Barcode;
+import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import java.io.IOException;
 
 public class BarCodeReaderActivity extends AppCompatActivity {
 
     private SurfaceView surfaceView;
-    //private BarcodeDetector barcodeDetector;
-    //private CameraSource cameraSource;
+    private BarcodeDetector barcodeDetector;
+    private CameraSource cameraSource;
     private static final int REQUEST_CAMERA_PERMISSION = 201;
     private TextView barcodeInfo;
     private String barcodeData;
 
-    //private Barcode barcode;
+    private Barcode barcode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +43,7 @@ public class BarCodeReaderActivity extends AppCompatActivity {
 
     private void checkCameraPermission() throws IOException {
         if (ActivityCompat.checkSelfPermission(BarCodeReaderActivity.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-           // cameraSource.start(surfaceView.getHolder());
+            cameraSource.start(surfaceView.getHolder());
         } else {
 
             //request permission
@@ -52,7 +52,7 @@ public class BarCodeReaderActivity extends AppCompatActivity {
         }
     }
     private void scan(){
-        /*barcodeDetector.setProcessor(new Detector.Processor<Barcode>(){
+        barcodeDetector.setProcessor(new Detector.Processor<Barcode>(){
 
             @Override
             public void release() {
@@ -73,15 +73,15 @@ public class BarCodeReaderActivity extends AppCompatActivity {
                 }
             };
 
-        });*/
+        });
     }
 
     private void initialize(){
         //check if scnner activ
         Toast.makeText(getApplicationContext(), "Barcode scanner started", Toast.LENGTH_SHORT).show();
 
-        // barcodeDetector = new BarcodeDetector.Builder(this).setBarcodeFormats(Barcode.ISBN).build();
-        // cameraSource = new CameraSource.Builder(this, barcodeDetector).setRequestedPreviewSize(1920,1080).setAutoFocusEnabled(true).build();
+        barcodeDetector = new BarcodeDetector.Builder(this).setBarcodeFormats(Barcode.ISBN).build();
+        cameraSource = new CameraSource.Builder(this, barcodeDetector).setRequestedPreviewSize(1920,1080).setAutoFocusEnabled(true).build();
         surfaceView.getHolder().addCallback(new SurfaceHolder.Callback(){
 
             @Override
