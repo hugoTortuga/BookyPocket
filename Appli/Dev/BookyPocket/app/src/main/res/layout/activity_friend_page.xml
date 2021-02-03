@@ -1,6 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".Activities.FriendPageActivity">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center">
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="40dp"
+            android:onClick="GoBackFriendPage"
+            android:src="?attr/homeAsUpIndicator" />
+
+        <TextView
+            android:id="@+id/name_friend_page"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:gravity="center_horizontal|center_vertical"
+            android:textSize="24sp" />
+    </RelativeLayout>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_weight="1"
+        android:text="@string/books_of_a_friend"
+        android:gravity="center_horizontal|center_vertical"
+        android:textSize="24sp" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="20"/>
+
+</LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

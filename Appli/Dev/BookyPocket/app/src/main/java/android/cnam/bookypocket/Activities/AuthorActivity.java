@@ -39,7 +39,6 @@ public class AuthorActivity extends AppCompatActivity implements AdapterView.OnI
                 found_list.setAdapter(ca);
                 found_list.setOnItemClickListener(this);
             }
-
         }
         catch (Exception ex){
             Alert.ShowError(this, "Erreur" ,""+ ex);
