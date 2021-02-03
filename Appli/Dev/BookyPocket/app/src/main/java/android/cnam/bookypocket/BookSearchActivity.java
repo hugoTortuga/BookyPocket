@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.cnam.bookypocket.API.API_GoogleBooks;
 import android.cnam.bookypocket.DBManager.ORMSQLiteManager;
 import android.cnam.bookypocket.DBManager.Session;
+import android.cnam.bookypocket.Model.Author;
 import android.cnam.bookypocket.Model.Book;
 import android.cnam.bookypocket.Utils.Alert;
 import android.cnam.bookypocket.Utils.ChangeActivity;
@@ -12,11 +13,8 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Looper;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SearchView;
 import java.util.ArrayList;
@@ -33,7 +31,7 @@ public class BookSearchActivity extends AppCompatActivity implements AdapterView
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.book_search);
+        setContentView(R.layout.activity_book_search);
 
         searchView = (SearchView) findViewById(R.id.search_book_button);
 
@@ -113,6 +111,12 @@ public class BookSearchActivity extends AppCompatActivity implements AdapterView
             Intent intent = new Intent(this, BookDetailsActivity.class);
             Book bookToSend = books_list.get(position);
             intent.putExtra("book", bookToSend);
+            if(bookToSend.getAuthor() != null){
+                Author authorToSend = bookToSend.getAuthor();
+                intent.putExtra("author", bookToSend.getAuthor().getArtistName());
+                intent.putExtra("authorOb",authorToSend);
+            }
+
             this.startActivity(intent);
         }
         catch (Exception ex){

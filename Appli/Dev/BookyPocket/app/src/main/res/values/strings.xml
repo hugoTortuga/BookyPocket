@@ -19,6 +19,7 @@
     <string name="home_button_registerBook">Register a new book</string>
     <string name="home_button_manageAccount">Manage my account</string>
     <string name="find_book_button">Find a book</string>
+    <string name="text_my_friends">My friends</string>
 
     <!-- READINGS ACTIVITY-->
     <string name="readings_textView">My readings</string>
@@ -88,6 +89,7 @@
     <string name="search_button">Search</string>
     <string name="find_book_title">Find your book</string>
     <string name="description_livre">Description</string>
+
 
 
 </resources>

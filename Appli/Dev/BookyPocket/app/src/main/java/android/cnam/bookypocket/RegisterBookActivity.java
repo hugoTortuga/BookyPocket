@@ -179,4 +179,7 @@ public class RegisterBookActivity extends AppCompatActivity {
 
     }
 
+    public void GoHome(View view) {
+        ChangeActivity.ChangeActivity(this, MainActivity.class);
+    }
 }

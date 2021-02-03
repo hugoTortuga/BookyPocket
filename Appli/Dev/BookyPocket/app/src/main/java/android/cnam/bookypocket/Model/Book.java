@@ -24,14 +24,26 @@ public class Book implements Parcelable {
     @DatabaseField
     private int yearEdition;
 
+
+
     @DatabaseField
     private String previewLink;
     @DatabaseField
     private int nbPages;
     @DatabaseField(canBeNull = true, foreign = true, foreignColumnName = "id", foreignAutoCreate = true)
-    public Category category;
+    private Category category;
     @DatabaseField(canBeNull = true, foreign = true, foreignColumnName = "id", foreignAutoCreate = true)
-    public Photo photo;
+    private Photo photo;
+    @DatabaseField(canBeNull = true, foreign = true, foreignColumnName = "id", foreignAutoCreate = true)
+    private Author author;
+
+    public Author getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
+    }
 
     public Photo getPhoto() { return photo; }
 
@@ -136,6 +148,7 @@ public class Book implements Parcelable {
         previewLink = in.readString();
         category = (Category) in.readParcelable(Category.class.getClassLoader());
         photo = (Photo) in.readParcelable(Photo.class.getClassLoader());
+        //author = (Author) in.readParcelable(Author.class.getClassLoader());
     }
 
     public static final Creator<Book> BOOK = new Creator<Book>() {
@@ -179,5 +192,6 @@ public class Book implements Parcelable {
         dest.writeString(previewLink);
         dest.writeParcelable(category, flags);
         dest.writeParcelable(photo, flags);
+        //dest.writeParcelable(author, flags);
     }
 }

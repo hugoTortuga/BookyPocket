@@ -18,12 +18,13 @@
     <string name="home_button_seeReadings">Consulter mes lectures</string>
     <string name="home_button_registerBook">Saisir un nouvel ouvrage</string>
     <string name="home_button_manageAccount">Gérer mon compte</string>
+    <string name="text_my_friends">Mes ami(e)s</string>
 
     <!-- READINGS ACTIVITY-->
     <string name="readings_textView">Mes lectures</string>
     <string name="readings_title">Test in a test</string>
     <string name="readings_author">Test TEST</string>
-    <string name="add_a_book_to_my_readings">Ajouter livre à mes lectures</string>
+    <string name="add_a_book_to_my_readings">Ajouter un livre à mes lectures</string>
 
     <!-- REGISTER ACTIVITY-->
     <string name="registerNewBookText">Enregistrer un ouvrage</string>

@@ -104,12 +104,15 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/details_authorValue"
+                android:id="@+id/details_author_value"
                 android:layout_width="match_parent"
                 android:layout_height="43dp"
+                android:clickable="true"
+                android:onClick="GoToAuthorPage"
                 android:paddingLeft="30dp"
+
                 android:paddingTop="10dp"
-                android:text="@string/details_authorValue" />
+                android:textColor="#162780" />
 
             <View
                 android:id="@+id/divider3"
@@ -144,8 +147,7 @@
                     android:minHeight="70dp"
                     android:layout_height="70dp"
                     android:paddingLeft="30dp"
-                    android:paddingTop="10dp"
-                    android:text="@string/details_publicationYearValue" />
+                    android:paddingTop="10dp" />
             </ScrollView>
 
 

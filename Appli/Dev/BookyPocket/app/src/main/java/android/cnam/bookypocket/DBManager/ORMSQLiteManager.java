@@ -19,7 +19,7 @@ import android.cnam.bookypocket.Model.*;
 public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
 
     private static final String DB_NAME = "bookypocket.db";
-    private static final int DB_VERSION = 3;
+    private static final int DB_VERSION = 4;
 
     public ORMSQLiteManager(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -185,9 +185,47 @@ public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
         return booksFound;
     }
 
+    public List<Author> getAuthorsFromBook(int book_id) throws SQLException {
+        List<AuthorBook> authorBooks = new ArrayList<>();
+        Dao<AuthorBook, Integer> dao = getDao(AuthorBook.class);
+        authorBooks = (List<AuthorBook>) dao.queryBuilder().where().in("book_id", book_id).query();
+
+        List<Author> authors = new ArrayList<>();
+        for (AuthorBook rb: authorBooks) {
+            authors.add(rb.getAuthor());
+        }
+        return authors;
+    }
+
+
     public boolean doesBookExistInDB(Book book){
 
         // TODO
         return true;
+    }
+
+    public Author getAuthorFromName(String artistName) throws SQLException {
+        Author author = null;
+        Dao<Author, Integer> dao = getDao(Author.class);
+        author = (Author) dao.queryBuilder().where().eq("artistName", artistName).queryForFirst();
+        return author;
+    }
+
+    public int getIdAuthorByArtistName(String artistName) throws SQLException {
+        Dao<Author, Integer> dao = getDao(Author.class);
+        Author a = (Author) dao.queryBuilder().where().eq("artistName", artistName).queryForFirst();
+        return a.getId();
+    }
+
+    public List<Book> getBooksByAuthorArtistName(String authorParam) throws SQLException {
+        List<AuthorBook> autBook = new ArrayList<>();
+        Dao<AuthorBook, Integer> dao = getDao(AuthorBook.class);
+        autBook = (List<AuthorBook>) dao.queryBuilder().where().in("author_id", getIdAuthorByArtistName(authorParam)).query();
+
+        List<Book> booksFound = new ArrayList<>();
+        for (AuthorBook rb: autBook) {
+            booksFound.add(rb.getBook());
+        }
+        return booksFound;
     }
 }
