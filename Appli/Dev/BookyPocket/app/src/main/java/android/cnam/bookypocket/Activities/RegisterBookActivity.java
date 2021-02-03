@@ -9,6 +9,7 @@ import android.cnam.bookypocket.Model.*;
 import android.cnam.bookypocket.R;
 import android.cnam.bookypocket.Utils.Alert;
 import android.cnam.bookypocket.Utils.ChangeActivity;
+import android.cnam.bookypocket.Utils.Network;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -50,12 +51,32 @@ public class RegisterBookActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register_book);
         context = this;
         InitializeViewComponents();
-
-        Intent intent = getIntent();
-
-        getISBNFromIntent = intent.getStringExtra("ISBN");
+        getISBNFromIntent = getIntent().getStringExtra("ISBN");
+        try {
+            if(getBookFromScan() == null){
+                Alert.ShowDialog(this, "Echec", "Le livre n'est pas disponible. Veuillez saisir les informations.");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
+    private Book getBookFromScan() throws SQLException {
+        //CHeck if connected
+        if(Network.isNetworkAvailable(this)) {
+            Book book = DataBaseSingleton.GetDataBaseSingleton(context).getBookByISBN(getISBNFromIntent);
+            if (book != null) {
+                System.out.println("*****************************************BOOK TITLE******************************** " + book.getTitle());
+                this.titleValue.setText(book.getTitle());
+                System.out.println("*****************************************BOOK TITLE VALUE******************************** " + this.titleValue.getText());
+                //multiple values maybe
+                //this.authorValue.setText(book.getAuthor());
+                this.publicationYearValue.setText(book.getYearPublication());
+                return book;
+            }
+        }
+        return null;
+    }
 
     private void InitializeViewComponents(){
         //details of the book to register
@@ -79,6 +100,14 @@ public class RegisterBookActivity extends AppCompatActivity {
             }
         });
 
+        if(getISBNFromIntent != null){
+            try {
+                getBookFromScan();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+
         addBookButton = findViewById(R.id.register_addButton);
         RegisterBook();
     }
@@ -88,9 +117,10 @@ public class RegisterBookActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 System.out.println("******************************ISBN******************************" + getISBNFromIntent);
+
                 try {
 
-                    Book book = getInfoBookFromForm();
+                    Book book = getInfoBookFromForm(getBookFromScan());
                     if(book == null)
                         return;
 
@@ -120,8 +150,13 @@ public class RegisterBookActivity extends AppCompatActivity {
         });
     }
 
-    private Book getInfoBookFromForm() {
-        Book b = new Book();
+    private Book getInfoBookFromForm(Book scannedBook) {
+        Book b ;
+        if(scannedBook != null){
+            b = scannedBook;
+        } else{
+            b = new Book();
+        }
         if(title == null || title.trim().equals("")){
             Alert.ShowDialog(this, "Information manquante", "Le titre n'est pas renseigné");
             return null;
@@ -170,13 +205,7 @@ public class RegisterBookActivity extends AppCompatActivity {
         }
     }
 
-    private Book getBookFromScan() throws SQLException {
-        Book book = DataBaseSingleton.GetDataBaseSingleton(context).getBookByISBN(getISBNFromIntent);
-        if(book != null){
-            return book;
-        }
-        return null;
-    }
+
 
     private void onItemSelectedHandlerCategory(AdapterView<?> adapterView, View view, int position, long id) {
         Adapter adapter = adapterView.getAdapter();

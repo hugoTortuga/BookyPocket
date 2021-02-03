@@ -55,6 +55,11 @@
     <string name="add_to_my_readings">Ajouter à mes lectures</string>
     <string name="see_preview_link">Aller à la page d\'aperçu</string>
 
+    <!-- BARCODE READER ACTIVITY -->
+    <string name="scanBookText">Scanner un livre</string>
+    <string name="isbn">ISBN : </string>
+    <string name="stopScanButton">Arrêter le scan</string>
+
     <!-- MANAGE ACCOUNT ACTIVITY-->
     <string name="manage_changePhotoButton">Changer ma photo</string>
     <string name="manage_lastName">Nom</string>

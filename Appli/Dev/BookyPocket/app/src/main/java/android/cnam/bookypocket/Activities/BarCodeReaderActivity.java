@@ -13,6 +13,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +22,7 @@ import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class BarCodeReaderActivity extends AppCompatActivity{
 
@@ -31,6 +34,7 @@ public class BarCodeReaderActivity extends AppCompatActivity{
     private CameraSource cameraSource;
     private static final int REQUEST_CAMERA_PERMISSION = 201;
     private TextView barcodeInfo;
+    private Button stopScanButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,17 +42,16 @@ public class BarCodeReaderActivity extends AppCompatActivity{
         setContentView(R.layout.activity_bar_code_reader);
         surfaceView = findViewById(R.id.surface_view);
         barcodeInfo = findViewById(R.id.barcode_text);
+        stopScanButton = findViewById(R.id.stopScanButton);
 
         //Instantiate codeBarReader
         barCodeReader = new BarCodeReader();
 
         //Check if Barcode Detector is available on the user system
         if(barCodeReader.isBarcodeDetectorOperational(this)){
-            barcodeInfo.setText("Sorry, Couldn't setup the detector");
             Toast.makeText(getApplicationContext(), "Sorry, Couldn't setup the detector", Toast.LENGTH_LONG).show();
             this.finish();
         } else{
-            barcodeInfo.setText("Detector is operational");
             Toast.makeText(getApplicationContext(), "Detector is operational", Toast.LENGTH_LONG).show();
         }
 
@@ -82,10 +85,13 @@ public class BarCodeReaderActivity extends AppCompatActivity{
             }
         });
 
-        Intent data = new Intent(this, RegisterBookActivity.class);
-        data.putExtra("ISBN", barCodeReader.getBarcodeData());
-        this.setResult(AppCompatActivity.RESULT_OK, data);
-        this.finish();
+        stopScanButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stopScanAndGoRegister(v);
+            }
+        });
+
     }
 
     private void checkCameraPermission() throws IOException {
@@ -96,6 +102,20 @@ public class BarCodeReaderActivity extends AppCompatActivity{
             ActivityCompat.requestPermissions(BarCodeReaderActivity.this, new
                     String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA_PERMISSION);
         }
+    }
+
+    private void stopScanAndGoRegister(View view){
+        Intent data = new Intent(this, RegisterBookActivity.class);
+        System.out.println("******************************ISBN FROM SCAN******************************" +barcodeInfo.getText());
+
+        data.putExtra("ISBN", barcodeInfo.getText());
+        this.setResult(AppCompatActivity.RESULT_OK, data);
+        this.finish();
+        this.startActivity(data);
+    }
+
+    public void GoBack(View view) {
+        this.finish();
     }
 
 }
