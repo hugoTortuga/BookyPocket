@@ -7,6 +7,7 @@ import androidx.core.app.ActivityCompat;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -26,6 +27,7 @@ public class BarCodeReaderActivity extends AppCompatActivity{
 
     private SurfaceView surfaceView;
     private BarcodeDetector barcodeDetector;
+
     private CameraSource cameraSource;
     private static final int REQUEST_CAMERA_PERMISSION = 201;
     private TextView barcodeInfo;
@@ -42,27 +44,41 @@ public class BarCodeReaderActivity extends AppCompatActivity{
 
         barcodeDetector = new BarcodeDetector.Builder(this).setBarcodeFormats(Barcode.ISBN).build();
 
+        if(!barcodeDetector.isOperational()){
+            barcodeInfo.setText("Sorry, Couldn't setup the detector");
+            Toast.makeText(getApplicationContext(), "Sorry, Couldn't setup the detector", Toast.LENGTH_LONG).show();
+            this.finish();
+        } else {
+            barcodeInfo.setText("Detector is operational");
+            Toast.makeText(getApplicationContext(), "Detector is operational", Toast.LENGTH_LONG).show();
+        }
+
+        cameraSource = new CameraSource.Builder(getApplicationContext(), barcodeDetector).setFacing(CameraSource.CAMERA_FACING_BACK).
+                setRequestedPreviewSize(1024,1024).setAutoFocusEnabled(true)
+                .build();
+
         surfaceView.getHolder().addCallback(new SurfaceHolder.Callback(){
 
-            @Override
-            public void surfaceCreated(@NonNull SurfaceHolder holder) {
-                try {
-                    checkCameraPermission();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                @Override
+                public void surfaceCreated(@NonNull SurfaceHolder holder) {
+                    try {
+                        checkCameraPermission();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        Log.e("CAMERA SOURCE", e.getMessage());
+                    }
                 }
-            }
 
-            @Override
-            public void surfaceChanged(@NonNull SurfaceHolder holder, int format, int width, int height) {
+                @Override
+                public void surfaceChanged(@NonNull SurfaceHolder holder, int format, int width, int height) {
 
-            }
+                }
 
-            @Override
-            public void surfaceDestroyed(@NonNull SurfaceHolder holder) {
-
-            }
-        });
+                @Override
+                public void surfaceDestroyed(@NonNull SurfaceHolder holder) {
+                    cameraSource.stop();
+                }
+            });
 
         barcodeDetector.setProcessor(new FocusingProcessor<Barcode>(barcodeDetector, new Tracker<Barcode>()) {
 
@@ -73,16 +89,37 @@ public class BarCodeReaderActivity extends AppCompatActivity{
 
             @Override
             public void receiveDetections(Detector.Detections<Barcode> detections) {
-                final SparseArray<Barcode> barcodes = detections.getDetectedItems();
-                if (barcodes.size() != 0) {
-                    barcodeInfo.post(new Runnable() {
 
-                        @Override
+                final SparseArray<Barcode> barcodes = detections.getDetectedItems();
+
+                if (barcodes.size() != 0) {
+                    barcodeInfo.post(new Runnable() {    // Use the post method of the TextView
                         public void run() {
-                            barcodeInfo.setText(barcodes.valueAt(0).displayValue);
+                            barcodeInfo.setText(    // Update the TextView
+                                    barcodes.valueAt(0).displayValue
+                            );
                         }
                     });
                 }
+                //TEST 2
+//                final SparseArray<Barcode> barcodes = detections.getDetectedItems();
+//                if (barcodes.size() > 0) {
+//                    barcodeInfo.setText(barcodes.valueAt(0).displayValue);
+//                }
+                //TEST 3
+//                final SparseArray<Barcode> barcodes = detections.getDetectedItems();
+//                if (barcodes.size() != 0) {
+//                    barcodeInfo.post(new Runnable() {
+//
+//                        @Override
+//                        public void run() {
+//                            barcodeInfo.setText(barcodes.valueAt(0).displayValue);
+//                        }
+//                    });
+//                } else {
+//                    barcodeInfo.setText("No data available");
+//
+//                }
             }
 
             @Override
@@ -92,9 +129,7 @@ public class BarCodeReaderActivity extends AppCompatActivity{
 
         });
 
-        cameraSource = new CameraSource.Builder(getApplicationContext(), barcodeDetector).
-                setRequestedPreviewSize(1024,1024).setAutoFocusEnabled(true)
-                .build();
+
     }
 
     private void checkCameraPermission() throws IOException {
