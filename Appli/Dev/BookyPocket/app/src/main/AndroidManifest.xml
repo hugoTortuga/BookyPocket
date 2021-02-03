@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="android.cnam.bookypocket">
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -20,7 +21,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".BarCodeReaderActivity"></activity>
         <activity android:name=".ManageAccountActivity" />
         <activity android:name=".BookyMapTestActivity" />
         <!--
@@ -39,6 +39,8 @@
             android:value="barcode" />
 
         <activity android:name=".BookDetailsActivity" />
+        <activity android:name=".BarCodeReaderActivity"
+            tools:ignore="DuplicateActivity" />
         <activity android:name=".RegisterBookActivity" />
         <activity android:name=".SignUpActivity" />
         <activity
