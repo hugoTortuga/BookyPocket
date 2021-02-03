@@ -42,7 +42,7 @@ public class BarCodeReaderActivity extends AppCompatActivity{
         surfaceView = findViewById(R.id.surface_view);
         barcodeInfo = findViewById(R.id.barcode_text);
 
-        barcodeDetector = new BarcodeDetector.Builder(this).setBarcodeFormats(Barcode.ISBN).build();
+        barcodeDetector = new BarcodeDetector.Builder(this).setBarcodeFormats(Barcode.EAN_13).build();
 
         if(!barcodeDetector.isOperational()){
             barcodeInfo.setText("Sorry, Couldn't setup the detector");
@@ -101,6 +101,7 @@ public class BarCodeReaderActivity extends AppCompatActivity{
                         }
                     });
                 }
+
                 //TEST 2
 //                final SparseArray<Barcode> barcodes = detections.getDetectedItems();
 //                if (barcodes.size() > 0) {
