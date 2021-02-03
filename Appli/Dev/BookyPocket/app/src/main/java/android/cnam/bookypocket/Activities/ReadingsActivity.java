@@ -60,7 +60,7 @@ public class ReadingsActivity extends AppCompatActivity implements AdapterView.O
     }
 
     public void updateListInterface(){
-        CustomAdapter ca = new CustomAdapter(this, (ArrayList<Book>) books);
+        CustomBookAdapter ca = new CustomBookAdapter(this, (ArrayList<Book>) books);
         found_list.setAdapter(ca);
         found_list.setOnItemClickListener(this);
     }

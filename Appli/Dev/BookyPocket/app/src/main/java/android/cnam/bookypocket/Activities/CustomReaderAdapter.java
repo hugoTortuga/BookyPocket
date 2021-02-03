@@ -2,8 +2,8 @@ package android.cnam.bookypocket.Activities;
 
 import android.app.Activity;
 import android.cnam.bookypocket.Model.Book;
+import android.cnam.bookypocket.Model.Reader;
 import android.cnam.bookypocket.R;
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.DisplayMetrics;
@@ -19,17 +19,13 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
-/**
- * Adapter pour ma liste de livre
- * j'ai un libelle et une image par livre
- */
-public class CustomAdapter extends ArrayAdapter<Book> {
+public class CustomReaderAdapter extends ArrayAdapter<Reader> {
 
-    ArrayList<Book> dataSet;
+    ArrayList<Reader> dataSet;
     Activity mContext;
 
-    public CustomAdapter(@NonNull Activity context, ArrayList<Book> dataSet) {
-        super(context, R.layout.book_item_list, dataSet);
+    public CustomReaderAdapter(@NonNull Activity context, ArrayList<Reader> dataSet) {
+        super(context, R.layout.reader_list_item, dataSet);
         this.dataSet = dataSet;
         this.mContext = context;
     }
@@ -43,21 +39,21 @@ public class CustomAdapter extends ArrayAdapter<Book> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        Book book = getItem(position);
+        Reader reader = getItem(position);
         ViewHolder viewHolder = new ViewHolder();
         if (convertView == null) {
 
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.book_item_list, parent, false);
-            viewHolder.txtNom = convertView.findViewById(R.id.text_book_item_list);
-            viewHolder.image = convertView.findViewById(R.id.img_book_item_list);
+            convertView = inflater.inflate(R.layout.reader_list_item, parent, false);
+            viewHolder.txtNom = convertView.findViewById(R.id.text_reader_item_list);
+            viewHolder.image = convertView.findViewById(R.id.img_reader_item_list);
             convertView.setTag(viewHolder);
         } else {
             convertView.getTag();
         }
 
-        if (book.getPhoto() != null) {
-            byte[] chartData = book.getPhoto().getImage();
+        if (reader.getAvatar() != null) {
+            byte[] chartData = reader.getAvatar().getImage();
             Bitmap bm = BitmapFactory.decodeByteArray(chartData, 0, chartData.length);
             DisplayMetrics dm = new DisplayMetrics();
             mContext.getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -69,15 +65,19 @@ public class CustomAdapter extends ArrayAdapter<Book> {
                     viewHolder.image.setMinimumWidth(dm.widthPixels);
                     viewHolder.image.setImageBitmap(bm);
                 }
-
+        }
+        else{
+            if(viewHolder != null)
+                if (viewHolder.image != null)
+                    viewHolder.image.setImageResource(R.drawable.user);
         }
 
 
-        if (book != null)
-            if (book.getTitle() != null)
+        if (reader != null)
+            if (reader.getFirstName() != null)
                 if (viewHolder != null)
                     if (viewHolder.txtNom != null)
-                        viewHolder.txtNom.setText(book.getTitle());
+                        viewHolder.txtNom.setText(reader.getFirstName());
 
         return convertView;
     }

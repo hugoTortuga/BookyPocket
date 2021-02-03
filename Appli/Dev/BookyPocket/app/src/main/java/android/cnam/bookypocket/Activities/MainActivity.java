@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private Button seeReadingsButton;
     private Button registerBookButton;
     private ImageButton manageAccountButton;
+    private Button friendsButton;
     private Button findBookButton;
 
     //private User user;
@@ -71,6 +72,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 ChangeActivity.ChangeActivity(view.getContext(),BookSearchActivity.class);
+            }
+        });
+        friendsButton = (Button) findViewById(R.id.home_button_friend);
+        friendsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ChangeActivity.ChangeActivity(view.getContext(), FriendsActivity.class);
             }
         });
     }

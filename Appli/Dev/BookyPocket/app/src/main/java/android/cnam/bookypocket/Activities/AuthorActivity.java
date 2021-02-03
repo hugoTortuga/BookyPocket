@@ -34,9 +34,8 @@ public class AuthorActivity extends AppCompatActivity implements AdapterView.OnI
             if(!StringUtil.IsNullOrEmpty(authorParam)){
 
                 books_list =  DataBaseSingleton.GetDataBaseSingleton(this).getBooksByAuthorArtistName(authorParam);
-
                 found_list = (ListView) findViewById(R.id.found_list_book_author);
-                CustomAdapter ca = new CustomAdapter(this, (ArrayList<Book>) books_list);
+                CustomBookAdapter ca = new CustomBookAdapter(this, (ArrayList<Book>) books_list);
                 found_list.setAdapter(ca);
                 found_list.setOnItemClickListener(this);
             }
@@ -47,9 +46,6 @@ public class AuthorActivity extends AppCompatActivity implements AdapterView.OnI
         }
 
     }
-
-
-
     public void GoBackActivity(View view) {
         this.finish();
     }

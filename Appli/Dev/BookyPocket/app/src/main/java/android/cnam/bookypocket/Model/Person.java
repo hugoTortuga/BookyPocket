@@ -1,11 +1,18 @@
 package android.cnam.bookypocket.Model;
 
+import android.cnam.bookypocket.R;
+import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.util.Date;
 
 @DatabaseTable(tableName = "Person")
@@ -66,7 +73,7 @@ public class Person implements Parcelable {
     public Person() {
     }
 
-    public Person(String lastName, String firstName, Date dateOfBirth, Photo avatar){
+    public Person(String lastName, String firstName, Date dateOfBirth, Photo avatar) {
         this.lastName = lastName;
         this.firstName = firstName;
         this.dateOfBirth = dateOfBirth;

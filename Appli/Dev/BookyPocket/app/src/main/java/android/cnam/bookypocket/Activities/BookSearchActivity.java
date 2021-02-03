@@ -61,7 +61,7 @@ public class BookSearchActivity extends AppCompatActivity implements AdapterView
         if(bookInSession != null){
             if(bookInSession.size() > 0){
                 books_list = bookInSession;
-                CustomAdapter ca = new CustomAdapter(this, (ArrayList<Book>) books_list);
+                CustomBookAdapter ca = new CustomBookAdapter(this, (ArrayList<Book>) books_list);
                 //adapter=new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, livres);
                 found_list.setAdapter(ca);
                 found_list.setOnItemClickListener(this);
