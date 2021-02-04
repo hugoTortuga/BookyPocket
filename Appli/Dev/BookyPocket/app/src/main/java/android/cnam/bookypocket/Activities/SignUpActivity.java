@@ -5,6 +5,7 @@ import android.cnam.bookypocket.Model.Reader;
 import android.cnam.bookypocket.R;
 import android.cnam.bookypocket.Utils.Alert;
 import android.cnam.bookypocket.Utils.ChangeActivity;
+import android.cnam.bookypocket.Utils.CheckForm;
 import android.cnam.bookypocket.Utils.StringUtil;
 import android.content.Context;
 import android.os.Bundle;
@@ -114,19 +115,10 @@ public class SignUpActivity extends AppCompatActivity {
         }
         Date dateBirth = null;
         try{
-            String regexDate = "\\d{4}/\\d{2}/\\d{2}";
-            Pattern pattern = Pattern.compile(regexDate);
-            Matcher matcher = pattern.matcher(dob);
-            if(!matcher.find()){
-                Alert.ShowDialog(this, "Format invalide", "Veuillez remplir votre date de naissance au format AAAA/MM/JJ");
-                return null;
-            }
-            dob.replace('/','-');
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-            dateBirth = format.parse(dob);
+            dateBirth = CheckForm.CheckAndCastStringToDate(dob,this);
         }
         catch (Exception ex){
-
+            ex.printStackTrace();
         }
         String regexEmail = "^(.+)@(.+)$";
 

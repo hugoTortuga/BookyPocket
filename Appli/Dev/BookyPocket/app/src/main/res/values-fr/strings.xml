@@ -95,4 +95,8 @@
     <string name="find_book_title">Rechercher un ouvrage</string>
     <string name="description_livre">Description</string>
 
+    <string name="add_a_friend">Ajouter un ami</string>
+    <string name="serach_friends_title">Ajouter un ami</string>
+    <string name="books_of_a_friend">Les livres de mon ami</string>
+
 </resources>

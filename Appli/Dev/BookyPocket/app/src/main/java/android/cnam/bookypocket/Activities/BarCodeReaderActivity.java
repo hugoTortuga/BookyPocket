@@ -5,11 +5,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.app.ProgressDialog;
+import android.cnam.bookypocket.API.API_GoogleBooks;
+import android.cnam.bookypocket.Model.Book;
 import android.cnam.bookypocket.R;
+import android.cnam.bookypocket.Utils.Alert;
 import android.cnam.bookypocket.Utils.BarCodeReader;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Looper;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -22,7 +28,8 @@ import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import java.io.IOException;
-import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BarCodeReaderActivity extends AppCompatActivity{
 
@@ -117,5 +124,6 @@ public class BarCodeReaderActivity extends AppCompatActivity{
     public void GoBack(View view) {
         this.finish();
     }
+
 
 }

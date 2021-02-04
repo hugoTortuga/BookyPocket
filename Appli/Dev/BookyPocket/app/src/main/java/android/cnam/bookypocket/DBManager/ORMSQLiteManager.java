@@ -19,7 +19,7 @@ import android.cnam.bookypocket.Model.*;
 public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
 
     private static final String DB_NAME = "bookypocket.db";
-    private static final int DB_VERSION = 4;
+    private static final int DB_VERSION = 5;
 
     public ORMSQLiteManager(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -44,6 +44,7 @@ public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
             TableUtils.createTableIfNotExists(connectionSource, LibraryBook.class);
             TableUtils.createTableIfNotExists(connectionSource, ReaderBook.class);
             TableUtils.createTableIfNotExists(connectionSource, PhotoBook.class);
+            TableUtils.createTableIfNotExists(connectionSource, ReaderFriend.class);
             Log.i("DATABASE", "Création de la base de données réussie");
         } catch (Exception ex) {
             Log.e("DATABASE", "Erreur lors de la création de la base" + ex.getMessage());
@@ -58,6 +59,7 @@ public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
     public void onUpgrade(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion, int newVersion) {
         try {
             //Un peu extrême à changer plus tard
+            /*
             TableUtils.dropTable(connectionSource, Category.class, true);
             TableUtils.dropTable(connectionSource, Photo.class, true);
             TableUtils.dropTable(connectionSource, Book.class, true);
@@ -70,6 +72,7 @@ public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
             TableUtils.dropTable(connectionSource, LibraryBook.class, true);
             TableUtils.dropTable(connectionSource, ReaderBook.class, true);
             TableUtils.dropTable(connectionSource, PhotoBook.class, true);
+            */
 
             onCreate(database, connectionSource);
         } catch (Exception ex) {
@@ -236,6 +239,18 @@ public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
             booksFound.add(rb.getBook());
         }
         return booksFound;
+    }
+
+    public List<Reader> GetFriendsByReader(int idPerson) throws SQLException {
+        List<Reader> friends = new ArrayList<>();
+        List<ReaderFriend> rbs = new ArrayList<>();
+        Dao<ReaderFriend, Integer> dao = getDao(ReaderFriend.class);
+        rbs =(List<ReaderFriend>) dao.queryBuilder().where().eq("reader_id",idPerson).query();
+        for (ReaderFriend rbook : rbs){
+            friends.add(rbook.getFriend());
+        }
+        return friends;
+
     }
 
 

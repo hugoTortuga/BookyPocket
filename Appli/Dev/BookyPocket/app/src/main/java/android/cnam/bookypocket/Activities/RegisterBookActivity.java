@@ -2,6 +2,8 @@ package android.cnam.bookypocket.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
+import android.cnam.bookypocket.API.API_GoogleBooks;
 import android.cnam.bookypocket.DBManager.DataBaseSingleton;
 import android.cnam.bookypocket.DBManager.ORMSQLiteManager;
 import android.cnam.bookypocket.DBManager.Session;
@@ -10,9 +12,12 @@ import android.cnam.bookypocket.R;
 import android.cnam.bookypocket.Utils.Alert;
 import android.cnam.bookypocket.Utils.ChangeActivity;
 import android.cnam.bookypocket.Utils.Network;
+import android.cnam.bookypocket.Utils.StringUtil;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Looper;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.AdapterView;
@@ -42,52 +47,50 @@ public class RegisterBookActivity extends AppCompatActivity {
     private Context context;
 
     private  String getISBNFromIntent;
-    //will be fulled with model data
-
+    private Book currentBook;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_book);
         context = this;
+
         InitializeViewComponents();
+
         getISBNFromIntent = getIntent().getStringExtra("ISBN");
-        try {
-            if(getBookFromScan() == null){
-                Alert.ShowDialog(this, "Echec", "Le livre n'est pas disponible. Veuillez saisir les informations.");
+
+        if(!StringUtil.IsNullOrEmpty(getISBNFromIntent)){
+            try {
+                getBookFromScan();
+            } catch (Exception throwables) {
+                throwables.printStackTrace();
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
         }
     }
 
-    private Book getBookFromScan() throws SQLException {
+    private void getBookFromScan() throws Exception {
         //CHeck if connected
         if(Network.isNetworkAvailable(this)) {
             Book book = DataBaseSingleton.GetDataBaseSingleton(context).getBookByISBN(getISBNFromIntent);
             if (book != null) {
-                System.out.println("*****************************************BOOK TITLE******************************** " + book.getTitle());
                 this.titleValue.setText(book.getTitle());
-                System.out.println("*****************************************BOOK TITLE VALUE******************************** " + this.titleValue.getText());
                 //multiple values maybe
                 //this.authorValue.setText(book.getAuthor());
                 this.publicationYearValue.setText(book.getYearPublication());
-                return book;
+                updateInterface(book);
+            }
+            else{
+                CallGoogleBookAPI task = new CallGoogleBookAPI(this, getISBNFromIntent);
+                task.execute();
             }
         }
-        return null;
     }
 
     private void InitializeViewComponents(){
-        //details of the book to register
+
         titleValue = (EditText)findViewById(R.id.register_titleValue);
-        this.title = titleValue.getText().toString();
-
         authorValue = (EditText)findViewById(R.id.register_authorValue);
-        this.author = authorValue.getText().toString();
-
         publicationYearValue = (EditText)findViewById(R.id.register_publicationYearValue);
-        this.publicationYear = publicationYearValue.getText().toString();
 
         createCategorySpinner();
 
@@ -105,6 +108,8 @@ public class RegisterBookActivity extends AppCompatActivity {
                 getBookFromScan();
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
 
@@ -120,19 +125,17 @@ public class RegisterBookActivity extends AppCompatActivity {
 
                 try {
 
-                    Book book = getInfoBookFromForm(getBookFromScan());
-                    if(book == null)
+                    if(currentBook == null)
                         return;
 
                     Reader reader = Session.getCurrentUser();
 
-                    ReaderBook readerBook = new ReaderBook(reader, book);
+                    ReaderBook readerBook = new ReaderBook(reader, currentBook);
 
                     if(reader != null){
                         //On insère notre reader
-                        DataBaseSingleton.GetDataBaseSingleton(context).insertObjectInDB(book, Book.class);
+                        DataBaseSingleton.GetDataBaseSingleton(context).insertObjectInDB(currentBook, Book.class);
                         DataBaseSingleton.GetDataBaseSingleton(context).insertObjectInDB(readerBook, ReaderBook.class);
-                        DataBaseSingleton.GetDataBaseSingleton(context).close();
                         Alert.ShowDialog(context, "Succès", "Livre enregistré");
                     }
 
@@ -222,4 +225,72 @@ public class RegisterBookActivity extends AppCompatActivity {
     public void GoHome(View view) {
         ChangeActivity.ChangeActivity(this, MainActivity.class);
     }
+
+    public void updateInterface(Book book){
+        if(book != null){
+            titleValue.setText(book.getTitle());
+            //if(book.getAuthor() != null)
+            //    authorValue.setText(book.getAuthor().getArtistName());
+            //publicationYearValue.setText(book.getYearPublication());
+            //if(book.getCategory() != null){
+            //    //TODO afficher la catégorie dans le spinner
+            //}
+            currentBook = book;
+        }
+    }
+
+
+
+    /**
+     * Classe interne qui ne sert qu'à faire des appels asynchrone à l'api google BOOK
+     * obligatoire pour ne pas encombre le thread UI principal
+     * voir pour externaliser cette portion de code dans un fichier ?
+     */
+    private class CallGoogleBookAPI extends AsyncTask<Void, Void, String> {
+
+        private Book book;
+        private RegisterBookActivity it;
+        private String isbn;
+        private ProgressDialog dialog;
+
+        public CallGoogleBookAPI(RegisterBookActivity _it, String _isbn) {
+            super();
+            it = _it;
+            isbn = _isbn;
+            dialog = new ProgressDialog(_it);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            dialog.setMessage("Chargement...");
+            dialog.setIndeterminate(true);
+            dialog.show();
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            try{
+                Looper.prepare();
+            }catch(Exception ex){
+                ex.printStackTrace();
+            }
+            try {
+                List<Book> books = API_GoogleBooks.RequestISBN(isbn, it);
+                if(books != null)
+                    if(books.size()>0)
+                        book = books.get(0);
+            } catch (Exception ex) {
+                Alert.ShowError(it, "Erreur lors de l'appel à l'api Google Books", "" + ex);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            dialog.dismiss();
+            updateInterface(book);
+        }
+    }
+
+
 }

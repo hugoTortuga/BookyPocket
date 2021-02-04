@@ -57,6 +57,8 @@
         <activity android:name=".Activities.BookSearchActivity" />
         <activity android:name=".Activities.AuthorActivity" />
         <activity android:name=".Activities.FriendsActivity" />
+        <activity android:name=".Activities.AddFriendActivity" />
+        <activity android:name=".Activities.FriendPageActivity" />
         <activity
             android:name=".Activities.BookyMapActivity"
             android:label="@string/title_activity_booky_map" />

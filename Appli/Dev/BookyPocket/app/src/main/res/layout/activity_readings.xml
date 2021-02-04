@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    tools:context=".Activities.ReadingsActivity">
+    tools:context=".Activities.ReadingsActivity"
+    >
 
     <LinearLayout
         android:id="@+id/linearLayout"
