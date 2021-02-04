@@ -200,10 +200,10 @@ public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
     }
 
     public Book getBookByISBN(String ISBN) throws SQLException {
-        Book rdr = null;
+        Book b = null;
         Dao<Book, Integer> dao = getDao(Book.class);
-        rdr = (Book) dao.queryBuilder().where().eq("ISBN", ISBN).queryForFirst();
-        return rdr;
+        b = (Book) dao.queryBuilder().where().eq("ISBN", ISBN).queryForFirst();
+        return b;
     }
 
     public List<Book> getBooksByKeyWord(String[] keyword) throws SQLException {

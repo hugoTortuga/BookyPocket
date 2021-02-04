@@ -14,6 +14,12 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 public class BarCodeReader {
 
+    private static String barcodeData;
+
+    public static String getBarcodeData() {
+        return barcodeData;
+    }
+
     private static BarcodeDetector barcodeDetector;
 
     public static boolean isBarcodeDetectorOperational(Context context){
@@ -44,9 +50,8 @@ public class BarCodeReader {
                 if (barcodes.size() != 0) {
                     barcodeInfo.post(new Runnable() {    // Use the post method of the TextView
                         public void run() {
-                            barcodeInfo.setText(    // Update the TextView
-                                    barcodes.valueAt(0).displayValue
-                            );
+                            barcodeInfo.setText(barcodes.valueAt(0).displayValue);
+                            BarCodeReader.barcodeData = barcodeInfo.toString();
                         }
                     });
                 }

@@ -52,13 +52,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        registerBookButton = (Button) findViewById(R.id.home_button_registerBook);
-        registerBookButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ChangeActivity.ChangeActivity(view.getContext(),RegisterBookActivity.class);
-            }
-        });
 
         manageAccountButton = (ImageButton) findViewById(R.id.home_button_manageAccount);
         manageAccountButton.setOnClickListener(new View.OnClickListener() {

@@ -5,26 +5,35 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.app.ProgressDialog;
+import android.cnam.bookypocket.API.API_GoogleBooks;
+import android.cnam.bookypocket.Model.Book;
 import android.cnam.bookypocket.R;
+import android.cnam.bookypocket.Utils.Alert;
+import android.cnam.bookypocket.Utils.BarCodeReader;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Looper;
 import android.util.Log;
-import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.vision.CameraSource;
-import com.google.android.gms.vision.Detector;
-import com.google.android.gms.vision.FocusingProcessor;
-import com.google.android.gms.vision.Tracker;
-import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BarCodeReaderActivity extends AppCompatActivity{
+
+    private BarCodeReader barCodeReader;
 
     private SurfaceView surfaceView;
     private BarcodeDetector barcodeDetector;
@@ -32,9 +41,7 @@ public class BarCodeReaderActivity extends AppCompatActivity{
     private CameraSource cameraSource;
     private static final int REQUEST_CAMERA_PERMISSION = 201;
     private TextView barcodeInfo;
-    private String barcodeData;
-
-    private Barcode barcode;
+    private Button stopScanButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,95 +49,55 @@ public class BarCodeReaderActivity extends AppCompatActivity{
         setContentView(R.layout.activity_bar_code_reader);
         surfaceView = findViewById(R.id.surface_view);
         barcodeInfo = findViewById(R.id.barcode_text);
+        stopScanButton = findViewById(R.id.stopScanButton);
 
-        barcodeDetector = new BarcodeDetector.Builder(this).setBarcodeFormats(Barcode.EAN_13).build();
+        //Instantiate codeBarReader
+        barCodeReader = new BarCodeReader();
 
-        if(!barcodeDetector.isOperational()){
-            barcodeInfo.setText("Sorry, Couldn't setup the detector");
+        //Check if Barcode Detector is available on the user system
+        if(barCodeReader.isBarcodeDetectorOperational(this)){
             Toast.makeText(getApplicationContext(), "Sorry, Couldn't setup the detector", Toast.LENGTH_LONG).show();
             this.finish();
-        } else {
-            barcodeInfo.setText("Detector is operational");
+        } else{
             Toast.makeText(getApplicationContext(), "Detector is operational", Toast.LENGTH_LONG).show();
         }
+
+        barcodeDetector = barCodeReader.setUpBarcodeDetector(this, barcodeInfo);
 
         cameraSource = new CameraSource.Builder(getApplicationContext(), barcodeDetector).setFacing(CameraSource.CAMERA_FACING_BACK).
                 setRequestedPreviewSize(1024,1024).setAutoFocusEnabled(true)
                 .build();
 
+
         surfaceView.getHolder().addCallback(new SurfaceHolder.Callback(){
 
-                @Override
-                public void surfaceCreated(@NonNull SurfaceHolder holder) {
-                    try {
-                        checkCameraPermission();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        Log.e("CAMERA SOURCE", e.getMessage());
-                    }
-                }
-
-                @Override
-                public void surfaceChanged(@NonNull SurfaceHolder holder, int format, int width, int height) {
-
-                }
-
-                @Override
-                public void surfaceDestroyed(@NonNull SurfaceHolder holder) {
-                    cameraSource.stop();
-                }
-            });
-
-        barcodeDetector.setProcessor(new FocusingProcessor<Barcode>(barcodeDetector, new Tracker<Barcode>()) {
-
             @Override
-            public void release() {
-                Toast.makeText(getApplicationContext(), "To prevent memory leaks barcode scanner has been stopped", Toast.LENGTH_SHORT).show();
+            public void surfaceCreated(@NonNull SurfaceHolder holder) {
+                try {
+                    checkCameraPermission();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Log.e("CAMERA SOURCE", e.getMessage());
+                }
             }
 
             @Override
-            public void receiveDetections(Detector.Detections<Barcode> detections) {
+            public void surfaceChanged(@NonNull SurfaceHolder holder, int format, int width, int height) {
 
-                final SparseArray<Barcode> barcodes = detections.getDetectedItems();
-
-                if (barcodes.size() != 0) {
-                    barcodeInfo.post(new Runnable() {    // Use the post method of the TextView
-                        public void run() {
-                            barcodeInfo.setText(    // Update the TextView
-                                    barcodes.valueAt(0).displayValue
-                            );
-                        }
-                    });
-                }
-
-                //TEST 2
-//                final SparseArray<Barcode> barcodes = detections.getDetectedItems();
-//                if (barcodes.size() > 0) {
-//                    barcodeInfo.setText(barcodes.valueAt(0).displayValue);
-//                }
-                //TEST 3
-//                final SparseArray<Barcode> barcodes = detections.getDetectedItems();
-//                if (barcodes.size() != 0) {
-//                    barcodeInfo.post(new Runnable() {
-//
-//                        @Override
-//                        public void run() {
-//                            barcodeInfo.setText(barcodes.valueAt(0).displayValue);
-//                        }
-//                    });
-//                } else {
-//                    barcodeInfo.setText("No data available");
-//
-//                }
             }
 
             @Override
-            public int selectFocus(Detector.Detections<Barcode> detections) {
-                return 0;
+            public void surfaceDestroyed(@NonNull SurfaceHolder holder) {
+                cameraSource.stop();
             }
-
         });
 
+        stopScanButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stopScanAndGoRegister(v);
+            }
+        });
 
     }
 
@@ -143,5 +110,20 @@ public class BarCodeReaderActivity extends AppCompatActivity{
                     String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA_PERMISSION);
         }
     }
+
+    private void stopScanAndGoRegister(View view){
+        Intent data = new Intent(this, RegisterBookActivity.class);
+        System.out.println("******************************ISBN FROM SCAN******************************" +barcodeInfo.getText());
+
+        data.putExtra("ISBN", barcodeInfo.getText());
+        this.setResult(AppCompatActivity.RESULT_OK, data);
+        this.finish();
+        this.startActivity(data);
+    }
+
+    public void GoBack(View view) {
+        this.finish();
+    }
+
 
 }

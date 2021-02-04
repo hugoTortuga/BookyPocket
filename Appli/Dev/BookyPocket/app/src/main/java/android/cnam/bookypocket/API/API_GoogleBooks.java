@@ -25,6 +25,7 @@ import java.util.List;
 
 public class API_GoogleBooks {
 
+
     private static List<Book> JSON_Decryptor(JSONObject json, Context context) throws JSONException {
         List<Book> books = new ArrayList<>();
 
@@ -32,8 +33,10 @@ public class API_GoogleBooks {
         JSONArray items = json.getJSONArray("items");
         int nbitems = json.getInt("totalItems");
 
-        for (int i = 0; i < 10; i++) {
+        int realLength = items.length();
+        for (int i = 0; i < 20 && i < items.length() ; i++) {
             //pour chaque livre on récupère les informations qui nous intéresse
+
             JSONObject item = items.getJSONObject(i);
 
             // On instancie le nouveau livre avec les infos du JSON

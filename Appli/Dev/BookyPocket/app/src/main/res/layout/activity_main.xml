@@ -57,7 +57,7 @@
                 android:textStyle="bold" />
 
             <Button
-                android:id="@+id/home_button_friend"
+                android:id="@+id/find_book_button"
                 style="Widget.MaterialComponents.Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
                 android:layout_marginVertical="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_style"
-                android:text="@string/text_my_friends"
+                android:text="@string/find_book_button"
                 android:textColor="#FFFFFF"
                 android:textStyle="bold" />
 
@@ -83,7 +83,7 @@
                 android:textStyle="bold" />
 
             <Button
-                android:id="@+id/home_button_registerBook"
+                android:id="@+id/home_button_friend"
                 style="Widget.MaterialComponents.Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -91,23 +91,10 @@
                 android:layout_marginVertical="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_style"
-                android:text="@string/home_button_registerBook"
+                android:text="@string/text_my_friends"
                 android:textColor="#FFFFFF"
                 android:textStyle="bold" />
 
-
-            <Button
-                android:id="@+id/find_book_button"
-                style="Widget.MaterialComponents.Button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginVertical="10dp"
-                android:layout_weight="1"
-                android:background="@drawable/button_style"
-                android:text="@string/find_book_button"
-                android:textColor="#FFFFFF"
-                android:textStyle="bold" />
 
         </LinearLayout>
 
