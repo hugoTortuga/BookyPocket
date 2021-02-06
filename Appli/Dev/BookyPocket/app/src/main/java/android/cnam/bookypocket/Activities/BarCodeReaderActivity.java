@@ -58,8 +58,6 @@ public class BarCodeReaderActivity extends AppCompatActivity{
         if(barCodeReader.isBarcodeDetectorOperational(this)){
             Toast.makeText(getApplicationContext(), "Sorry, Couldn't setup the detector", Toast.LENGTH_LONG).show();
             this.finish();
-        } else{
-            Toast.makeText(getApplicationContext(), "Detector is operational", Toast.LENGTH_LONG).show();
         }
 
         barcodeDetector = barCodeReader.setUpBarcodeDetector(this, barcodeInfo);
