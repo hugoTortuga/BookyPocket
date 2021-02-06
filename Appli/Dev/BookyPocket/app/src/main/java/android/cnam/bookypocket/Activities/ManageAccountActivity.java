@@ -63,15 +63,9 @@ public class ManageAccountActivity extends AppCompatActivity {
 
             dateOfBirth = (EditText) findViewById(R.id.editTextDate);
             if(currentUser.getDateOfBirth() != null){
-                String month = ""+currentUser.getDateOfBirth().getMonth();
-                if(month.length() == 1)
-                    month  = "0" + month;
-
-                String day = ""+currentUser.getDateOfBirth().getDay();
-                if(day.length() == 1)
-                    day  = "0" + day;
-                String textDate = (currentUser.getDateOfBirth().getYear()+1900)+ "/" + month + "/" + day;
-                dateOfBirth.setText(textDate);
+                Date date = currentUser.getDateOfBirth();
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                dateOfBirth.setText(dateFormat.format(date));
             }
 
         }
