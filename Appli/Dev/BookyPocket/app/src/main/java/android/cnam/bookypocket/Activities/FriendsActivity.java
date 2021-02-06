@@ -62,7 +62,7 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
         try {
             Intent intent = new Intent(this, FriendPageActivity.class);
             Reader friend = friends.get(position);
-            intent.putExtra("friend", friend);
+            intent.putExtra("friend", (Reader)friend);
             this.startActivity(intent);
         } catch (Exception ex) {
             Alert.ShowDialog(this, "Erreur lors du changement de page", "" + ex);

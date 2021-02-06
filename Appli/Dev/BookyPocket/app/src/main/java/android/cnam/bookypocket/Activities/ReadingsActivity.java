@@ -39,7 +39,7 @@ public class ReadingsActivity extends AppCompatActivity implements AdapterView.O
                 return;
             }
 
-            books = DataBaseSingleton.GetDataBaseSingleton(this).getListFromBook(reader.getId());
+            books = DataBaseSingleton.GetDataBaseSingleton(this).getListBookFromIdUser(reader.getId());
             updateListInterface();
         }
         catch(Exception ex){
@@ -51,9 +51,6 @@ public class ReadingsActivity extends AppCompatActivity implements AdapterView.O
 
     public void GoHome(View view) {
         ChangeActivity.ChangeActivity(this, MainActivity.class);
-    }
-
-    public void searchBook(View view) {
     }
 
     public void addBookToMyReading(View view) {
@@ -71,6 +68,7 @@ public class ReadingsActivity extends AppCompatActivity implements AdapterView.O
         Intent intent = new Intent(this, BookDetailsActivity.class);
         Book bookToSend = books.get(position);
         intent.putExtra("book", bookToSend);
+
         if(bookToSend.getAuthor() != null){
             intent.putExtra("author", bookToSend.getAuthor().getArtistName());
         }

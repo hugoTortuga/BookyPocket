@@ -74,7 +74,7 @@ public class AddFriendActivity extends AppCompatActivity implements AdapterView.
                         friends = new ArrayList<>();
 
                     if(friends.size() == 0)
-                        Toast.makeText(this, "Aucun utilisateur trouvé", Toast.LENGTH_LONG);
+                        Alert.ShowDialog(this, "Mince", "Aucun utilisateur trouvé");
 
                     CustomReaderAdapter ca = new CustomReaderAdapter(this, (ArrayList<Reader>) friends);
                     friend_list.setAdapter(ca);

@@ -113,7 +113,6 @@ public class BarCodeReaderActivity extends AppCompatActivity{
 
     private void stopScanAndGoRegister(View view){
         Intent data = new Intent(this, RegisterBookActivity.class);
-        System.out.println("******************************ISBN FROM SCAN******************************" +barcodeInfo.getText());
 
         data.putExtra("ISBN", barcodeInfo.getText());
         this.setResult(AppCompatActivity.RESULT_OK, data);

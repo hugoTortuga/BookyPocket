@@ -216,7 +216,7 @@ public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
         return booksFound;
     }
 
-    public List<Book> getListFromBook(int reader_id) throws SQLException {
+    public List<Book> getListBookFromIdUser(int reader_id) throws SQLException {
         List<ReaderBook> booksReaderFound = new ArrayList<>();
         Dao<ReaderBook, Integer> dao = getDao(ReaderBook.class);
         booksReaderFound = (List<ReaderBook>) dao.queryBuilder().where().in("reader_id", reader_id).query();

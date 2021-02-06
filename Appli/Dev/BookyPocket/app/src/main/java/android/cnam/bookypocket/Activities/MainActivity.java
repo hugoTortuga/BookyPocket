@@ -82,4 +82,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public void disconnectButton(View view) {
+        this.finish();
+        ChangeActivity.ChangeActivity(this,LoginActivity.class);
+    }
 }
