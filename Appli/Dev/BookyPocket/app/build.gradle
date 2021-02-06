@@ -42,6 +42,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'com.j256.ormlite:ormlite-android:5.0'
 
+    //implementation 'com.google.android.libraries.places:places:2.4.0'
     implementation 'com.google.android.gms:play-services-maps:11.0.2'
     implementation 'com.google.android.gms:play-services-auth:11.0.2'
     implementation 'com.google.android.gms:play-services-location:11.0.2'
