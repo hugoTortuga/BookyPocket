@@ -33,21 +33,19 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friends);
+        IntializeView();
+    }
 
-        friends = new ArrayList<>();
-
+    private void IntializeView() {
         if(Session.getCurrentUser() != null){
             try {
                 friends = DataBaseSingleton.GetDataBaseSingleton(this).GetFriendsByReader(Session.getCurrentUser().getId());
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
-
-            Reader r = new Reader("maile", "password","nom","prenom", null, null);
-            friends.add(r);
-            friends.add(r);
-            friends.add(r);
-
+            if(friends == null){
+                friends = new ArrayList<>();
+            }
             friend_list = (ListView) findViewById(R.id.friends_list);
 
             CustomReaderAdapter ca = new CustomReaderAdapter(this, (ArrayList<Reader>) friends);
@@ -55,11 +53,11 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
             friend_list.setOnItemClickListener(this);
         }
         else
-            Alert.ShowDialog(this,"Anomalie","L'utilisateur courant");
+            Alert.ShowDialog(this,"Anomalie","L'utilisateur courant est vide");
     }
 
     public void goBackFriendsActivity(View view){
-        finish();
+        ChangeActivity.ChangeActivity(this,MainActivity.class);
     }
 
 

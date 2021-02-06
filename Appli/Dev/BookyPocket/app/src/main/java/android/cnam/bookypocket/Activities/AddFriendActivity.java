@@ -4,8 +4,10 @@ import android.cnam.bookypocket.DBManager.DataBaseSingleton;
 import android.cnam.bookypocket.DBManager.Session;
 import android.cnam.bookypocket.Model.Book;
 import android.cnam.bookypocket.Model.Reader;
+import android.cnam.bookypocket.Model.ReaderFriend;
 import android.cnam.bookypocket.R;
 import android.cnam.bookypocket.Utils.Alert;
+import android.cnam.bookypocket.Utils.ChangeActivity;
 import android.cnam.bookypocket.Utils.StringUtil;
 import android.content.Intent;
 import android.os.Bundle;
@@ -32,12 +34,12 @@ public class AddFriendActivity extends AppCompatActivity implements AdapterView.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_friend);
+        InitializeView();
+    }
 
-        friend_list = (ListView) findViewById(R.id.friends_list);
+    private void InitializeView(){
+        friend_list = (ListView) findViewById(R.id.friends_found_list);
         searchView = (SearchView) findViewById(R.id.searchview_add_friend);
-
-
-
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -55,23 +57,25 @@ public class AddFriendActivity extends AppCompatActivity implements AdapterView.
     }
 
     public void goBackFriendsActivity(View view) {
-        finish();
+        ChangeActivity.ChangeActivity(this, FriendsActivity.class);
     }
 
-    public void searchFriendButtonClick() {
+    public void searchFriendButtonClick(){
 
-        friends = new ArrayList<>();
-        Alert.ShowDialog(this, "Recherche", "");
-        Reader r = new Reader("mail", "password", "nom", "prenom", null, null);
-        friends.add(r);
-        friends.add(r);
-        friends.add(r);
-
-
-
-        CustomReaderAdapter ca = new CustomReaderAdapter(this, (ArrayList<Reader>) friends);
-        friend_list.setAdapter(ca);
-        friend_list.setOnItemClickListener(this);
+        if(searchView.getQuery() != null)
+            if(!StringUtil.IsNullOrEmpty(searchView.getQuery().toString())){
+                try{
+                    friends = DataBaseSingleton.GetDataBaseSingleton(this).getUserByKeyword(searchView.getQuery().toString());
+                    if(friends == null)
+                        friends = new ArrayList<>();
+                    CustomReaderAdapter ca = new CustomReaderAdapter(this, (ArrayList<Reader>) friends);
+                    friend_list.setAdapter(ca);
+                    friend_list.setOnItemClickListener(this);
+                }
+                catch(Exception ex){
+                    Alert.ShowDialog(this,"Erreur", "" + ex);
+                }
+            }
     }
 
 
@@ -79,7 +83,11 @@ public class AddFriendActivity extends AppCompatActivity implements AdapterView.
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         try {
             Reader friend = friends.get(position);
-            Alert.ShowDialog(this,"Succès", "La demande d'amie doit " + friend);
+            if(Session.getCurrentUser() != null && friend != null){
+                ReaderFriend rf = new ReaderFriend(Session.getCurrentUser(), friend);
+                DataBaseSingleton.GetDataBaseSingleton(this).insertObjectInDB(rf, ReaderFriend.class);
+            }
+            Alert.ShowDialog(this,"Succès", "L'ami a été ajouté ");
 
         } catch (Exception ex) {
             ex.printStackTrace();

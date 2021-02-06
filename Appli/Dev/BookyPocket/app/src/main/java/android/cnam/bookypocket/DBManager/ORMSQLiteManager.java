@@ -19,7 +19,7 @@ import android.cnam.bookypocket.Model.*;
 public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
 
     private static final String DB_NAME = "bookypocket.db";
-    private static final int DB_VERSION = 5;
+    private static final int DB_VERSION = 6;
 
     public ORMSQLiteManager(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -59,7 +59,7 @@ public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
     public void onUpgrade(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion, int newVersion) {
         try {
             //Un peu extrême à changer plus tard
-            /*
+
             TableUtils.dropTable(connectionSource, Category.class, true);
             TableUtils.dropTable(connectionSource, Photo.class, true);
             TableUtils.dropTable(connectionSource, Book.class, true);
@@ -72,7 +72,8 @@ public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
             TableUtils.dropTable(connectionSource, LibraryBook.class, true);
             TableUtils.dropTable(connectionSource, ReaderBook.class, true);
             TableUtils.dropTable(connectionSource, PhotoBook.class, true);
-            */
+            TableUtils.dropTable(connectionSource, ReaderFriend.class,true);
+
 
             onCreate(database, connectionSource);
         } catch (Exception ex) {
@@ -248,8 +249,11 @@ public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
             friends.add(rbook.getFriend());
         }
         return friends;
-
     }
 
-
+    public List<Reader> getUserByKeyword(String keyword) throws SQLException {
+        Dao<Reader, Reader> dao = getDao(Reader.class);
+        return (List<Reader>) dao.queryBuilder().where().like("firstName",keyword)
+                .or().like("lastName",keyword).and().notIn("id",Session.getCurrentUser().getId()).query();
+    }
 }
