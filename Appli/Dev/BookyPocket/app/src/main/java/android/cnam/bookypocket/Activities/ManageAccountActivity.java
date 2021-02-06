@@ -97,16 +97,13 @@ public class ManageAccountActivity extends AppCompatActivity {
     }
 
     public void deleteAccount(View view) {
-        //TODO delete account
-        Alert.ShowDialog(this, "Confirmation", "Etes-vous sur de supprimer votre comptre ?");
+        ShowSupprimDialog(Session.getCurrentUser());
     }
 
     private Reader checkInfoReaderBeforeSave() throws Exception {
 
         if (currentUser == null)
             throw new Exception("L'utilisateur courant est null");
-
-        //TODO tester le formet des input pas trop long bien formé etc...
 
         String emailStr = email.getText().toString();
         String lastNameStr = lastName.getText().toString();
@@ -173,6 +170,32 @@ public class ManageAccountActivity extends AppCompatActivity {
                         }
                         dialog.dismiss();
                         Alert.ShowDialog(currentContext, "Succès", "Modification enregistrée");
+                    }
+                });
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Non",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
+    }
+
+    private void ShowSupprimDialog(Reader r){
+        Context currentContext = this;
+        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        alertDialog.setTitle("Confirmation ");
+        alertDialog.setMessage("Confirmez-vous la suppression de votre compte ?");
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Oui",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        try {
+                            DataBaseSingleton.GetDataBaseSingleton(currentContext).deleteObjectFromDB(r, Reader.class);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        dialog.dismiss();
+                        ChangeActivity.ChangeActivity(currentContext, LoginActivity.class);
                     }
                 });
         alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Non",

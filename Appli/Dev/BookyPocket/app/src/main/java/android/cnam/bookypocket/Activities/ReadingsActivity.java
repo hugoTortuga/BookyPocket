@@ -53,7 +53,11 @@ public class ReadingsActivity extends AppCompatActivity implements AdapterView.O
         ChangeActivity.ChangeActivity(this, MainActivity.class);
     }
 
-    public void addBookToMyReading(View view) {
+    public void scanBook(View view) {
+        ChangeActivity.ChangeActivity(this, BarCodeReaderActivity.class);
+    }
+
+    public void addManuallyBook(View view) {
         ChangeActivity.ChangeActivity(this, RegisterBookActivity.class);
     }
 

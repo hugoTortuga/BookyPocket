@@ -24,7 +24,6 @@
     <string name="readings_textView">Mes lectures</string>
     <string name="readings_title">Test in a test</string>
     <string name="readings_author">Test TEST</string>
-    <string name="add_a_book_to_my_readings">Ajouter un livre à mes lectures</string>
 
     <!-- REGISTER ACTIVITY-->
     <string name="registerNewBookText">Enregistrer un ouvrage</string>
@@ -99,5 +98,6 @@
     <string name="add_a_friend">Ajouter un ami</string>
     <string name="serach_friends_title">Ajouter un(e) ami(e)</string>
     <string name="books_of_a_friend">Les livres de mon ami(e)</string>
+    <string name="add_manually_a_book">Saisie manuelle d\'un livre</string>
 
 </resources>

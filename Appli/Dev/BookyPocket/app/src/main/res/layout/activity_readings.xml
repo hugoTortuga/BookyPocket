@@ -65,20 +65,31 @@
             android:layout_height="wrap_content"
             android:layout_weight="20"></ListView>
 
-        <androidx.appcompat.widget.AppCompatButton
+        <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:background="@drawable/button_style"
-            android:onClick="addBookToMyReading"
+            android:onClick="scanBook"
             android:padding="10dp"
             android:scaleType="fitCenter"
-            android:text="@string/add_a_book_to_my_readings"
+            android:text="@string/scanBookText"
             android:textColor="#FFFFFF"
-            android:minWidth="70dp">
+            android:minWidth="70dp"/>
 
-        </androidx.appcompat.widget.AppCompatButton>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_style"
+            android:onClick="addManuallyBook"
+            android:padding="10dp"
+            android:scaleType="fitCenter"
+            android:text="@string/add_manually_a_book"
+            android:textColor="#FFFFFF"
+            android:minWidth="70dp"/>
 
 
     </LinearLayout>

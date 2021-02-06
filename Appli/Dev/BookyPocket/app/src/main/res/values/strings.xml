@@ -25,7 +25,6 @@
     <string name="readings_textView">My readings</string>
     <string name="readings_title">Test in a test</string>
     <string name="readings_author">Test TEST</string>
-    <string name="add_a_book_to_my_readings">Add book to my readings</string>
 
     <!-- REGISTER ACTIVITY-->
     <string name="registerNewBookText">Register a book</string>
@@ -100,6 +99,7 @@
     <string name="add_a_friend">Add a friend</string>
     <string name="serach_friends_title">Add a friends</string>
     <string name="books_of_a_friend">My friend\'s books</string>
+    <string name="add_manually_a_book">Add a book manually</string>
 
 
 </resources>
