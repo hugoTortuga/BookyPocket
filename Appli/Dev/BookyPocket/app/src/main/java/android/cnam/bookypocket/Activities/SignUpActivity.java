@@ -6,6 +6,7 @@ import android.cnam.bookypocket.R;
 import android.cnam.bookypocket.Utils.Alert;
 import android.cnam.bookypocket.Utils.ChangeActivity;
 import android.cnam.bookypocket.Utils.CheckForm;
+import android.cnam.bookypocket.Utils.Cryptography;
 import android.cnam.bookypocket.Utils.StringUtil;
 import android.content.Context;
 import android.os.Bundle;
@@ -108,6 +109,7 @@ public class SignUpActivity extends AppCompatActivity {
             Alert.ShowDialog(this, "Paramètres invalides", "Le mot de passe doit faire au moins 8 caractères");
             return null;
         }
+        pwdStr = Cryptography.Hash(pwdStr);
 
         if(StringUtil.IsNullOrEmpty(dob)){
             Alert.ShowDialog(this, "Paramètre non renseigné", "Veuillez remplir votre date de naissance au format AAAA/MM/JJ");
@@ -129,6 +131,8 @@ public class SignUpActivity extends AppCompatActivity {
             return null;
         }
 
+        //On hash le mot de passe
+        //pwdStr = DigestUtils.sha256Hex(pwdStr);
 
         Reader reader = new Reader(emailStr.trim(), pwdStr.trim(), lastNameStr.trim(), firstNameStr.trim(), dateBirth, null);
         return reader;

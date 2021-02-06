@@ -153,33 +153,6 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="109dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/register_scanText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="30dp"
-                        android:text="@string/register_scanText"
-                        android:textColor="#E5B81D"
-                        android:textStyle="bold" />
-
-                    <Button
-                        android:id="@+id/register_scanButton"
-                        android:layout_width="246dp"
-                        android:layout_height="47dp"
-                        android:layout_gravity="center_horizontal|center_vertical"
-                        android:layout_marginTop="20dp"
-                        android:background="@drawable/button_style"
-                        android:text="@string/register_scanButton"
-                        android:textColor="#FFFFFF"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
                     android:layout_height="164dp"
                     android:orientation="vertical">
 

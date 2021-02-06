@@ -1,12 +1,17 @@
 package android.cnam.bookypocket.Activities;
 
+import android.app.AlertDialog;
 import android.cnam.bookypocket.DBManager.DataBaseSingleton;
 import android.cnam.bookypocket.DBManager.Session;
 import android.cnam.bookypocket.Model.Book;
 import android.cnam.bookypocket.Model.Reader;
+import android.cnam.bookypocket.Model.ReaderFriend;
 import android.cnam.bookypocket.R;
 import android.cnam.bookypocket.Utils.Alert;
+import android.cnam.bookypocket.Utils.ChangeActivity;
 import android.cnam.bookypocket.Utils.StringUtil;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -32,12 +38,12 @@ public class AddFriendActivity extends AppCompatActivity implements AdapterView.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_friend);
+        InitializeView();
+    }
 
-        friend_list = (ListView) findViewById(R.id.friends_list);
-        searchView = (SearchView) findViewById(R.id.search_book_button);
-
-
-
+    private void InitializeView() {
+        friend_list = (ListView) findViewById(R.id.friends_found_list);
+        searchView = (SearchView) findViewById(R.id.searchview_add_friend);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -55,31 +61,62 @@ public class AddFriendActivity extends AppCompatActivity implements AdapterView.
     }
 
     public void goBackFriendsActivity(View view) {
-        finish();
+        ChangeActivity.ChangeActivity(this, FriendsActivity.class);
     }
 
     public void searchFriendButtonClick() {
 
-        friends = new ArrayList<>();
-        Alert.ShowDialog(this, "Recherche", "");
-        Reader r = new Reader("mail", "password", "nom", "prenom", null, null);
-        friends.add(r);
-        friends.add(r);
-        friends.add(r);
+        if (searchView.getQuery() != null)
+            if (!StringUtil.IsNullOrEmpty(searchView.getQuery().toString())) {
+                try {
+                    friends = DataBaseSingleton.GetDataBaseSingleton(this).getUserByKeyword(searchView.getQuery().toString());
+                    if (friends == null)
+                        friends = new ArrayList<>();
 
+                    if(friends.size() == 0)
+                        Alert.ShowDialog(this, "Mince", "Aucun utilisateur trouvé");
 
-
-        CustomReaderAdapter ca = new CustomReaderAdapter(this, (ArrayList<Reader>) friends);
-        friend_list.setAdapter(ca);
-        friend_list.setOnItemClickListener(this);
+                    CustomReaderAdapter ca = new CustomReaderAdapter(this, (ArrayList<Reader>) friends);
+                    friend_list.setAdapter(ca);
+                    friend_list.setOnItemClickListener(this);
+                } catch (Exception ex) {
+                    Alert.ShowDialog(this, "Erreur", "" + ex);
+                }
+            }
     }
-
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         try {
             Reader friend = friends.get(position);
-            Alert.ShowDialog(this,"Succès", "La demande d'amie doit");
+            if (Session.getCurrentUser() != null && friend != null) {
+
+                Context currentContext = this;
+                AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+                alertDialog.setTitle("Confirmation");
+                alertDialog.setMessage("Voulez-vous ajouter " + friend.getFirstName() + " " + friend.getLastName() + " ?");
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Oui",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                try {
+                                    ReaderFriend rf = new ReaderFriend(Session.getCurrentUser(), friend);
+                                    DataBaseSingleton.GetDataBaseSingleton(currentContext).insertObjectInDB(rf, ReaderFriend.class);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                dialog.dismiss();
+                                Alert.ShowDialog(currentContext, "Succès", "Modification enregistrée");
+                            }
+                        });
+                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Non",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                alertDialog.show();
+            }
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }

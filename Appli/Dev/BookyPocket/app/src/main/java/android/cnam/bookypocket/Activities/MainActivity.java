@@ -1,5 +1,6 @@
 package android.cnam.bookypocket.Activities;
 
+import android.cnam.bookypocket.DBManager.Session;
 import android.cnam.bookypocket.R;
 import android.cnam.bookypocket.Utils.ChangeActivity;
 import android.os.Bundle;
@@ -16,16 +17,9 @@ public class MainActivity extends AppCompatActivity {
 
     private Button findLibraryButton;
     private Button seeReadingsButton;
-    private Button registerBookButton;
     private ImageButton manageAccountButton;
     private Button friendsButton;
     private Button findBookButton;
-
-    //private User user;
-    //user info to request
-    private String firstName;
-    private String lastName;
-    private String email;
 
 
     @Override
@@ -76,10 +70,11 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void setNavigationViewListener() {
-        //NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        //navigationView.setNavigationItemSelectedListener(this);
+
+    public void disconnectButton(View view) {
+        Session.setCurrentUser(null);
+        Session.setBooks(null);
+        this.finish();
+        ChangeActivity.ChangeActivity(this,LoginActivity.class);
     }
-
-
 }

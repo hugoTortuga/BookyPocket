@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.cnam.bookypocket.Model.Book;
 import android.cnam.bookypocket.Model.Reader;
 import android.cnam.bookypocket.R;
+import android.cnam.bookypocket.Utils.StringUtil;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.DisplayMetrics;
@@ -71,13 +72,17 @@ public class CustomReaderAdapter extends ArrayAdapter<Reader> {
                 if (viewHolder.image != null)
                     viewHolder.image.setImageResource(R.drawable.user);
         }
-
-
-        if (reader != null)
-            if (reader.getFirstName() != null)
                 if (viewHolder != null)
                     if (viewHolder.txtNom != null)
-                        viewHolder.txtNom.setText(reader.getFirstName());
+                        if (reader != null)
+                            if (!StringUtil.IsNullOrEmpty(reader.getFirstName()))
+                            {
+                                String toShow = reader.getFirstName();
+                                if(!StringUtil.IsNullOrEmpty(reader.getLastName()))
+                                    toShow += " " + reader.getLastName();
+                                viewHolder.txtNom.setText(toShow);
+                            }
+
 
         return convertView;
     }

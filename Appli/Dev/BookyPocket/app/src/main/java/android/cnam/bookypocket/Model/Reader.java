@@ -1,5 +1,8 @@
 package android.cnam.bookypocket.Model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -8,7 +11,7 @@ import java.util.Collection;
 import java.util.Date;
 
 @DatabaseTable(tableName = "Reader")
-public class Reader extends Person{
+public class Reader extends Person implements Parcelable {
 
     @DatabaseField(columnName = "emailAddress", canBeNull = false, unique = true)
     private String emailAddress;
@@ -50,4 +53,31 @@ public class Reader extends Person{
                 ", password='" + password + '\'' +
                 '}';
     }
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
+    }
+
+
+    protected Reader(Parcel in) {
+        super(in);
+    }
+
+    public static final Creator<Reader> CREATOR = new Creator<Reader>() {
+        @Override
+        public Reader createFromParcel(Parcel in) {
+            return new Reader(in);
+        }
+
+        @Override
+        public Reader[] newArray(int size) {
+            return new Reader[size];
+        }
+    };
+
 }

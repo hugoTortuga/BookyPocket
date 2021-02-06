@@ -11,6 +11,7 @@ import android.cnam.bookypocket.Model.Book;
 import android.cnam.bookypocket.R;
 import android.cnam.bookypocket.Utils.Alert;
 import android.cnam.bookypocket.Utils.BarCodeReader;
+import android.cnam.bookypocket.Utils.ChangeActivity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
@@ -112,17 +113,76 @@ public class BarCodeReaderActivity extends AppCompatActivity{
     }
 
     private void stopScanAndGoRegister(View view){
-        Intent data = new Intent(this, RegisterBookActivity.class);
-        System.out.println("******************************ISBN FROM SCAN******************************" +barcodeInfo.getText());
+        String isbn = barcodeInfo.getText().toString();
+        CallGoogleBookAPI task = new CallGoogleBookAPI(this, isbn);
+        task.execute();
+    }
 
-        data.putExtra("ISBN", barcodeInfo.getText());
-        this.setResult(AppCompatActivity.RESULT_OK, data);
-        this.finish();
-        this.startActivity(data);
+    private void GoToDetails(Book book){
+        try{
+            if(book == null)
+                Alert.ShowDialog(this, "Mince", "Aucune correspondance n'a été trouvé sur Google Books");
+            else
+                ChangeActivity.GoToBookDetailActivity(this, book);
+        }
+        catch (Exception ex){
+            Alert.ShowError(this, "Erreur", "" + ex);
+        }
     }
 
     public void GoBack(View view) {
         this.finish();
+    }
+
+    /**
+     * Classe interne qui ne sert qu'à faire des appels asynchrone à l'api google BOOK
+     * obligatoire pour ne pas encombre le thread UI principal
+     * voir pour externaliser cette portion de code dans un fichier ?
+     */
+    private class CallGoogleBookAPI extends AsyncTask<Void, Void, String> {
+
+        private Book book;
+        private BarCodeReaderActivity it;
+        private String isbn;
+        private ProgressDialog dialog;
+
+        public CallGoogleBookAPI(BarCodeReaderActivity _it, String _isbn) {
+            super();
+            it = _it;
+            isbn = _isbn;
+            dialog = new ProgressDialog(_it);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            dialog.setMessage("Recherche en cours...");
+            dialog.setIndeterminate(true);
+            dialog.show();
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            try{
+                Looper.prepare();
+            }catch(Exception ex){
+                ex.printStackTrace();
+            }
+            try {
+                List<Book> books = API_GoogleBooks.RequestISBN(isbn, it);
+                if(books != null)
+                    if(books.size()>0)
+                        book = books.get(0);
+            } catch (Exception ex) {
+                Alert.ShowError(it, "Erreur lors de l'appel à l'api Google Books", "" + ex);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            dialog.dismiss();
+            GoToDetails(book);
+        }
     }
 
 

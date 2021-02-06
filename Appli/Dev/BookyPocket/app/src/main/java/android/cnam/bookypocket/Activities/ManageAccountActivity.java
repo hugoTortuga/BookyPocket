@@ -11,6 +11,7 @@ import android.cnam.bookypocket.R;
 import android.cnam.bookypocket.Utils.Alert;
 import android.cnam.bookypocket.Utils.ChangeActivity;
 import android.cnam.bookypocket.Utils.CheckForm;
+import android.cnam.bookypocket.Utils.Cryptography;
 import android.cnam.bookypocket.Utils.StringUtil;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -31,7 +32,8 @@ public class ManageAccountActivity extends AppCompatActivity {
     private EditText email;
     private EditText firstName;
     private EditText lastName;
-    private EditText password;
+    private EditText currentpassword;
+    private EditText newpassword;
     private EditText dateOfBirth;
 
     private ImageView userPhoto;
@@ -48,9 +50,8 @@ public class ManageAccountActivity extends AppCompatActivity {
 
     private void initilizeForm() {
 
-        if(Session.getCurrentUser() == null)
-        {
-            Alert.ShowDialog(this,"Information", "L'utilisateur courant n'a pas pu être récupéré");
+        if (Session.getCurrentUser() == null) {
+            Alert.ShowDialog(this, "Information", "L'utilisateur courant n'a pas pu être récupéré");
             return;
         }
 
@@ -58,38 +59,30 @@ public class ManageAccountActivity extends AppCompatActivity {
         lastName = (EditText) findViewById(R.id.manage_lastNameValue);
         firstName = (EditText) findViewById(R.id.manage_firstNameValue);
         email = (EditText) findViewById(R.id.manage_email_edit);
-        password = (EditText) findViewById(R.id.manage_passwordValue);
-        try{
+        currentpassword = (EditText) findViewById(R.id.id_current_password);
+        newpassword = (EditText) findViewById(R.id.id_new_password);
+        try {
 
             dateOfBirth = (EditText) findViewById(R.id.editTextDate);
-            if(currentUser.getDateOfBirth() != null){
-                String month = ""+currentUser.getDateOfBirth().getMonth();
-                if(month.length() == 1)
-                    month  = "0" + month;
-
-                String day = ""+currentUser.getDateOfBirth().getDay();
-                if(day.length() == 1)
-                    day  = "0" + day;
-                String textDate = (currentUser.getDateOfBirth().getYear()+1900)+ "/" + month + "/" + day;
-                dateOfBirth.setText(textDate);
+            if (currentUser.getDateOfBirth() != null) {
+                Date date = currentUser.getDateOfBirth();
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                dateOfBirth.setText(dateFormat.format(date));
             }
 
-        }
-        catch (Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
-        try{
+        try {
             lastName.setText(currentUser.getLastName());
             firstName.setText(currentUser.getFirstName());
             email.setText(currentUser.getEmailAddress());
-            password.setText(currentUser.getPassword());
-        }
-        catch (Exception ex){
+        } catch (Exception ex) {
 
         }
     }
 
-    private void changeUserPhoto(){
+    private void changeUserPhoto() {
         //open file system and get new image file path
         //Image newImage = ...;
         //this.userPhoto = newImage;
@@ -104,51 +97,45 @@ public class ManageAccountActivity extends AppCompatActivity {
     }
 
     public void deleteAccount(View view) {
-        //TODO delete account
-        Alert.ShowDialog(this, "Confirmation", "Etes-vous sur de supprimer votre comptre ?");
+        ShowSupprimDialog(Session.getCurrentUser());
     }
 
     private Reader checkInfoReaderBeforeSave() throws Exception {
 
-        if(currentUser == null)
+        if (currentUser == null)
             throw new Exception("L'utilisateur courant est null");
 
-        //TODO tester le formet des input pas trop long bien formé etc...
-
         String emailStr = email.getText().toString();
-        String pwdStr = password.getText().toString();
         String lastNameStr = lastName.getText().toString();
         String firstNameStr = firstName.getText().toString();
         String date = dateOfBirth.getText().toString();
 
         //On test les valeurs d'entrée
-        if(emailStr != null && !emailStr.trim().isEmpty())
+
+
+        if (emailStr != null && !emailStr.trim().isEmpty())
             currentUser.setEmailAddress(emailStr.trim());
 
-        if(pwdStr != null && !pwdStr.trim().isEmpty())
-            currentUser.setPassword(pwdStr.trim());
-
-        if(lastNameStr != null && !lastNameStr.trim().isEmpty())
+        if (lastNameStr != null && !lastNameStr.trim().isEmpty())
             currentUser.setLastName(lastNameStr.trim());
 
-        if(firstNameStr != null && !firstNameStr.trim().isEmpty())
+        if (firstNameStr != null && !firstNameStr.trim().isEmpty())
             currentUser.setFirstName(firstNameStr.trim());
 
         Date dateBirth = null;
-        try{
-            dateBirth = CheckForm.CheckAndCastStringToDate(date,this);
-        }
-        catch (Exception ex){
+        try {
+            dateBirth = CheckForm.CheckAndCastStringToDate(date, this);
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
-        if(dateBirth != null)
+        if (dateBirth != null)
             currentUser.setDateOfBirth(dateBirth);
 
         return currentUser;
 
     }
 
-    private void ShowSaveDialog(String title, String msg){
+    private void ShowSaveDialog(String title, String msg) {
         Context currentContext = this;
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
         alertDialog.setTitle(title);
@@ -157,6 +144,26 @@ public class ManageAccountActivity extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         try {
+
+
+                            String curentpwdStr = currentpassword.getText().toString();
+                            String newPasswdStr = newpassword.getText().toString();
+                            //si on a un new password et pas de current password
+                            if (StringUtil.IsNullOrEmpty(curentpwdStr) && !StringUtil.IsNullOrEmpty(newPasswdStr)) {
+                                Alert.ShowDialog(currentContext,"Information", "Vous devez renseigner votre mot de passe courant pour mettre un nouveau mot de passe");
+                                return;
+                            } else if (!StringUtil.IsNullOrEmpty(curentpwdStr) && !StringUtil.IsNullOrEmpty(newPasswdStr)) {
+                                if(!Cryptography.Hash(curentpwdStr).equals(currentUser.getPassword())) {
+                                    Alert.ShowDialog(currentContext, "Information", "Le mot de passe courant n'est pas bon");
+                                    return;
+                                }
+                                else{
+                                    //le mot de passe courant est le bon
+                                    newPasswdStr = Cryptography.Hash(newPasswdStr);
+                                    currentUser.setPassword(newPasswdStr);
+                                }
+                            }
+
                             DataBaseSingleton.GetDataBaseSingleton(currentContext).updateReaderInfo(checkInfoReaderBeforeSave());
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -172,7 +179,32 @@ public class ManageAccountActivity extends AppCompatActivity {
                     }
                 });
         alertDialog.show();
+    }
 
+    private void ShowSupprimDialog(Reader r){
+        Context currentContext = this;
+        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        alertDialog.setTitle("Confirmation ");
+        alertDialog.setMessage("Confirmez-vous la suppression de votre compte ?");
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Oui",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        try {
+                            DataBaseSingleton.GetDataBaseSingleton(currentContext).deleteObjectFromDB(r, Reader.class);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        dialog.dismiss();
+                        ChangeActivity.ChangeActivity(currentContext, LoginActivity.class);
+                    }
+                });
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Non",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
     }
 
 }

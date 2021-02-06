@@ -24,7 +24,6 @@
     <string name="readings_textView">Mes lectures</string>
     <string name="readings_title">Test in a test</string>
     <string name="readings_author">Test TEST</string>
-    <string name="add_a_book_to_my_readings">Ajouter un livre à mes lectures</string>
 
     <!-- REGISTER ACTIVITY-->
     <string name="registerNewBookText">Enregistrer un ouvrage</string>
@@ -67,7 +66,8 @@
     <string name="manage_firstName">Prénom</string>
     <string name="manage_firstNameValue"></string>
     <string name="manage_DateOfBirth">Date de naissance</string>
-    <string name="manage_passwordText">Mot de passe</string>
+    <string name="manage_currentpasswordText">Mot de passe courant</string>
+    <string name="manage_newpasswordText">Nouveau mot de passe</string>
     <string name="manage_passwordValue"></string>
     <string name="manage_modifyPswdButton">Sauvegarder</string>
     <string name="manage_deleteAccount">Supprimer mon compte</string>
@@ -96,7 +96,8 @@
     <string name="description_livre">Description</string>
 
     <string name="add_a_friend">Ajouter un ami</string>
-    <string name="serach_friends_title">Ajouter un ami</string>
-    <string name="books_of_a_friend">Les livres de mon ami</string>
+    <string name="serach_friends_title">Ajouter un(e) ami(e)</string>
+    <string name="books_of_a_friend">Les livres de mon ami(e)</string>
+    <string name="add_manually_a_book">Saisie manuelle d\'un livre</string>
 
 </resources>

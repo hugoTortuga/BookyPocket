@@ -19,7 +19,7 @@ import android.cnam.bookypocket.Model.*;
 public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
 
     private static final String DB_NAME = "bookypocket.db";
-    private static final int DB_VERSION = 5;
+    private static final int DB_VERSION = 6;
 
     public ORMSQLiteManager(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -59,7 +59,7 @@ public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
     public void onUpgrade(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion, int newVersion) {
         try {
             //Un peu extrême à changer plus tard
-            /*
+
             TableUtils.dropTable(connectionSource, Category.class, true);
             TableUtils.dropTable(connectionSource, Photo.class, true);
             TableUtils.dropTable(connectionSource, Book.class, true);
@@ -72,7 +72,8 @@ public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
             TableUtils.dropTable(connectionSource, LibraryBook.class, true);
             TableUtils.dropTable(connectionSource, ReaderBook.class, true);
             TableUtils.dropTable(connectionSource, PhotoBook.class, true);
-            */
+            TableUtils.dropTable(connectionSource, ReaderFriend.class,true);
+
 
             onCreate(database, connectionSource);
         } catch (Exception ex) {
@@ -200,10 +201,8 @@ public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
     }
 
     public Book getBookByISBN(String ISBN) throws SQLException {
-        Book b = null;
         Dao<Book, Integer> dao = getDao(Book.class);
-        b = (Book) dao.queryBuilder().where().eq("ISBN", ISBN).queryForFirst();
-        return b;
+        return (Book) dao.queryBuilder().where().eq("ISBN", ISBN).queryForFirst();
     }
 
     public List<Book> getBooksByKeyWord(String[] keyword) throws SQLException {
@@ -217,7 +216,7 @@ public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
         return booksFound;
     }
 
-    public List<Book> getListFromBook(int reader_id) throws SQLException {
+    public List<Book> getListBookFromIdUser(int reader_id) throws SQLException {
         List<ReaderBook> booksReaderFound = new ArrayList<>();
         Dao<ReaderBook, Integer> dao = getDao(ReaderBook.class);
         booksReaderFound = (List<ReaderBook>) dao.queryBuilder().where().in("reader_id", reader_id).query();
@@ -250,8 +249,25 @@ public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
             friends.add(rbook.getFriend());
         }
         return friends;
-
     }
 
+    public List<Reader> getUserByKeyword(String keyword) throws SQLException {
+        Dao<Reader, Integer> dao = getDao(Reader.class);
+        return (List<Reader>) dao.queryBuilder().where().like("firstName",keyword)
+                .or().like("lastName",keyword).and().notIn("id",Session.getCurrentUser().getId()).query();
+    }
 
+    public void DeleteAccount(Reader rdr) throws SQLException {
+        Dao<Reader, Integer> dao = getDao(Reader.class);
+        dao.delete(rdr);
+    }
+
+    public Author getAuthorFromBook(String isbn) throws SQLException {
+        Dao<Book, Integer> dao = getDao(Book.class);
+        Book b = (Book) dao.queryBuilder().where().eq("ISBN", isbn).queryForFirst();
+        if(b != null)
+            return b.getAuthor();
+        else
+            return null;
+    }
 }

@@ -8,6 +8,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -24,7 +25,7 @@ public class Person implements Parcelable {
     private String lastName;
     @DatabaseField
     private String firstName;
-    @DatabaseField
+    @DatabaseField(dataType = DataType.DATE_STRING, format = "yyyy-MM-dd")
     private Date dateOfBirth;
     @DatabaseField(canBeNull = true, foreign = true, foreignColumnName = "id", foreignAutoCreate = true)
     private Photo avatar;
