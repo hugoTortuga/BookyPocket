@@ -110,22 +110,14 @@ public class BookSearchActivity extends AppCompatActivity implements AdapterView
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         try{
-            Intent intent = new Intent(this, BookDetailsActivity.class);
             Book bookToSend = books_list.get(position);
-            intent.putExtra("book", bookToSend);
-            if(bookToSend.getAuthor() != null){
-                Author authorToSend = bookToSend.getAuthor();
-                intent.putExtra("author", bookToSend.getAuthor().getArtistName());
-                intent.putExtra("authorOb",authorToSend);
-            }
-
-            this.startActivity(intent);
+            if(bookToSend != null)
+                ChangeActivity.GoToBookDetailActivity(this, bookToSend);
         }
         catch (Exception ex){
             Alert.ShowDialog(this, "Erreur lors du changement de page", "" + ex);
         }
     }
-
 
     public void setBookCollection(List<Book> _books){
         books_list = _books;

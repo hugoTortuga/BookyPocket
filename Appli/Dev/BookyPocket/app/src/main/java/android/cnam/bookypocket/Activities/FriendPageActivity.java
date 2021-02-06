@@ -5,6 +5,7 @@ import android.cnam.bookypocket.Model.Book;
 import android.cnam.bookypocket.Model.Reader;
 import android.cnam.bookypocket.R;
 import android.cnam.bookypocket.Utils.Alert;
+import android.cnam.bookypocket.Utils.ChangeActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -74,14 +75,12 @@ public class FriendPageActivity extends AppCompatActivity implements AdapterView
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = new Intent(this, BookDetailsActivity.class);
-        Book bookToSend = books.get(position);
-        intent.putExtra("book", bookToSend);
-
-        if(bookToSend.getAuthor() != null){
-            intent.putExtra("author", bookToSend.getAuthor().getArtistName());
+        try{
+            Book bookToSend = books.get(position);
+            ChangeActivity.GoToBookDetailActivity(this,bookToSend);
+        }catch (Exception ex){
+            Alert.ShowError(this, "Erreur", "" + ex);
         }
-        this.startActivity(intent);
     }
 
 }

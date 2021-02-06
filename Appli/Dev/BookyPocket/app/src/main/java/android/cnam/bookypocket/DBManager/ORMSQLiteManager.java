@@ -262,4 +262,12 @@ public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
         dao.delete(rdr);
     }
 
+    public Author getAuthorFromBook(String isbn) throws SQLException {
+        Dao<Book, Integer> dao = getDao(Book.class);
+        Book b = (Book) dao.queryBuilder().where().eq("ISBN", isbn).queryForFirst();
+        if(b != null)
+            return b.getAuthor();
+        else
+            return null;
+    }
 }

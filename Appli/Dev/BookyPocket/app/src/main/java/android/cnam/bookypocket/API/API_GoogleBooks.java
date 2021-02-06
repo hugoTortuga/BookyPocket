@@ -140,7 +140,6 @@ public class API_GoogleBooks {
                     }
                     else
                         book.setAuthor(a);
-
                 }
             }
         }

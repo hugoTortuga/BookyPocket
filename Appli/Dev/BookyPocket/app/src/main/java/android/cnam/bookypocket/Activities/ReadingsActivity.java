@@ -65,13 +65,12 @@ public class ReadingsActivity extends AppCompatActivity implements AdapterView.O
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = new Intent(this, BookDetailsActivity.class);
-        Book bookToSend = books.get(position);
-        intent.putExtra("book", bookToSend);
-
-        if(bookToSend.getAuthor() != null){
-            intent.putExtra("author", bookToSend.getAuthor().getArtistName());
+        try{
+            Book bookToSend = books.get(position);
+            ChangeActivity.GoToBookDetailActivity(this,bookToSend);
+        }catch (Exception ex){
+            Alert.ShowError(this, "Erreur", "" + ex);
         }
-        this.startActivity(intent);
+
     }
 }

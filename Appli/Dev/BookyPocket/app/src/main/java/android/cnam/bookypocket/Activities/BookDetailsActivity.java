@@ -50,6 +50,17 @@ public class BookDetailsActivity extends AppCompatActivity {
             //TODO arranger ce code, il est moche
             Book book = getIntent().getParcelableExtra("book");
             authorName = getIntent().getStringExtra("author");
+            if(book != null && !StringUtil.IsNullOrEmpty(authorName))
+                if(book.getAuthor() == null){
+                    Author a = DataBaseSingleton.GetDataBaseSingleton(this).getAuthorFromName(authorName);
+                    if(a != null)
+                        book.setAuthor(a);
+                    else{
+                        a = new Author();
+                        a.setArtistName(authorName);
+                        book.setAuthor(a);
+                    }
+                }
 
             initializeView();
             currentBook = book;
