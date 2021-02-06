@@ -3,6 +3,7 @@ package android.cnam.bookypocket.Activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -15,12 +16,18 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.Task;
+
+
+import java.util.Collections;
 
 public class BookyMapTestActivity extends AppCompatActivity implements LocationListener {
 
@@ -31,6 +38,8 @@ public class BookyMapTestActivity extends AppCompatActivity implements LocationL
 
     private MapFragment mapFragment;
     private GoogleMap googleMap;
+
+    private Place place;
 
     //coord
     private double latitude;
@@ -123,10 +132,45 @@ public class BookyMapTestActivity extends AppCompatActivity implements LocationL
                 //requires permissions (checkPermission())
                 googleMap.setMyLocationEnabled(true);
 
-                googleMap.addMarker(new MarkerOptions().position(new LatLng(BookyMapTestActivity.this.latitude, BookyMapTestActivity.this.longitude))
+
+                googleMap.addMarker(new MarkerOptions().position(new LatLng(BookyMapTestActivity.this.latitude, BookyMapTestActivity.this.latitude))
                                                         .title("Me"));
             }
         });
+    }
+
+    private void getPlaces(){
+
+        // Use fields to define the data types to return.
+//        List<Place.Field> placeFields = Collections.singletonList(Place.Field.NAME);
+//
+//        // Use the builder to create a FindCurrentPlaceRequest.
+//        FindCurrentPlaceRequest request = FindCurrentPlaceRequest.newInstance(placeFields);
+//
+//        // Call findCurrentPlace and handle the response (first check that the user has granted permission).
+//        if (ContextCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+//            Task<FindCurrentPlaceResponse> placeResponse = placesClient.findCurrentPlace(request);
+//            placeResponse.addOnCompleteListener(task -> {
+//                if (task.isSuccessful()){
+//                    FindCurrentPlaceResponse response = task.getResult();
+//                    for (PlaceLikelihood placeLikelihood : response.getPlaceLikelihoods()) {
+//                        Log.i(TAG, String.format("Place '%s' has likelihood: %f",
+//                                placeLikelihood.getPlace().getName(),
+//                                placeLikelihood.getLikelihood()));
+//                    }
+//                } else {
+//                    Exception exception = task.getException();
+//                    if (exception instanceof ApiException) {
+//                        ApiException apiException = (ApiException) exception;
+//                        Log.e(TAG, "Place not found: " + apiException.getStatusCode());
+//                    }
+//                }
+//            });
+//        } else {
+//            // A local method to request required permissions;
+//            // See https://developer.android.com/training/permissions/requesting
+//            getLocationPermission();
+//        }
     }
 
     @Override
@@ -152,7 +196,7 @@ public class BookyMapTestActivity extends AppCompatActivity implements LocationL
     public void onLocationChanged(@NonNull Location location) {
         this.latitude = location.getLatitude();
         this.longitude = location.getLongitude();
-        Toast.makeText(this, "Location : " + this.latitude + " ; " + this.longitude, Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "Location : " + this.latitude + " ; " + this.longitude, Toast.LENGTH_LONG).show();
 
         //loadMap is asynchronous, better to test if map is null
         if(googleMap != null){

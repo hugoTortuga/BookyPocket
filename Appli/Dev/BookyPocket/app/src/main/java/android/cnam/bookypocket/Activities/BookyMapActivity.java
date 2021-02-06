@@ -41,12 +41,14 @@ public class BookyMapActivity extends FragmentActivity implements OnMapReadyCall
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-
         // Add a marker in Sydney and move the camera
-        LatLng reims = new LatLng(-49.25, 4.03);
+        mMap = googleMap;
+        LatLng test1 = new LatLng(49, 4);
+        LatLng reims = new LatLng(49.25, 4.03);
         mMap.addMarker(new MarkerOptions().position(reims).title("Reims"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(reims));
+        mMap.addMarker(new MarkerOptions().position(test1).title("Reims"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(test1));
     }
 
 }
