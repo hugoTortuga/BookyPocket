@@ -6,6 +6,7 @@ import android.cnam.bookypocket.Model.Reader;
 import android.cnam.bookypocket.R;
 import android.cnam.bookypocket.Utils.Alert;
 import android.cnam.bookypocket.Utils.ChangeActivity;
+import android.cnam.bookypocket.Utils.Cryptography;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -64,10 +65,8 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         try {
-            //On hash le password
-            //TODO appel à l'API
 
-            Reader reader = DataBaseSingleton.GetDataBaseSingleton(this).getUserByCreditential(emailStr, pwdStr);
+            Reader reader = DataBaseSingleton.GetDataBaseSingleton(this).getUserByCreditential(emailStr, Cryptography.Hash(pwdStr));
 
             if(reader == null)
                 Alert.ShowDialog(this, "Identifiants", "Identifiants non reconnu");

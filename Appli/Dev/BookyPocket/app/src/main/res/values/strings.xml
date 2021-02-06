@@ -68,7 +68,8 @@
     <string name="manage_firstName">First name</string>
     <string name="manage_firstNameValue"></string>
     <string name="manage_DateOfBirth">Date of birth</string>
-    <string name="manage_passwordText">Password</string>
+    <string name="manage_currentpasswordText">Current password</string>
+    <string name="manage_newpasswordText">New password</string>
     <string name="manage_passwordValue"></string>
     <string name="manage_modifyPswdButton">Save</string>
     <string name="manage_deleteAccount">Delete my account</string>

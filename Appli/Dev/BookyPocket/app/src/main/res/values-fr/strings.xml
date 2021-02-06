@@ -67,7 +67,8 @@
     <string name="manage_firstName">Prénom</string>
     <string name="manage_firstNameValue"></string>
     <string name="manage_DateOfBirth">Date de naissance</string>
-    <string name="manage_passwordText">Mot de passe</string>
+    <string name="manage_currentpasswordText">Mot de passe courant</string>
+    <string name="manage_newpasswordText">Nouveau mot de passe</string>
     <string name="manage_passwordValue"></string>
     <string name="manage_modifyPswdButton">Sauvegarder</string>
     <string name="manage_deleteAccount">Supprimer mon compte</string>
