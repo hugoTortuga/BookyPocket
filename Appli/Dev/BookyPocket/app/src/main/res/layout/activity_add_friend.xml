@@ -36,11 +36,11 @@
                 android:textSize="24sp"></TextView>
         </RelativeLayout>
 
-        <androidx.appcompat.widget.SearchView
+        <SearchView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/search_book_button"
-        ></androidx.appcompat.widget.SearchView>
+            android:id="@+id/searchview_add_friend"
+        ></SearchView>
         <ListView
             android:id="@+id/friends_found_list"
             android:layout_width="match_parent"

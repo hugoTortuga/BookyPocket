@@ -34,7 +34,7 @@ public class AddFriendActivity extends AppCompatActivity implements AdapterView.
         setContentView(R.layout.activity_add_friend);
 
         friend_list = (ListView) findViewById(R.id.friends_list);
-        searchView = (SearchView) findViewById(R.id.search_book_button);
+        searchView = (SearchView) findViewById(R.id.searchview_add_friend);
 
 
 
@@ -79,7 +79,8 @@ public class AddFriendActivity extends AppCompatActivity implements AdapterView.
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         try {
             Reader friend = friends.get(position);
-            Alert.ShowDialog(this,"Succès", "La demande d'amie doit");
+            Alert.ShowDialog(this,"Succès", "La demande d'amie doit " + friend);
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }
