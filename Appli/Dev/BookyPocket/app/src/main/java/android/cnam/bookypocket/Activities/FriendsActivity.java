@@ -2,8 +2,6 @@ package android.cnam.bookypocket.Activities;
 
 import android.cnam.bookypocket.DBManager.DataBaseSingleton;
 import android.cnam.bookypocket.DBManager.Session;
-import android.cnam.bookypocket.Model.Author;
-import android.cnam.bookypocket.Model.Book;
 import android.cnam.bookypocket.Model.Reader;
 import android.cnam.bookypocket.R;
 import android.cnam.bookypocket.Utils.Alert;
@@ -28,15 +26,14 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
     private ListView friend_list;
     public List<Reader> friends;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friends);
-        IntializeView();
+        initializeView();
     }
 
-    private void IntializeView() {
+    private void initializeView() {
         if(Session.getCurrentUser() != null){
             try {
                 friends = DataBaseSingleton.GetDataBaseSingleton(this).GetFriendsByReader(Session.getCurrentUser().getId());
@@ -59,7 +56,6 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
     public void goBackFriendsActivity(View view){
         ChangeActivity.ChangeActivity(this,MainActivity.class);
     }
-
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

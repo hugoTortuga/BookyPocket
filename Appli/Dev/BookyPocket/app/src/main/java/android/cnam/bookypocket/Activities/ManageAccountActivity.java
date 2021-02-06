@@ -172,7 +172,6 @@ public class ManageAccountActivity extends AppCompatActivity {
                     }
                 });
         alertDialog.show();
-
     }
 
 }

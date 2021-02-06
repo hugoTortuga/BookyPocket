@@ -252,8 +252,14 @@ public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
     }
 
     public List<Reader> getUserByKeyword(String keyword) throws SQLException {
-        Dao<Reader, Reader> dao = getDao(Reader.class);
+        Dao<Reader, Integer> dao = getDao(Reader.class);
         return (List<Reader>) dao.queryBuilder().where().like("firstName",keyword)
                 .or().like("lastName",keyword).and().notIn("id",Session.getCurrentUser().getId()).query();
     }
+
+    public void DeleteAccount(Reader rdr) throws SQLException {
+        Dao<Reader, Integer> dao = getDao(Reader.class);
+        dao.delete(rdr);
+    }
+
 }
