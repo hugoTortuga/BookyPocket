@@ -18,6 +18,27 @@ public class Library {
     private String city;
     @DatabaseField
     private String postalCode;
+    @DatabaseField
+    private double Lat;
+    @DatabaseField
+    private double Long;
+
+
+    public double getLat() {
+        return Lat;
+    }
+
+    public void setLat(double lat) {
+        Lat = lat;
+    }
+
+    public double getLong() {
+        return Long;
+    }
+
+    public void setLong(double aLong) {
+        Long = aLong;
+    }
 
     public int getId() {
         return id;

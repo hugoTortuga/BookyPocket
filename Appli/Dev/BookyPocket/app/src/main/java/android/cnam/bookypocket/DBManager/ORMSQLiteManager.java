@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.j256.ormlite.android.apptools.*;
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.stmt.UpdateBuilder;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
@@ -19,7 +20,7 @@ import android.cnam.bookypocket.Model.*;
 public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
 
     private static final String DB_NAME = "bookypocket.db";
-    private static final int DB_VERSION = 6;
+    private static final int DB_VERSION = 7;
 
     public ORMSQLiteManager(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -59,12 +60,11 @@ public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
     public void onUpgrade(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion, int newVersion) {
         try {
             //Un peu extrême à changer plus tard
-
-            TableUtils.dropTable(connectionSource, Category.class, true);
+            TableUtils.dropTable(connectionSource, Library.class, true);
+            /*TableUtils.dropTable(connectionSource, Category.class, true);
             TableUtils.dropTable(connectionSource, Photo.class, true);
             TableUtils.dropTable(connectionSource, Book.class, true);
             TableUtils.dropTable(connectionSource, Person.class, true);
-            TableUtils.dropTable(connectionSource, Library.class, true);
             TableUtils.dropTable(connectionSource, Reader.class, true);
             TableUtils.dropTable(connectionSource, Author.class, true);
             TableUtils.dropTable(connectionSource, Language.class, true);
@@ -72,7 +72,7 @@ public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
             TableUtils.dropTable(connectionSource, LibraryBook.class, true);
             TableUtils.dropTable(connectionSource, ReaderBook.class, true);
             TableUtils.dropTable(connectionSource, PhotoBook.class, true);
-            TableUtils.dropTable(connectionSource, ReaderFriend.class,true);
+            TableUtils.dropTable(connectionSource, ReaderFriend.class,true);*/
 
 
             onCreate(database, connectionSource);
@@ -163,6 +163,17 @@ public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
         }catch (Exception ex){
             ex.printStackTrace();
             return false;
+        }
+    }
+
+    public void updateReaderPhoto(int idphoto, int idreader){
+        try{
+            Dao<Reader, Integer> dao = getDao(Reader.class);
+            UpdateBuilder<Reader, Integer> updateBuilder = dao.updateBuilder();
+            updateBuilder.updateColumnValue("avatar_id",idphoto).where().eq("id", idreader);
+            updateBuilder.update();
+        }catch (Exception ex){
+            ex.printStackTrace();
         }
     }
 
@@ -269,5 +280,10 @@ public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
             return b.getAuthor();
         else
             return null;
+    }
+
+    public List<Library> getAllLibrary() throws SQLException {
+        Dao<Library, Integer> dao = getDao(Library.class);
+        return (List<Library>) dao.queryBuilder().query();
     }
 }

@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.cnam.bookypocket.DBManager.DataBaseSingleton;
 import android.cnam.bookypocket.DBManager.Session;
+import android.cnam.bookypocket.Model.Photo;
 import android.cnam.bookypocket.Model.Reader;
 import android.cnam.bookypocket.R;
 import android.cnam.bookypocket.Utils.Alert;
@@ -13,13 +14,21 @@ import android.cnam.bookypocket.Utils.ChangeActivity;
 import android.cnam.bookypocket.Utils.CheckForm;
 import android.cnam.bookypocket.Utils.Cryptography;
 import android.cnam.bookypocket.Utils.StringUtil;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import java.io.ByteArrayOutputStream;
+import java.nio.ByteBuffer;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -61,6 +70,7 @@ public class ManageAccountActivity extends AppCompatActivity {
         email = (EditText) findViewById(R.id.manage_email_edit);
         currentpassword = (EditText) findViewById(R.id.id_current_password);
         newpassword = (EditText) findViewById(R.id.id_new_password);
+        userPhoto = (ImageView) findViewById(R.id.imageUserView);
         try {
 
             dateOfBirth = (EditText) findViewById(R.id.editTextDate);
@@ -77,16 +87,51 @@ public class ManageAccountActivity extends AppCompatActivity {
             lastName.setText(currentUser.getLastName());
             firstName.setText(currentUser.getFirstName());
             email.setText(currentUser.getEmailAddress());
+
+
+            // print photo from base
+            if(currentUser.getAvatar() != null)
+                if(currentUser.getAvatar().getImage() != null)
+                    userPhoto.setImageBitmap(BitmapFactory.decodeByteArray(currentUser.getAvatar().getImage(), 0, currentUser.getAvatar().getImage().length));
         } catch (Exception ex) {
+            Alert.ShowError(this, "Erreur lors de l'affichage des données", "" + ex);
+        }
+    }
+
+    final int REQUEST_IMAGE_CAPTURE = 1;
+
+    public void dispatchTakePictureIntent(View view) {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        try {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        } catch (Exception ex) {
+            Alert.ShowDialog(this,"Erreur", ""+ex);
+        }
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            userPhoto.setImageBitmap(imageBitmap);
+
+            try {
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                byte[] byteArray = stream.toByteArray();
+                Photo p = new Photo();
+                p.setId(100);
+                p.setImage(byteArray);
+                currentUser.setAvatar(p);
+
+            } catch (Exception ex) {
+                Alert.ShowDialog(this,"Erreur", "" + ex);
+            }
 
         }
     }
 
-    private void changeUserPhoto() {
-        //open file system and get new image file path
-        //Image newImage = ...;
-        //this.userPhoto = newImage;
-    }
 
     public void GoHome(View view) {
         ChangeActivity.ChangeActivity(this, MainActivity.class);
@@ -150,20 +195,18 @@ public class ManageAccountActivity extends AppCompatActivity {
                             String newPasswdStr = newpassword.getText().toString();
                             //si on a un new password et pas de current password
                             if (StringUtil.IsNullOrEmpty(curentpwdStr) && !StringUtil.IsNullOrEmpty(newPasswdStr)) {
-                                Alert.ShowDialog(currentContext,"Information", "Vous devez renseigner votre mot de passe courant pour mettre un nouveau mot de passe");
+                                Alert.ShowDialog(currentContext, "Information", "Vous devez renseigner votre mot de passe courant pour mettre un nouveau mot de passe");
                                 return;
                             } else if (!StringUtil.IsNullOrEmpty(curentpwdStr) && !StringUtil.IsNullOrEmpty(newPasswdStr)) {
-                                if(!Cryptography.Hash(curentpwdStr).equals(currentUser.getPassword())) {
+                                if (!Cryptography.Hash(curentpwdStr).equals(currentUser.getPassword())) {
                                     Alert.ShowDialog(currentContext, "Information", "Le mot de passe courant n'est pas bon");
                                     return;
-                                }
-                                else{
+                                } else {
                                     //le mot de passe courant est le bon
                                     newPasswdStr = Cryptography.Hash(newPasswdStr);
                                     currentUser.setPassword(newPasswdStr);
                                 }
                             }
-
                             DataBaseSingleton.GetDataBaseSingleton(currentContext).updateReaderInfo(checkInfoReaderBeforeSave());
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -181,7 +224,7 @@ public class ManageAccountActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
-    private void ShowSupprimDialog(Reader r){
+    private void ShowSupprimDialog(Reader r) {
         Context currentContext = this;
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
         alertDialog.setTitle("Confirmation ");

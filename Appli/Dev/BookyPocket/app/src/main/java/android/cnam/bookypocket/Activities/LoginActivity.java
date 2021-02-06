@@ -7,6 +7,7 @@ import android.cnam.bookypocket.R;
 import android.cnam.bookypocket.Utils.Alert;
 import android.cnam.bookypocket.Utils.ChangeActivity;
 import android.cnam.bookypocket.Utils.Cryptography;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -33,11 +34,13 @@ public class LoginActivity extends AppCompatActivity {
         Button connexion = (Button) findViewById(R.id.login_connexion);
         email = (EditText) findViewById(R.id.login_adrMail);
         password = (EditText) findViewById(R.id.login_password);
-
+        Context c = this;
         connexion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                connection();
+
+                ChangeActivity.ChangeActivity(c, MainActivity.class);
+                //connection();
             }
         });
     }

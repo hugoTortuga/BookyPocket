@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.FragmentManager;
 import android.cnam.bookypocket.R;
 import android.content.pm.PackageManager;
@@ -20,7 +19,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 public class BookyMapTestActivity extends AppCompatActivity implements LocationListener {
 
@@ -30,9 +28,17 @@ public class BookyMapTestActivity extends AppCompatActivity implements LocationL
     private LocationManager locationManager;
 
     private MapFragment mapFragment;
+
     private GoogleMap googleMap;
 
-    //coord
+    public GoogleMap getGoogleMap() {
+        return googleMap;
+    }
+
+    public void setGoogleMap(GoogleMap googleMap) {
+        this.googleMap = googleMap;
+    }
+
     private double latitude;
     private double longitude;
 
@@ -42,8 +48,7 @@ public class BookyMapTestActivity extends AppCompatActivity implements LocationL
         setContentView(R.layout.activity_booky_map_test);
 
         FragmentManager fragmentManager = getFragmentManager();
-        mapFragment = (MapFragment) fragmentManager
-                .findFragmentById(R.id.map);
+        mapFragment = (MapFragment) fragmentManager.findFragmentById(R.id.map);
     }
 
     @Override
@@ -59,11 +64,10 @@ public class BookyMapTestActivity extends AppCompatActivity implements LocationL
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
             //asynchronous call for user permission
-            /*ActivityCompat.requestPermissions(this, new String[]{
+            ActivityCompat.requestPermissions(this, new String[]{
                     Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.ACCESS_COARSE_LOCATION
             }, PERMS_CALL_ID);
-*/
             return;
         }
         //Location_Service is provided by Android
@@ -110,21 +114,20 @@ public class BookyMapTestActivity extends AppCompatActivity implements LocationL
 
     private void loadMap(){
         //notify when all necessary will be done
+        BookyMapTestActivity c = this;
         mapFragment.getMapAsync(new OnMapReadyCallback() {
 
             //method is called in checkPermission, we don't need to check it again
-            @SuppressLint("MissingPermission")
             @Override
             public void onMapReady(GoogleMap googleMap) {
                 //capture the map
-                BookyMapTestActivity.this.googleMap = googleMap;
-                googleMap.moveCamera(CameraUpdateFactory.zoomBy(15));
+                c.setGoogleMap(googleMap);
+                //googleMap.moveCamera(CameraUpdateFactory.zoomBy(15));
 
                 //requires permissions (checkPermission())
-                googleMap.setMyLocationEnabled(true);
+                //googleMap.setMyLocationEnabled(true);
 
-                googleMap.addMarker(new MarkerOptions().position(new LatLng(BookyMapTestActivity.this.latitude, BookyMapTestActivity.this.longitude))
-                                                        .title("Me"));
+                //googleMap.addMarker(new MarkerOptions().position(new LatLng(BookyMapTestActivity.this.latitude, BookyMapTestActivity.this.longitude)).title("Me"));
             }
         });
     }
