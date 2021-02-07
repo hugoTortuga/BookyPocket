@@ -40,24 +40,22 @@ public class RegisterBookActivity extends AppCompatActivity {
 
     //User inputs for a book
     private EditText titleValue;
-    private String title;
     private EditText authorValue;
-    private String author;
     private EditText publicationYearValue;
-    private String publicationYear;
+    private EditText description_manual;
     private Spinner categorySpinner;
-    private Button scanButton;
     private ImageView image;
-
+    private EditText register_isbn_manual;
     private Context context;
 
-    private String getISBNFromIntent;
     private Book currentBook;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_book);
+
+        currentBook = new Book();
         context = this;
         InitializeViewComponents();
     }
@@ -67,17 +65,43 @@ public class RegisterBookActivity extends AppCompatActivity {
         titleValue = (EditText) findViewById(R.id.register_titleValue);
         authorValue = (EditText) findViewById(R.id.register_authorValue);
         publicationYearValue = (EditText) findViewById(R.id.register_publicationYearValue);
-        //image = (TextView) findViewById(R.)
-
+        description_manual = (EditText) findViewById(R.id.description_manual);
+        image = (ImageView) findViewById(R.id.imageViewBookManual);
+        register_isbn_manual = (EditText) findViewById(R.id.register_isbn_manual);
         createCategorySpinner();
     }
 
-    private void saveBook(View view) {
+    public void saveBook(View view) {
         if (currentBook == null)
             return;
 
-        try {
+        if(StringUtil.IsNullOrEmpty(register_isbn_manual.getText().toString()))
+            Alert.ShowDialog(this,"Formulaire", "Vous devez remplir l'ISBN");
+        currentBook.setISBN(register_isbn_manual.getText().toString());
 
+        if(StringUtil.IsNullOrEmpty(titleValue.getText().toString()))
+            Alert.ShowDialog(this,"Formulaire", "Vous devez remplir le titre");
+        currentBook.setTitle(titleValue.getText().toString());
+
+        try{
+
+        }catch (Exception ex){
+            currentBook.setYearPublication(Integer.parseInt(publicationYearValue.getText().toString()));
+        }
+
+        Author a = new Author();
+        try{
+
+            a.setArtistName(authorValue.getText().toString());
+            currentBook.setAuthor(a);
+            currentBook.setBackCover(description_manual.getText().toString());
+
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
+        }
+
+        try {
             Reader reader = Session.getCurrentUser();
             ReaderBook readerBook = new ReaderBook(reader, currentBook);
 
@@ -92,10 +116,7 @@ public class RegisterBookActivity extends AppCompatActivity {
             //goToHome();
 
         } catch (Exception ex) {
-            if (ex.getClass() == java.sql.SQLException.class)
-                Alert.ShowDialog(context, "Erreur", "Le livre a été enregistré");
-            else
-                Alert.ShowDialog(context, "Erreur", ex.getMessage());
+                Alert.ShowError(context, "Erreur", "" + ex);
 
         }
     }

@@ -52,6 +52,24 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
 
+                android:text="@string/isbn"
+                android:layout_weight="1"
+                android:textColor="#E5B81D"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/register_isbn_manual"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="textPersonName"
+                android:paddingLeft="30dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+
                 android:text="@string/register_titleText"
                 android:layout_weight="1"
                 android:textColor="#E5B81D"
@@ -145,7 +163,7 @@
                 android:textStyle="bold" />
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/imageViewBookManual"
                 android:layout_width="200dp"
                 android:layout_height="150dp"
                 android:layout_gravity="center_horizontal|center_vertical"
@@ -162,7 +180,8 @@
                 android:onClick="saveBook"
                 android:text="@string/registerbook_button"
                 android:textColor="#FFFFFF"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_marginBottom="40dp"/>
 
         </LinearLayout>
     </ScrollView>

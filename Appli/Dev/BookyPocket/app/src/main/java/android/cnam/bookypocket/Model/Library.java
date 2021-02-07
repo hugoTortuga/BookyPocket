@@ -3,6 +3,8 @@ package android.cnam.bookypocket.Model;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.util.List;
+
 @DatabaseTable(tableName = "Library")
 public class Library {
 
@@ -22,6 +24,18 @@ public class Library {
     private double Lat;
     @DatabaseField
     private double Long;
+
+    private boolean opened;
+
+    private List<String> openingHours;
+
+    public List<String> getOpeningHours() {return openingHours;}
+    public void setOpeningHours(List<String> openingHours) {this.openingHours = openingHours;}
+
+
+    public boolean isOpened() {return opened;}
+
+    public void setOpened(boolean opened) {this.opened = opened;}
 
 
     public double getLat() {

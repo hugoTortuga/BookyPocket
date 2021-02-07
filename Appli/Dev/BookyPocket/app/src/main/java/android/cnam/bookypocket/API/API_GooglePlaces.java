@@ -1,12 +1,6 @@
 package android.cnam.bookypocket.API;
 
-import android.cnam.bookypocket.DBManager.DataBaseSingleton;
-import android.cnam.bookypocket.Model.Author;
-import android.cnam.bookypocket.Model.Book;
-import android.cnam.bookypocket.Model.Category;
 import android.cnam.bookypocket.Model.Library;
-import android.cnam.bookypocket.Model.Photo;
-import android.cnam.bookypocket.Utils.StringUtil;
 import android.content.Context;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -28,7 +22,8 @@ import java.util.List;
 public class API_GooglePlaces {
 
     private static final String API_KEY = "AIzaSyANwoe5yvq5KocIFHBDlngGeNSFsTp5pnI";
-    private static final int Radius = 2000;
+
+    private static final int Radius = 1000;
 
     private static String readAll(Reader rd) throws IOException {
         StringBuilder sb = new StringBuilder();
@@ -63,7 +58,6 @@ public class API_GooglePlaces {
         final String URL_Place_Id = "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=library&location=" + longi +"," + lati +"&key=" + API_KEY + "&radius=" + Radius;
         JSONObject json = API_GooglePlaces.ReadJsonFromUrl(URL_Place_Id);
 
-
         List<String> listPlaceId = getPlaceIdFromJSONObject(json);
 
         for (String placeId: listPlaceId ) {
@@ -89,11 +83,44 @@ public class API_GooglePlaces {
         JSONObject item = jsonPlaceID.getJSONObject("result");
         JSONObject geometry = item.getJSONObject("geometry");
         JSONObject location = geometry.getJSONObject("location");
+
+        Library l = new Library();
+
+        try{
+            JSONObject opening_hours = item.getJSONObject("opening_hours");
+            JSONArray arrayOpeningHours = opening_hours.getJSONArray("weekday_text");
+            String opened = opening_hours.getString("open_now");
+
+            List<String> hours = new ArrayList<>();
+            for (int i = 0; i < arrayOpeningHours.length(); i++) {
+                String day = arrayOpeningHours.getString(i);
+                hours.add(day);
+            }
+            if (opened.equals("false")) {
+                l.setOpened(false);
+            } else if (opened.equals("true")) {
+                l.setOpened(true);
+            }
+        }
+        catch (Exception ex){
+
+        }
+
         double lat = location.getDouble("lat");
         double lng = location.getDouble("lng");
-        Library l = new Library();
+        String libName = item.getString("name");
+
+
+
         l.setLat(lat);
         l.setLong(lng);
+        l.setName(libName);
+        // l.setOpeningHours(hours);
+
+
+
+
+        //if(l.getOpeningHours() != null) return l;
         return l;
     }
 
