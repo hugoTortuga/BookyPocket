@@ -5,8 +5,8 @@ Maëlle Laporte - Raphaël Robert - Hugo Malglaive
 
 # Installer l'application sur android studio
 
-cd randomFolder
-Exécuter cette commande
+cd randomFolder \n
+Exécuter cette commande \n
 git clone https://github.com/hugoTortuga/BookyPocket.git
 
 Ensuite ouvrir Android Studio -> File / Open 
