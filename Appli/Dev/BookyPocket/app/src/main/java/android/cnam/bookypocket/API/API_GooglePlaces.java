@@ -9,6 +9,8 @@ import android.cnam.bookypocket.Model.Photo;
 import android.cnam.bookypocket.Utils.StringUtil;
 import android.content.Context;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,7 +28,7 @@ import java.util.List;
 public class API_GooglePlaces {
 
     private static final String API_KEY = "AIzaSyANwoe5yvq5KocIFHBDlngGeNSFsTp5pnI";
-    private static final int Radius = 1000;
+    private static final int Radius = 2000;
 
     private static String readAll(Reader rd) throws IOException {
         StringBuilder sb = new StringBuilder();
@@ -95,6 +97,8 @@ public class API_GooglePlaces {
         return l;
     }
 
-
+    public static LatLng WhereAmI(){
+        return new LatLng(49.24672777375072, 4.022010566712176);
+    }
 
 }

@@ -54,7 +54,7 @@
             android:name="com.google.android.gms.vision.DEPENDENCIES"
             android:value="barcode" />
 
-<!--        <activity android:name=".Activities.LoginActivity" />-->
+
         <activity android:name=".Activities.BookyMapActivity" />
 
         <activity android:name=".Activities.BookDetailsActivity" />

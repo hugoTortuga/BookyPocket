@@ -39,8 +39,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                ChangeActivity.ChangeActivity(c, MainActivity.class);
-                //connection();
+                //ChangeActivity.ChangeActivity(c, MainActivity.class);
+                connection();
             }
         });
     }

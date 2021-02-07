@@ -38,7 +38,6 @@ public class BookyMapActivity extends FragmentActivity implements OnMapReadyCall
         if(mapFragment != null)
             mapFragment.getMapAsync(this);
 
-
     }
 
     @Override
@@ -51,10 +50,7 @@ public class BookyMapActivity extends FragmentActivity implements OnMapReadyCall
             task.execute();
 
             //List<Library> libraryList = API_GooglePlaces.Request(0,0,this);
-
-
             //List<Library> libraryList2 = DataBaseSingleton.GetDataBaseSingleton(this).getAllLibrary();
-
 
         }
         catch(Exception ex){
@@ -69,6 +65,7 @@ public class BookyMapActivity extends FragmentActivity implements OnMapReadyCall
             mMap.addMarker(new MarkerOptions().position(position).title(lib.getName()));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(position));
         }
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(API_GooglePlaces.WhereAmI(), 12));
     }
 
     private class CallGoogleMapsAPI extends AsyncTask<Void, Void, String> {
