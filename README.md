@@ -11,7 +11,9 @@ Exécuter cette commande
 
 git clone https://github.com/hugoTortuga/BookyPocket.git
 
-Ensuite ouvrir Android Studio -> File / Open 
+Ensuite ouvrir Android Studio 
+
+                              -> File / Open 
 
                               -> randomFolder/Appli/Dev/BookyPocket
                               
@@ -19,7 +21,7 @@ Ensuite ouvrir Android Studio -> File / Open
                               
 Maintenant vous pouvez lancer l'appli sur l'émulateur d'android studio ou sur votre mobile relié en USB
 
-#Fonctionnalités de l'application
+# Fonctionnalités de l'application
 
 -	Inscription / Connexion
 -	Gestion des informations de son compte
