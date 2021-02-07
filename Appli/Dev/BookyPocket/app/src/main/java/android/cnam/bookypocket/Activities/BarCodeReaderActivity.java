@@ -34,20 +34,23 @@ import java.util.List;
 
 public class BarCodeReaderActivity extends AppCompatActivity{
 
+    //Attributs
     private BarCodeReader barCodeReader;
-
     private SurfaceView surfaceView;
     private BarcodeDetector barcodeDetector;
-
     private CameraSource cameraSource;
-    private static final int REQUEST_CAMERA_PERMISSION = 201;
     private TextView barcodeInfo;
     private Button stopScanButton;
+
+    //Attributs statics
+    private static final int REQUEST_CAMERA_PERMISSION = 201;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bar_code_reader);
+
+
         surfaceView = findViewById(R.id.surface_view);
         barcodeInfo = findViewById(R.id.barcode_text);
         stopScanButton = findViewById(R.id.stopScanButton);
@@ -100,6 +103,10 @@ public class BarCodeReaderActivity extends AppCompatActivity{
 
     }
 
+    /**
+     * Vérifie les permissions, les demandes si elles ne sont pas données
+     * @throws IOException
+     */
     private void checkCameraPermission() throws IOException {
         if (ActivityCompat.checkSelfPermission(BarCodeReaderActivity.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
             cameraSource.start(surfaceView.getHolder());
@@ -110,12 +117,22 @@ public class BarCodeReaderActivity extends AppCompatActivity{
         }
     }
 
+    /**
+     * Bouton stop scan click, appel une recherche asynchrone
+     * @param view
+     */
     private void stopScanAndGoRegister(View view){
         String isbn = barcodeInfo.getText().toString();
         CallGoogleBookAPI task = new CallGoogleBookAPI(this, isbn);
         task.execute();
     }
 
+    /**
+     * Méthode appelée à la fin de l'exécution du thread recherche
+     * Renvoi à l'activity détail si il y a un livre trouvé, sinon affiche un message
+     * pour prévenir l'utilisateur qu'aucun livre n'existe avec cet ISBN
+     * @param book
+     */
     private void GoToDetails(Book book){
         try{
             if(book == null)
@@ -128,6 +145,10 @@ public class BarCodeReaderActivity extends AppCompatActivity{
         }
     }
 
+    /**
+     * Bouton retour click
+     * @param view
+     */
     public void GoBack(View view) {
         this.finish();
     }

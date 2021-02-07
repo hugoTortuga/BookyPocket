@@ -11,10 +11,12 @@ import android.widget.ImageButton;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * Activité principal, menu avec tous les boutons
+ */
 public class MainActivity extends AppCompatActivity {
 
-    private AppBarConfiguration mAppBarConfiguration;
-
+    //Attributs
     private Button findLibraryButton;
     private Button seeReadingsButton;
     private ImageButton manageAccountButton;
@@ -29,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         createButtons();
     }
 
+    //Initialise les composants
     private void createButtons() {
         findLibraryButton = (Button) findViewById(R.id.home_button_findLibrary);
         findLibraryButton.setOnClickListener(new View.OnClickListener() {
@@ -70,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
+    //Bouton déconnexion click
     public void disconnectButton(View view) {
         Session.setCurrentUser(null);
         Session.setBooks(null);

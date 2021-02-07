@@ -19,10 +19,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Activité rassemblant la liste d'amis
+ */
 public class FriendsActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
-    private SearchView searchView;
-
+    //Attributs
     private ListView friend_list;
     public List<Reader> friends;
 
@@ -33,6 +35,9 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
         initializeView();
     }
 
+    /**
+     * Initialise les composants de la vue
+     */
     private void initializeView() {
         if(Session.getCurrentUser() != null){
             try {
@@ -53,10 +58,21 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
             Alert.ShowDialog(this,"Anomalie","L'utilisateur courant est vide");
     }
 
+    /**
+     * Bouton retour click
+     * @param view
+     */
     public void goBackFriendsActivity(View view){
         ChangeActivity.ChangeActivity(this,MainActivity.class);
     }
 
+    /**
+     * Lorsqu'on click sur ami, redirige vers sa page ami
+     * @param parent
+     * @param view
+     * @param position
+     * @param id
+     */
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         try {
@@ -69,6 +85,10 @@ public class FriendsActivity extends AppCompatActivity implements AdapterView.On
         }
     }
 
+    /**
+     * Bouton ajouter un ami click, redirige vers la page ajouter un ami
+     * @param view
+     */
     public void add_friend_button_click(View view) {
         ChangeActivity.ChangeActivity(this, AddFriendActivity.class);
     }

@@ -36,18 +36,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Activité pour saisir
+ */
 public class RegisterBookActivity extends AppCompatActivity {
 
-    //User inputs for a book
+    //Attributs
     private EditText titleValue;
     private EditText authorValue;
     private EditText publicationYearValue;
     private EditText description_manual;
-    private Spinner categorySpinner;
     private ImageView image;
     private EditText register_isbn_manual;
     private Context context;
-
     private Book currentBook;
 
     @Override
@@ -57,10 +58,10 @@ public class RegisterBookActivity extends AppCompatActivity {
 
         currentBook = new Book();
         context = this;
-        InitializeViewComponents();
+        initializeView();
     }
 
-    private void InitializeViewComponents() {
+    private void initializeView() {
 
         titleValue = (EditText) findViewById(R.id.register_titleValue);
         authorValue = (EditText) findViewById(R.id.register_authorValue);
@@ -68,9 +69,12 @@ public class RegisterBookActivity extends AppCompatActivity {
         description_manual = (EditText) findViewById(R.id.description_manual);
         image = (ImageView) findViewById(R.id.imageViewBookManual);
         register_isbn_manual = (EditText) findViewById(R.id.register_isbn_manual);
-        createCategorySpinner();
     }
 
+    /**
+     * sauvegarde un livre et l'ajoute dans la bibli de l'utilisateur courant
+     * @param view
+     */
     public void saveBook(View view) {
         if (currentBook == null)
             return;
@@ -121,44 +125,12 @@ public class RegisterBookActivity extends AppCompatActivity {
         }
     }
 
-
-    private void createCategorySpinner() {
-
-        try {
-            List<Category> categories = new ArrayList<>();
-            categories = DataBaseSingleton.GetDataBaseSingleton(this).getAllObjects(Category.class);
-            List<String> libelleCategories = new ArrayList<>();
-            for (Category cat : categories) {
-                libelleCategories.add(cat.getName());
-            }
-            Collections.sort(libelleCategories);
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                    android.R.layout.simple_spinner_item,
-                    libelleCategories);
-
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            this.categorySpinner.setAdapter(adapter);
-
-            // When user select a List-Item.
-            this.categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    onItemSelectedHandlerCategory(parent, view, position, id);
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
-
-                }
-            });
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-
     final int REQUEST_IMAGE_CAPTURE = 1;
 
+    /**
+     * ouvre l'appareil photo
+     * @param view
+     */
     public void dispatchTakePictureIntent(View view) {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         try {
@@ -167,6 +139,13 @@ public class RegisterBookActivity extends AppCompatActivity {
             Alert.ShowDialog(this,"Erreur", ""+ex);
         }
     }
+
+    /**
+     * récupère la photo prise par l'appareil photo
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -190,16 +169,10 @@ public class RegisterBookActivity extends AppCompatActivity {
         }
     }
 
-
-    private void onItemSelectedHandlerCategory(AdapterView<?> adapterView, View view,
-                                               int position, long id) {
-        Adapter adapter = adapterView.getAdapter();
-//        Category category = (Category) adapter.getItem(position);
-        //this.category = category;
-//        Toast.makeText(getApplicationContext(), "Selected Category : " + category.getName() ,Toast.LENGTH_SHORT).show();
-    }
-
-
+    /**
+     * Bouton retour arrièr click
+     * @param view
+     */
     public void GoHome(View view) {
         ChangeActivity.ChangeActivity(this, MainActivity.class);
     }

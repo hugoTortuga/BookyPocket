@@ -9,8 +9,16 @@ import android.content.Intent;
 
 import java.sql.SQLException;
 
+/**
+ * Classe utilitaire pour changer de vue
+ */
 public class ChangeActivity {
 
+    /**
+     * Changer l'activité avec la contexte courante et la class du context
+     * @param currentContext
+     * @param wantedContext
+     */
     public static void ChangeActivity(Context currentContext, Class wantedContext) {
         try {
             Intent intent = new Intent(currentContext, wantedContext);
@@ -20,6 +28,12 @@ public class ChangeActivity {
         }
     }
 
+    /**
+     * Va à l'activité détail livre
+     * @param currentContext
+     * @param book
+     * @throws SQLException
+     */
     public static void GoToBookDetailActivity(Context currentContext, Book book) throws SQLException {
 
         Intent intent = new Intent(currentContext, BookDetailsActivity.class);

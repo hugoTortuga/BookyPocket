@@ -2,6 +2,9 @@ package android.cnam.bookypocket.DBManager;
 
 import android.content.Context;
 
+/**
+ * Singleton de connexion
+ */
 public class DataBaseSingleton {
 
     private DataBaseSingleton() {
@@ -9,6 +12,11 @@ public class DataBaseSingleton {
 
     private static ORMSQLiteManager Singleton;
 
+    /**
+     * méthode unique de récupération de l'objet de connexion
+     * @param context
+     * @return
+     */
     public static ORMSQLiteManager GetDataBaseSingleton(Context context) {
 
         if (Singleton == null) {

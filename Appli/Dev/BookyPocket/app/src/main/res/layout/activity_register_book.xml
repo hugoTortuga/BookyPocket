@@ -135,21 +135,6 @@
                 android:inputType="date"
                 android:paddingLeft="30dp" />
 
-
-            <TextView
-                android:id="@+id/register_categoryText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/register_categoryText"
-                android:textColor="#E5B81D"
-                android:textStyle="bold" />
-
-            <Spinner
-                android:id="@+id/register_categorySpinner"
-                android:layout_width="match_parent"
-                android:layout_weight="1"
-                android:layout_height="50dp" />
-
             <Button
                 android:layout_width="match_parent"
                 android:layout_marginHorizontal="30dp"

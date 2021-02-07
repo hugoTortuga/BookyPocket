@@ -27,21 +27,27 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Acitivty de la page ajouter un ami
+ */
 public class AddFriendActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
+    //Attributs
     private ListView friend_list;
     public List<Reader> friends;
-
     private SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_friend);
-        InitializeView();
+        initializeView();
     }
 
-    private void InitializeView() {
+    /**
+     * On initialise les éléments de la vue
+     */
+    private void initializeView() {
         friend_list = (ListView) findViewById(R.id.friends_found_list);
         searchView = (SearchView) findViewById(R.id.searchview_add_friend);
 
@@ -56,14 +62,20 @@ public class AddFriendActivity extends AppCompatActivity implements AdapterView.
             public boolean onQueryTextChange(String newText) {
                 return true;
             }
-
         });
     }
 
+    /**
+     * Bouton de retour arrière
+     * @param view
+     */
     public void goBackFriendsActivity(View view) {
         ChangeActivity.ChangeActivity(this, FriendsActivity.class);
     }
 
+    /**
+     * Méthode appelée lors de la recherche
+     */
     public void searchFriendButtonClick() {
 
         if (searchView.getQuery() != null)
@@ -85,6 +97,13 @@ public class AddFriendActivity extends AppCompatActivity implements AdapterView.
             }
     }
 
+    /**
+     * Méthode appelé lors du click sur un ami
+     * @param parent
+     * @param view
+     * @param position
+     * @param id
+     */
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         try {

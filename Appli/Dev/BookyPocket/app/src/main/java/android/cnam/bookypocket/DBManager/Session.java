@@ -12,6 +12,9 @@ import java.util.List;
  */
 public class Session {
 
+    /**
+     * Données de session livres recherchés
+     */
     private static List<Book> Books;
 
     public static List<Book> getBooks() {
@@ -22,6 +25,9 @@ public class Session {
         Books = books;
     }
 
+    /**
+     * Donnée de session d'un utilisateur
+     */
     private static Reader CurrentUser;
 
     public static Reader getCurrentUser() {

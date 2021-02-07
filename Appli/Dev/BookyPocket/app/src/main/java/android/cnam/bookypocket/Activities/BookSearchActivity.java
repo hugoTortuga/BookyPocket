@@ -23,10 +23,14 @@ import android.widget.SearchView;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Activité de la recherche de livres : contient une classe privée qui extend asynTask pour envoyer
+ * des requetes http à google book
+ */
 public class BookSearchActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
+    //Attributs
     private SearchView searchView;
-
     private ListView found_list;
     public List<Book> books_list;
 
@@ -36,6 +40,12 @@ public class BookSearchActivity extends AppCompatActivity implements AdapterView
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_search);
 
+        initializeView();
+        updateListInterface();
+    }
+
+    //Initialise tous les éléments de la vue
+    private void initializeView(){
         searchView = (SearchView) findViewById(R.id.search_book_button);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -53,9 +63,9 @@ public class BookSearchActivity extends AppCompatActivity implements AdapterView
         });
 
         found_list = (ListView) findViewById(R.id.found_list);
-        updateListInterface();
     }
 
+    //Si la session contient déjà des livres recherchés, les affiches
     public void updateListInterface(){
         List<Book> bookInSession = Session.getBooks();
         if(bookInSession != null){
@@ -72,6 +82,11 @@ public class BookSearchActivity extends AppCompatActivity implements AdapterView
         }
     }
 
+    /**
+     * Méthode permettant d'appelé une requete asynchrone de recherche de livre
+     * à partie des mots clefs renseignées par le user
+     * @param view
+     */
     public void searchBook(View view){
         try{
 
@@ -103,10 +118,21 @@ public class BookSearchActivity extends AppCompatActivity implements AdapterView
         }
     }
 
+    /**
+     * Bouton pour revenir en arrière
+     * @param view
+     */
     public void GoHome(View view) {
         ChangeActivity.ChangeActivity(this, MainActivity.class);
     }
 
+    /**
+     * Click sur un livre, redirige vers l'activité détail livre
+     * @param parent
+     * @param view
+     * @param position
+     * @param id
+     */
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         try{
@@ -119,6 +145,10 @@ public class BookSearchActivity extends AppCompatActivity implements AdapterView
         }
     }
 
+    /**
+     * Ajoute les livres recherchés dans les données de session
+     * @param _books
+     */
     public void setBookCollection(List<Book> _books){
         books_list = _books;
         Session.setBooks(_books);

@@ -17,9 +17,14 @@ import java.util.List;
 
 import android.cnam.bookypocket.Model.*;
 
+/**
+ * Méthode qui gère la connexion à la BD
+ */
 public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
 
+    //nom du fichier
     private static final String DB_NAME = "bookypocket.db";
+    //numéro de version de la base
     private static final int DB_VERSION = 7;
 
     public ORMSQLiteManager(Context context) {
@@ -134,6 +139,12 @@ public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
         }
     }
 
+    /**
+     * Récupère une catégorie avec son nom
+     * @param nomCategory
+     * @return
+     * @throws SQLException
+     */
     public Category getCategoryByName(String nomCategory) throws SQLException {
         Category category = null;
         Dao<Category, Integer> dao = getDao(Category.class);
@@ -141,16 +152,25 @@ public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
         return category;
     }
 
+    /**
+     * récupère un user avec un email et un password hashé
+     * @param emailStr
+     * @param pwdStr
+     * @return
+     * @throws SQLException
+     */
     public Reader getUserByCreditential(String emailStr, String pwdStr) throws SQLException {
         Reader rdr = null;
         Dao<Reader, Integer> dao = getDao(Reader.class);
-
-        //TODO hasher le pwd
-
         rdr = (Reader) dao.queryBuilder().where().eq("emailAddress", emailStr).and().eq("password",pwdStr).queryForFirst();
         return rdr;
     }
 
+    /**
+     * met à jour les info d'un user
+     * @param r
+     * @return
+     */
     public boolean updateReaderInfo(Reader r){
         try{
             Dao<Reader, Integer> dao = getDao(Reader.class);
@@ -166,6 +186,12 @@ public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
         }
     }
 
+
+    /**
+     * met à jour la photo d'un user
+     * @param idphoto
+     * @param idreader
+     */
     public void updateReaderPhoto(int idphoto, int idreader){
         try{
             Dao<Reader, Integer> dao = getDao(Reader.class);
@@ -177,8 +203,12 @@ public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
         }
     }
 
-
-
+    /**
+     * récupère les auteurs d'un livre
+     * @param book_id
+     * @return
+     * @throws SQLException
+     */
     public List<Author> getAuthorsFromBook(int book_id) throws SQLException {
         List<AuthorBook> authorBooks = new ArrayList<>();
         Dao<AuthorBook, Integer> dao = getDao(AuthorBook.class);
@@ -191,13 +221,12 @@ public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
         return authors;
     }
 
-
-    public boolean doesBookExistInDB(Book book){
-
-        // TODO
-        return true;
-    }
-
+    /**
+     * récupère l'auteur avec son nom
+     * @param artistName
+     * @return
+     * @throws SQLException
+     */
     public Author getAuthorFromName(String artistName) throws SQLException {
         Author author = null;
         Dao<Author, Integer> dao = getDao(Author.class);
@@ -205,17 +234,35 @@ public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
         return author;
     }
 
+    /**
+     * get l'auteur id avec son nom d'artiste
+     * @param artistName
+     * @return
+     * @throws SQLException
+     */
     public int getIdAuthorByArtistName(String artistName) throws SQLException {
         Dao<Author, Integer> dao = getDao(Author.class);
         Author a = (Author) dao.queryBuilder().where().eq("artistName", artistName).queryForFirst();
         return a.getId();
     }
 
+    /**
+     * récupère un livre grace à un ISBN
+     * @param ISBN
+     * @return
+     * @throws SQLException
+     */
     public Book getBookByISBN(String ISBN) throws SQLException {
         Dao<Book, Integer> dao = getDao(Book.class);
         return (Book) dao.queryBuilder().where().eq("ISBN", ISBN).queryForFirst();
     }
 
+    /**
+     * récupère une liste de livre par un mot clef
+     * @param keyword
+     * @return
+     * @throws SQLException
+     */
     public List<Book> getBooksByKeyWord(String[] keyword) throws SQLException {
         List<Book> booksFound = new ArrayList<>();
 
@@ -227,6 +274,12 @@ public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
         return booksFound;
     }
 
+    /**
+     * récupère une liste de livre par id user
+     * @param reader_id
+     * @return
+     * @throws SQLException
+     */
     public List<Book> getListBookFromIdUser(int reader_id) throws SQLException {
         List<ReaderBook> booksReaderFound = new ArrayList<>();
         Dao<ReaderBook, Integer> dao = getDao(ReaderBook.class);
@@ -239,6 +292,12 @@ public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
         return booksFound;
     }
 
+    /**
+     * récupère les livres d'un auteur
+     * @param authorParam
+     * @return
+     * @throws SQLException
+     */
     public List<Book> getBooksByAuthorArtistName(String authorParam) throws SQLException {
         List<AuthorBook> autBook = new ArrayList<>();
         Dao<AuthorBook, Integer> dao = getDao(AuthorBook.class);
@@ -251,6 +310,12 @@ public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
         return booksFound;
     }
 
+    /**
+     * récupère les amis d'un reader
+     * @param idPerson
+     * @return
+     * @throws SQLException
+     */
     public List<Reader> GetFriendsByReader(int idPerson) throws SQLException {
         List<Reader> friends = new ArrayList<>();
         List<ReaderFriend> rbs = new ArrayList<>();
@@ -262,17 +327,24 @@ public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
         return friends;
     }
 
+    /**
+     * récupère une liste de user grace à un mot clef (recherche sur le nom ou le prénom)
+     * @param keyword
+     * @return
+     * @throws SQLException
+     */
     public List<Reader> getUserByKeyword(String keyword) throws SQLException {
         Dao<Reader, Integer> dao = getDao(Reader.class);
         return (List<Reader>) dao.queryBuilder().where().like("firstName",keyword)
                 .or().like("lastName",keyword).and().notIn("id",Session.getCurrentUser().getId()).query();
     }
 
-    public void DeleteAccount(Reader rdr) throws SQLException {
-        Dao<Reader, Integer> dao = getDao(Reader.class);
-        dao.delete(rdr);
-    }
-
+    /**
+     * récupère un auteur depuis un isbn
+     * @param isbn
+     * @return
+     * @throws SQLException
+     */
     public Author getAuthorFromBook(String isbn) throws SQLException {
         Dao<Book, Integer> dao = getDao(Book.class);
         Book b = (Book) dao.queryBuilder().where().eq("ISBN", isbn).queryForFirst();
@@ -282,6 +354,11 @@ public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
             return null;
     }
 
+    /**
+     * récupère la liste de toutes les librairies
+     * @return
+     * @throws SQLException
+     */
     public List<Library> getAllLibrary() throws SQLException {
         Dao<Library, Integer> dao = getDao(Library.class);
         return (List<Library>) dao.queryBuilder().query();

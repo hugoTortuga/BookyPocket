@@ -35,6 +35,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+/**
+ * Activité comportant la gestion du compte, mise à jour des infos ou suppression
+ */
 public class ManageAccountActivity extends AppCompatActivity {
 
     //User inputs for a book
@@ -44,19 +47,19 @@ public class ManageAccountActivity extends AppCompatActivity {
     private EditText currentpassword;
     private EditText newpassword;
     private EditText dateOfBirth;
-
     private ImageView userPhoto;
-
     private Reader currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_account);
-
         initilizeForm();
     }
 
+    /**
+     * Initialise les données du formulaire
+     */
     private void initilizeForm() {
 
         if (Session.getCurrentUser() == null) {
@@ -100,6 +103,10 @@ public class ManageAccountActivity extends AppCompatActivity {
 
     final int REQUEST_IMAGE_CAPTURE = 1;
 
+    /**
+     * Permet d'ouvrir l'appareil photo
+     * @param view
+     */
     public void dispatchTakePictureIntent(View view) {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         try {
@@ -108,6 +115,13 @@ public class ManageAccountActivity extends AppCompatActivity {
             Alert.ShowDialog(this,"Erreur", ""+ex);
         }
     }
+
+    /**
+     * Permet de récupérer une photo prise
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -132,18 +146,35 @@ public class ManageAccountActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Bouton retour click
+     * @param view
+     */
     public void GoHome(View view) {
         ChangeActivity.ChangeActivity(this, MainActivity.class);
     }
 
+    /**
+     * Bouton sauvegarder les modifs
+     * @param view
+     */
     public void save(View view) {
         ShowSaveDialog("Confirmation", "Etes-vous sur de vouloir sauvegarder ?");
     }
 
+    /**
+     * bouton supprimer compte click
+     * @param view
+     */
     public void deleteAccount(View view) {
         ShowSupprimDialog(Session.getCurrentUser());
     }
 
+    /**
+     * Vérifie le format des données du formulaire et renvoi un user avec des données validées
+     * @return
+     * @throws Exception
+     */
     private Reader checkInfoReaderBeforeSave() throws Exception {
 
         if (currentUser == null)
@@ -179,6 +210,11 @@ public class ManageAccountActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Affiche la fenetre de sauvegarde
+     * @param title
+     * @param msg
+     */
     private void ShowSaveDialog(String title, String msg) {
         Context currentContext = this;
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
@@ -223,6 +259,10 @@ public class ManageAccountActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
+    /**
+     * Affiche la fenetre de suppression du compte
+     * @param r
+     */
     private void ShowSupprimDialog(Reader r) {
         Context currentContext = this;
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();

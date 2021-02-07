@@ -6,6 +6,12 @@ import android.content.DialogInterface;
 
 public class Alert {
 
+    /**
+     * Affiche un message avec un contexte, un titre, un message
+     * @param ctx
+     * @param title
+     * @param msg
+     */
     public static void ShowDialog(Context ctx, String title, String msg){
         AlertDialog alertDialog = new AlertDialog.Builder(ctx).create();
         alertDialog.setTitle(title);
@@ -19,6 +25,12 @@ public class Alert {
         alertDialog.show();
     }
 
+    /**
+     * Affiche un message d'erreur avec un contexte, un titre, un message
+     * @param ctx
+     * @param title
+     * @param msg
+     */
     public static void ShowError(Context ctx, String title, String msg){
         AlertDialog alertDialog = new AlertDialog.Builder(ctx).create();
         alertDialog.setTitle(title);

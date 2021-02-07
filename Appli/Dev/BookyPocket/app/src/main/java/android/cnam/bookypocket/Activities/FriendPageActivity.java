@@ -19,22 +19,28 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Page ami avec ses livres
+ */
 public class FriendPageActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
-    private SearchView searchView;
-
+    //Attribut
     private ListView found_list;
     public List<Book> books;
-
     public TextView name_friend_page;
     public Reader friend;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend_page);
+        initializeView();
+    }
 
+    /**
+     * initialise les éléments de la vue
+     */
+    private void initializeView(){
         friend = getIntent().getParcelableExtra("friend");
         if(friend == null){
             Alert.ShowDialog(this, "Anomalie", "Aucun ami n'a été trouvé");
@@ -45,9 +51,11 @@ public class FriendPageActivity extends AppCompatActivity implements AdapterView
 
             updateListInterface();
         }
-
     }
 
+    /**
+     * Affiche le nom prénom et les livres de l'ami dans la vue
+     */
     public void updateListInterface(){
 
         if(friend != null){
@@ -69,10 +77,21 @@ public class FriendPageActivity extends AppCompatActivity implements AdapterView
 
     }
 
+    /**
+     * Bouton retour click
+     * @param view
+     */
     public void goBackFriendPage(View view) {
         this.finish();
     }
 
+    /**
+     * Click sur un livre, redirection vers la page détail livre
+     * @param parent
+     * @param view
+     * @param position
+     * @param id
+     */
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         try{

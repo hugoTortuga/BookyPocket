@@ -85,9 +85,9 @@
     <string name="signup_email">Adresse email</string>
     <string name="signup_lastname">Nom</string>
     <string name="signup_firstname">Prénom</string>
-    <string name="signup_password">Mot de passe</string>
+    <string name="signup_password">Mot de passe, 8 caractères min</string>
     <string name="signup_confirmPassword">Confirmer mot de passe</string>
-    <string name="signup_DOB">Date de naissance</string>
+    <string name="signup_DOB">Date de naissance AAAA/MM/JJ</string>
     <string name="signup_button">S\'inscrire</string>
 
     <!--    SEARCH BOOK ACTIVITY-->

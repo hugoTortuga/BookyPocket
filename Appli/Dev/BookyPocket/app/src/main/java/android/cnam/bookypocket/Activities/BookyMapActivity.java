@@ -37,22 +37,21 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Activité de la carte
+ */
 public class BookyMapActivity extends FragmentActivity implements GoogleMap.OnMarkerClickListener, GoogleMap.OnInfoWindowClickListener, OnMapReadyCallback, LocationListener {
 
+    //Attributs
     private GoogleMap mMap = null;
-
-    //coord
     private double latitude;
     private double longitude;
+    private LocationManager locationManager;
+    private SupportMapFragment mapFragment;
+    private List<Marker> markers = new ArrayList<Marker>();
 
     //unique id for requestCode
     private static final int PERMS_CALL_ID = 1234;
-    //service from Android platform
-    private LocationManager locationManager;
-
-    private SupportMapFragment mapFragment;
-
-    private List<Marker> markers = new ArrayList<Marker>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,13 +67,21 @@ public class BookyMapActivity extends FragmentActivity implements GoogleMap.OnMa
 
     }
 
+    /**
+     * Appelé après le chargement de la map
+     */
     @Override
     protected void onResume() {
         super.onResume();
         checkPermissions();
-
     }
 
+    /**
+     * appelé lorsque la permission est accordée
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -85,6 +92,9 @@ public class BookyMapActivity extends FragmentActivity implements GoogleMap.OnMa
         }
     }
 
+    /**
+     * Vérifie les permissions, et si elles ne sont pas données, les demande
+     */
     private void checkPermissions() {
         //Location is not allowed on phone, even if it's active here
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
@@ -120,6 +130,9 @@ public class BookyMapActivity extends FragmentActivity implements GoogleMap.OnMa
         loadMap();
     }
 
+    /**
+     * Charge la map
+     */
     private void loadMap() {
         //notify when all necessary will be done
         BookyMapActivity c = this;
@@ -142,6 +155,10 @@ public class BookyMapActivity extends FragmentActivity implements GoogleMap.OnMa
 
     }
 
+    /**
+     * lorsque la carte est prête appel cette méthode
+     * @param googleMap
+     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
         try{
@@ -168,21 +185,19 @@ public class BookyMapActivity extends FragmentActivity implements GoogleMap.OnMa
         }
     }
 
+    /**
+     * Ajoute les marqueurs de librairies sur la carte
+     * @param libs
+     */
     public void setMarkers(List<Library> libs){
 
         for (Library lib: libs ) {
             LatLng position = new LatLng(lib.getLat(), lib.getLong());
-
             MarkerOptions markerOptions;
-            //marker is green if library is opened, otherwise it's red
             if(lib.isOpened()){
                 markerOptions = new MarkerOptions().position(position).title(lib.getName()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
-
-                //mMap.addMarker(new MarkerOptions().position(position).title(lib.getName()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
             } else {
                 markerOptions = new MarkerOptions().position(position).title(lib.getName()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-
-                //mMap.addMarker(new MarkerOptions().position(position).title(lib.getName()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
             }
             mMap.addMarker(markerOptions);
             mMap.moveCamera(CameraUpdateFactory.newLatLng(position));
@@ -190,6 +205,11 @@ public class BookyMapActivity extends FragmentActivity implements GoogleMap.OnMa
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(API_GooglePlaces.WhereAmI(), 12));
     }
 
+    /**
+     * Click lors du marqueur, affiche le nom de la librairie
+     * @param marker
+     * @return
+     */
     @Override
     public boolean onMarkerClick(Marker marker) {
         // Retrieve the data from the marker.
@@ -213,18 +233,23 @@ public class BookyMapActivity extends FragmentActivity implements GoogleMap.OnMa
         return false;
     }
 
+    /**
+     * Effectue une action lors du click sur le nom de la librairie
+     * @param marker
+     */
     @Override
     public void onInfoWindowClick(Marker marker) {
-
+        //Rien pour le moment
     }
 
+    /**
+     * méthode appelée lors du changement
+     * @param location
+     */
     @Override
     public void onLocationChanged(@NonNull Location location) {
         this.latitude = location.getLatitude();
         this.longitude = location.getLongitude();
-        //Toast.makeText(this, "Location : " + this.latitude + " ; " + this.longitude, Toast.LENGTH_LONG).show();
-
-        //loadMap is asynchronous, better to test if map is null
         if(mMap != null){
             LatLng googleLocation = new LatLng(this.latitude, this.longitude);
 
@@ -234,6 +259,9 @@ public class BookyMapActivity extends FragmentActivity implements GoogleMap.OnMa
         }
     }
 
+    /**
+     * Tache asynchrone requete l'api google maps
+     */
     private class CallGoogleMapsAPI extends AsyncTask<Void, Void, String> {
 
         private List<Library> libraries;

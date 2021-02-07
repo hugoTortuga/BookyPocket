@@ -16,21 +16,28 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * Activité de login
+ */
 public class LoginActivity extends AppCompatActivity {
 
     //User inputs for a book
     private EditText email;
     private EditText password;
 
-    private Button login;
-    private TextView signUp;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        initializeView();
 
+    }
+
+    /**
+     * Initialise les composants de la vue
+     */
+    private void initializeView(){
         Button connexion = (Button) findViewById(R.id.login_connexion);
         email = (EditText) findViewById(R.id.login_adrMail);
         password = (EditText) findViewById(R.id.login_password);
@@ -38,14 +45,16 @@ public class LoginActivity extends AppCompatActivity {
         connexion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                //ChangeActivity.ChangeActivity(c, MainActivity.class);
                 connection();
             }
         });
     }
 
-    public void connection(){
+    /**
+     * Check les identifiants avec ceux présent en base, si on trouve une correspondance
+     * on ajoute un user en données de session et on redirige vers le menu principal
+     */
+    private void connection(){
         //Test des champs
         if(email == null || password == null)
         {

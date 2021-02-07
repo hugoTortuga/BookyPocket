@@ -17,16 +17,26 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Activité qui affiche les livres d'un auteur
+ */
 public class AuthorActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
+    //Attributs
     private TextView nameAuthor;
-
     private ListView found_list;
     public List<Book> books_list;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_author);
+        initializeView();
+    }
+
+    /**
+     * On initialise les composants de la vue
+     */
+    private void initializeView(){
         nameAuthor = (TextView) findViewById(R.id.idNomAuthor);
         try{
             String authorParam = getIntent().getStringExtra("author");
@@ -43,12 +53,23 @@ public class AuthorActivity extends AppCompatActivity implements AdapterView.OnI
         catch (Exception ex){
             Alert.ShowError(this, "Erreur" ,""+ ex);
         }
-
     }
+
+    /**
+     * Bouton retour click
+     * @param view
+     */
     public void GoBackActivity(View view) {
         this.finish();
     }
 
+    /**
+     * Click sur un livre d'un auteur
+     * @param parent
+     * @param view
+     * @param position
+     * @param id
+     */
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         try{

@@ -23,8 +23,14 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+/**
+ * Ebauche du client API
+ */
 public class API_MySQL {
 
+    /**
+     * Test à la connexion - pas fonctionnel
+     */
     public void test() {
 
         Thread thread = new Thread(new Runnable() {

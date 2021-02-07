@@ -12,6 +12,9 @@ import com.google.android.gms.vision.Tracker;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 
+/**
+ * Classe permettant de récupérer d'un code barre d'après un flux vidéo
+ */
 public class BarCodeReader {
 
     private static String barcodeData;

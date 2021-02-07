@@ -23,29 +23,33 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Activité pour s'inscrire
+ */
 public class SignUpActivity extends AppCompatActivity {
 
-    //User inputs for a book
+    //Attributs
     private EditText email;
     private EditText firstName;
     private EditText lastName;
     private EditText password;
     private EditText confirmPassword;
     private EditText dateOfBirth;
-
-    private Button signup;
-
     final Activity context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+        initializeView();
+    }
 
-        Log.i("SIGNUPTAG", "Lancement de l'activity");
+    /**
+     * Initialise les composants de la vue
+     */
+    private void initializeView(){
         Button inscriptionButton = (Button) findViewById(R.id.signup_button);
         inscriptionClick(inscriptionButton, this);
-
         email = (EditText) findViewById(R.id.signup_email);
         firstName = (EditText) findViewById(R.id.signup_firstname);
         lastName = (EditText) findViewById(R.id.signup_lastname);
@@ -54,6 +58,11 @@ public class SignUpActivity extends AppCompatActivity {
         dateOfBirth = (EditText) findViewById(R.id.signup_DOB);
     }
 
+    /**
+     * Récupération du click du bouton inscription
+     * @param btn
+     * @param ctx
+     */
     private void inscriptionClick(Button btn, Context ctx){
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,6 +78,10 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * vérifie les valeurs du formulaire
+     * @return
+     */
     private Reader checkValeur() {
         //Test des champs
         String emailStr = email.getText().toString();
@@ -138,6 +151,10 @@ public class SignUpActivity extends AppCompatActivity {
         return reader;
     }
 
+    /**
+     * Ajoute un user en base
+     * @param reader
+     */
     private void inscription(Reader reader){
         try {
 

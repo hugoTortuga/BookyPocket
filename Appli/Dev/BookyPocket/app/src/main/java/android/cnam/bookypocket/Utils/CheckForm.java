@@ -10,6 +10,13 @@ import java.util.regex.Pattern;
 
 public class CheckForm {
 
+    /**
+     * Méthode validant le format d'une date
+     * @param date
+     * @param context
+     * @return
+     * @throws ParseException
+     */
     public static Date CheckAndCastStringToDate(String date, Context context) throws ParseException {
         Date dateBirth = null;
         String regexDate = "\\d{4}/\\d{2}/\\d{2}";

@@ -20,6 +20,10 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
+/**
+ * Adapter pour ma liste d'utilisateur,
+ * affiche un icone d'utilisateur et son nom prénom
+ */
 public class CustomReaderAdapter extends ArrayAdapter<Reader> {
 
     ArrayList<Reader> dataSet;

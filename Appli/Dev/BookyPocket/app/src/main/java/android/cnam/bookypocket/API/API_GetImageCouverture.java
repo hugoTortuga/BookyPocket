@@ -6,8 +6,17 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+/**
+ * Classe comprenant les méthodes de récupération d'image en ligne
+ */
 public class API_GetImageCouverture {
 
+    /**
+     * Prend en paramètre le chemin URL d'une image et renvoi un table de byte de l'image
+     * @param _URL
+     * @return
+     * @throws MalformedURLException
+     */
     public static byte[] GetByteArrayImageFromURL(String _URL) throws MalformedURLException {
         URL url = new URL(_URL);
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();

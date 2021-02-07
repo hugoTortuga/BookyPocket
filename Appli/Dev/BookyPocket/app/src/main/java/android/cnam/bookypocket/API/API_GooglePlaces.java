@@ -25,6 +25,12 @@ public class API_GooglePlaces {
 
     private static final int Radius = 1000;
 
+    /**
+     * Permet de convertir un reader en string
+     * @param rd
+     * @return
+     * @throws IOException
+     */
     private static String readAll(Reader rd) throws IOException {
         StringBuilder sb = new StringBuilder();
         int cp;
@@ -34,6 +40,12 @@ public class API_GooglePlaces {
         return sb.toString();
     }
 
+    /**
+     * permet de convertir une url en string
+     * @param url
+     * @return
+     * @throws IOException
+     */
     private static String ReadStringJSON(String url) throws IOException {
         InputStream is = new URL(url).openStream();
         try {
@@ -45,10 +57,26 @@ public class API_GooglePlaces {
         }
     }
 
+    /**
+     * permet de convertir une url en JSON object
+     * @param url
+     * @return
+     * @throws IOException
+     * @throws JSONException
+     */
     private static JSONObject ReadJsonFromUrl(String url) throws IOException, JSONException {
         return new JSONObject(ReadStringJSON(url));
     }
 
+    /**
+     * Permet de requeter google map avec en param une longitude, une latitude et on donne également le context
+     * renvoi une liste de library dans un rayon de RADIUS -> variable de classe (ici) -> 2km
+     * @param longi
+     * @param lati
+     * @param context
+     * @return
+     * @throws Exception
+     */
     public static List<Library> Request(double longi, double lati, Context context) throws Exception {
 
         List<Library> libraries = new ArrayList<>();
@@ -68,6 +96,12 @@ public class API_GooglePlaces {
         return libraries;
     }
 
+    /**
+     * renvoi une liste de place_id de google maps à partir d'un objet json google map de lieux
+     * @param json
+     * @return
+     * @throws JSONException
+     */
     private static List<String> getPlaceIdFromJSONObject(JSONObject json) throws JSONException {
         List<String> places_id = new ArrayList<>();
         JSONArray array = json.getJSONArray("predictions");
@@ -79,6 +113,12 @@ public class API_GooglePlaces {
         return places_id;
     }
 
+    /**
+     * renvoi une library et ses infos à partir d'un place_id, on requete google maps
+     * @param jsonPlaceID
+     * @return
+     * @throws JSONException
+     */
     private static Library getLibraryFromPlaceId(JSONObject jsonPlaceID) throws JSONException {
         JSONObject item = jsonPlaceID.getJSONObject("result");
         JSONObject geometry = item.getJSONObject("geometry");
@@ -124,6 +164,10 @@ public class API_GooglePlaces {
         return l;
     }
 
+    /**
+     * Méthode de test qui renvoi la position de Reims
+     * @return
+     */
     public static LatLng WhereAmI(){
         return new LatLng(49.24672777375072, 4.022010566712176);
     }

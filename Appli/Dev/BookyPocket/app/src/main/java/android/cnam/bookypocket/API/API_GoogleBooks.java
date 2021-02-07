@@ -23,9 +23,18 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe permettant de communiquer avec Google Book
+ */
 public class API_GoogleBooks {
 
-
+    /**
+     * Prend un json en param le parse en une liste de livre
+     * @param json
+     * @param context
+     * @return
+     * @throws JSONException
+     */
     private static List<Book> JSON_Decryptor(JSONObject json, Context context) throws JSONException {
         List<Book> books = new ArrayList<>();
 
@@ -47,6 +56,15 @@ public class API_GoogleBooks {
         return books;
     }
 
+    /**
+     * prend un jsonobject en param (soit un item de la liste renvoyé par google map)
+     * et le parse en un seul livre
+     * (effectue toutes les opérations de vérifications du format
+     * @param item
+     * @param context
+     * @return
+     * @throws JSONException
+     */
     private static Book JSON_Book_Formator(JSONObject item, Context context) throws JSONException {
         Book book = new Book();
         JSONObject volumeInfo = item.getJSONObject("volumeInfo");
@@ -150,6 +168,12 @@ public class API_GoogleBooks {
         return book;
     }
 
+    /**
+     * Permet à partir d'un reader de renvoyer un string
+     * @param rd
+     * @return
+     * @throws IOException
+     */
     private static String readAll(Reader rd) throws IOException {
         StringBuilder sb = new StringBuilder();
         int cp;
@@ -159,6 +183,12 @@ public class API_GoogleBooks {
         return sb.toString();
     }
 
+    /**
+     * A partir d'une URL récupère le résultat en string
+     * @param url
+     * @return
+     * @throws IOException
+     */
     private static String ReadStringJSON(String url) throws IOException {
         InputStream is = new URL(url).openStream();
         try {
@@ -170,10 +200,25 @@ public class API_GoogleBooks {
         }
     }
 
+    /**
+     * A partir d'une url formate la réponse en JSONObject java
+     * @param url
+     * @return
+     * @throws IOException
+     * @throws JSONException
+     */
     private static JSONObject ReadJsonFromUrl(String url) throws IOException, JSONException {
         return new JSONObject(ReadStringJSON(url));
     }
 
+    /**
+     * Requete google book, prend un mot clef et fait une recherche sur le titre, l'auteur, et la description du livre
+     * renvoi une liste de maximum 20 livres qui match avec le mot clef
+     * @param keyword
+     * @param context
+     * @return
+     * @throws Exception
+     */
     public static List<Book> Request(String keyword, Context context) throws Exception {
         if (keyword == null || keyword.trim().equals(""))
             throw new Exception("Le champ de recherche est vide");
@@ -183,6 +228,13 @@ public class API_GoogleBooks {
         return JSON_Decryptor(json, context);
     }
 
+    /**
+     * renvoi un livre à partir d'un isbn, donc recherche dans google book sur l'isbn
+     * @param ISBN
+     * @param context
+     * @return
+     * @throws Exception
+     */
     public static List<Book> RequestISBN(String ISBN, Context context) throws Exception {
         if (StringUtil.IsNullOrEmpty(ISBN))
             throw new Exception("Le champ de recherche est vide");
@@ -190,6 +242,14 @@ public class API_GoogleBooks {
         return JSON_Decryptor(json, context);
     }
 
+    /**
+     * requete l'ensemble des livres d'un auteur, on donne le nom de l'auteur en param et on a
+     * sa liste d'ouvrages en retour
+     * @param artistName
+     * @param context
+     * @return
+     * @throws Exception
+     */
     public static List<Book> RequestAuthor(String artistName, Context context) throws Exception {
         if (StringUtil.IsNullOrEmpty(artistName))
             throw new Exception("Le champ de recherche est vide");
