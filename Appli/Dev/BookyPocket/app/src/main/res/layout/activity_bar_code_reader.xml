@@ -7,91 +7,58 @@
     android:layout_height="match_parent"
     tools:context=".Activities.BarCodeReaderActivity">
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="346dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout7"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <LinearLayout
+        android:id="@+id/linearLayout7"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <ImageButton
-            android:id="@+id/imageButton2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="GoBack"
-            android:src="?attr/homeAsUpIndicator" />
-
-        <TextView
-            android:id="@+id/scanBookText"
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:gravity="center_horizontal|center_vertical"
-            android:text="@string/scanBookText"
-            android:textScaleX="1"
-            android:textSize="24sp" />
-    </RelativeLayout>
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
 
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+            <ImageButton
+                android:id="@+id/imageButton2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="GoBack"
+                android:src="?attr/homeAsUpIndicator" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout6"
-        android:layout_width="417dp"
-        android:layout_height="419dp"
-        android:layout_marginBottom="2dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout7"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+            <TextView
+                android:id="@+id/scanBookText"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="@string/scanBookText"
+                android:textScaleX="1"
+                android:textSize="24sp" />
+        </RelativeLayout>
 
         <SurfaceView
             android:id="@+id/surface_view"
             android:layout_width="match_parent"
-            android:layout_height="279dp"
-            android:layout_marginTop="100dp"
-            android:layout_marginBottom="331dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout7"
-        android:layout_width="407dp"
-        android:layout_height="304dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout6">
+            android:layout_height="wrap_content"
+            android:layout_weight="20"/>
 
         <TextView
             android:id="@+id/isbn"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:layout_weight="1"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
             android:text="@string/isbn" />
 
         <TextView
             android:id="@+id/barcode_text"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:padding="5dp"
-            android:text=""
+            android:layout_height="30dp"
+            android:layout_marginHorizontal="20dp"
             android:textSize="25sp" />
 
         <Button
+
             android:id="@+id/stopScanButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -100,12 +67,9 @@
             android:onClick="stopScanAndGoRegister"
             android:text="@string/stopScanButton"
             android:textColor="#FFFFFF"
-            android:textStyle="bold" />
-
-        <LinearLayout
-            android:layout_width="413dp"
-            android:layout_height="141dp"
-            android:orientation="vertical"/>
+            android:textStyle="bold"
+            android:layout_marginHorizontal="40dp"
+            android:layout_marginVertical="40dp"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/register"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Activities.RegisterBookActivity">
 
     <RelativeLayout
@@ -39,18 +39,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-
+            android:orientation="vertical"
+            android:layout_marginHorizontal="30dp">
 
             <TextView
-                android:id="@+id/register_titleText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:paddingLeft="30dp"
+
                 android:text="@string/register_titleText"
                 android:layout_weight="1"
                 android:textColor="#E5B81D"
@@ -66,10 +67,8 @@
                 android:text="@string/register_titleValue" />
 
             <TextView
-                android:id="@+id/register_authorText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="30dp"
                 android:layout_weight="1"
                 android:text="@string/register_authorText"
                 android:textColor="#E5B81D"
@@ -81,13 +80,12 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:inputType="textPersonName"
-                android:paddingLeft="30dp"
                 android:text="@string/register_authorValue" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="30dp"
+                android:layout_weight="1"
                 android:text="@string/description_livre"
                 android:textColor="#E5B81D"
                 android:textStyle="bold" />
@@ -105,7 +103,6 @@
                 android:id="@+id/register_publicationYearText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="30dp"
                 android:layout_weight="1"
                 android:text="@string/register_publicationYearText"
                 android:textColor="#E5B81D"
@@ -125,7 +122,6 @@
                 android:id="@+id/register_categoryText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="30dp"
                 android:text="@string/register_categoryText"
                 android:textColor="#E5B81D"
                 android:textStyle="bold" />
@@ -133,16 +129,37 @@
             <Spinner
                 android:id="@+id/register_categorySpinner"
                 android:layout_width="match_parent"
+                android:layout_weight="1"
                 android:layout_height="50dp" />
 
             <Button
-                android:id="@+id/register_addButton"
                 android:layout_width="match_parent"
                 android:layout_marginHorizontal="30dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|center_vertical"
                 android:layout_marginTop="20dp"
+                android:layout_weight="1"
                 android:background="@drawable/button_style"
+                android:onClick="dispatchTakePictureIntent"
+                android:text="@string/take_a_picture"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="200dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center_horizontal|center_vertical"
+                app:srcCompat="@drawable/no_image"
+                android:layout_weight="1"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="30dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_style"
+                android:onClick="saveBook"
                 android:text="@string/registerbook_button"
                 android:textColor="#FFFFFF"
                 android:textStyle="bold" />

@@ -15,17 +15,22 @@ import android.cnam.bookypocket.Utils.Network;
 import android.cnam.bookypocket.Utils.StringUtil;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Looper;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
+import java.io.ByteArrayOutputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -42,11 +47,11 @@ public class RegisterBookActivity extends AppCompatActivity {
     private String publicationYear;
     private Spinner categorySpinner;
     private Button scanButton;
-    private Button addBookButton;
+    private ImageView image;
 
     private Context context;
 
-    private  String getISBNFromIntent;
+    private String getISBNFromIntent;
     private Book currentBook;
 
     @Override
@@ -57,83 +62,55 @@ public class RegisterBookActivity extends AppCompatActivity {
         InitializeViewComponents();
     }
 
-    private void InitializeViewComponents(){
+    private void InitializeViewComponents() {
 
-        titleValue = (EditText)findViewById(R.id.register_titleValue);
-        authorValue = (EditText)findViewById(R.id.register_authorValue);
-        publicationYearValue = (EditText)findViewById(R.id.register_publicationYearValue);
+        titleValue = (EditText) findViewById(R.id.register_titleValue);
+        authorValue = (EditText) findViewById(R.id.register_authorValue);
+        publicationYearValue = (EditText) findViewById(R.id.register_publicationYearValue);
+        //image = (TextView) findViewById(R.)
 
         createCategorySpinner();
-
-
-
-        addBookButton = findViewById(R.id.register_addButton);
-        RegisterBook();
     }
 
-    private void RegisterBook(){
-        addBookButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
+    private void saveBook(View view) {
+        if (currentBook == null)
+            return;
 
-                    if(currentBook == null)
-                        return;
+        try {
 
-                    Reader reader = Session.getCurrentUser();
+            Reader reader = Session.getCurrentUser();
+            ReaderBook readerBook = new ReaderBook(reader, currentBook);
 
-                    ReaderBook readerBook = new ReaderBook(reader, currentBook);
-
-                    if(reader != null){
-                        //On insère notre reader
-                        DataBaseSingleton.GetDataBaseSingleton(context).insertObjectInDB(currentBook, Book.class);
-                        DataBaseSingleton.GetDataBaseSingleton(context).insertObjectInDB(readerBook, ReaderBook.class);
-                        Alert.ShowDialog(context, "Succès", "Livre enregistré");
-                    }
-
-                    //On retourne à l'écran de connexion
-                    //goToHome();
-
-                } catch (Exception ex) {
-                    if(ex.getClass() == java.sql.SQLException.class)
-                        Alert.ShowDialog(context, "Erreur", "Le livre a été enregistré");
-                    else
-                        Alert.ShowDialog(context, "Erreur", ex.getMessage());
-
-                }
+            if (reader != null) {
+                //On insère notre reader
+                DataBaseSingleton.GetDataBaseSingleton(context).insertObjectInDB(currentBook, Book.class);
+                DataBaseSingleton.GetDataBaseSingleton(context).insertObjectInDB(readerBook, ReaderBook.class);
+                Alert.ShowDialog(context, "Succès", "Livre enregistré");
             }
-        });
+
+            //On retourne à l'écran de connexion
+            //goToHome();
+
+        } catch (Exception ex) {
+            if (ex.getClass() == java.sql.SQLException.class)
+                Alert.ShowDialog(context, "Erreur", "Le livre a été enregistré");
+            else
+                Alert.ShowDialog(context, "Erreur", ex.getMessage());
+
+        }
     }
 
-    private Book getInfoBookFromForm(Book scannedBook) {
-        Book b ;
-        if(scannedBook != null){
-            b = scannedBook;
-        } else{
-            b = new Book();
-        }
-        if(title == null || title.trim().equals("")){
-            Alert.ShowDialog(this, "Information manquante", "Le titre n'est pas renseigné");
-            return null;
-        }
 
-        // TODO check all info
-        b.setCategory((Category)this.categorySpinner.getSelectedItem());
+    private void createCategorySpinner() {
 
-        return b;
-    }
-
-    private void createCategorySpinner(){
-
-        try{
+        try {
             List<Category> categories = new ArrayList<>();
             categories = DataBaseSingleton.GetDataBaseSingleton(this).getAllObjects(Category.class);
             List<String> libelleCategories = new ArrayList<>();
-            for(Category cat : categories){
+            for (Category cat : categories) {
                 libelleCategories.add(cat.getName());
             }
             Collections.sort(libelleCategories);
-            //categorySpinner = (Spinner) findViewById(R.id.register_categorySpinner);
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                     android.R.layout.simple_spinner_item,
                     libelleCategories);
@@ -154,15 +131,47 @@ public class RegisterBookActivity extends AppCompatActivity {
 
                 }
             });
-        }
-        catch (Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
+    final int REQUEST_IMAGE_CAPTURE = 1;
+
+    public void dispatchTakePictureIntent(View view) {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        try {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        } catch (Exception ex) {
+            Alert.ShowDialog(this,"Erreur", ""+ex);
+        }
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            image.setImageBitmap(imageBitmap);
+
+            try {
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                byte[] byteArray = stream.toByteArray();
+                Photo p = new Photo();
+                p.setImage(byteArray);
+                currentBook.setPhoto(p);
+
+            } catch (Exception ex) {
+                Alert.ShowDialog(this,"Erreur", "" + ex);
+            }
+
+        }
+    }
 
 
-    private void onItemSelectedHandlerCategory(AdapterView<?> adapterView, View view, int position, long id) {
+    private void onItemSelectedHandlerCategory(AdapterView<?> adapterView, View view,
+                                               int position, long id) {
         Adapter adapter = adapterView.getAdapter();
 //        Category category = (Category) adapter.getItem(position);
         //this.category = category;
@@ -170,25 +179,8 @@ public class RegisterBookActivity extends AppCompatActivity {
     }
 
 
-    private void scanOrTakePicture(){
-        ChangeActivity.ChangeActivity(this, BarCodeReaderActivity.class);
-    }
-
     public void GoHome(View view) {
         ChangeActivity.ChangeActivity(this, MainActivity.class);
-    }
-
-    public void updateInterface(Book book){
-        if(book != null){
-            titleValue.setText(book.getTitle());
-            //if(book.getAuthor() != null)
-            //    authorValue.setText(book.getAuthor().getArtistName());
-            //publicationYearValue.setText(book.getYearPublication());
-            //if(book.getCategory() != null){
-            //    //TODO afficher la catégorie dans le spinner
-            //}
-            currentBook = book;
-        }
     }
 
 }

@@ -220,7 +220,7 @@ public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
         List<Book> booksFound = new ArrayList<>();
 
         Dao<Book, Integer> dao = getDao(Book.class);
-        booksFound = (List<Book>) dao.queryBuilder().where().in("ISBN", keyword)
+        booksFound = (List<Book>) dao.queryBuilder().where().in("ISBN", (Object) keyword)
                 .or().eq("title",keyword)
                 .or().eq("backCover",keyword).query();
 

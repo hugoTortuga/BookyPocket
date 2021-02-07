@@ -121,7 +121,6 @@ public class ManageAccountActivity extends AppCompatActivity {
                 imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
                 byte[] byteArray = stream.toByteArray();
                 Photo p = new Photo();
-                p.setId(100);
                 p.setImage(byteArray);
                 currentUser.setAvatar(p);
 

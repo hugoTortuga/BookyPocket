@@ -99,5 +99,6 @@
     <string name="serach_friends_title">Ajouter un(e) ami(e)</string>
     <string name="books_of_a_friend">Les livres de mon ami(e)</string>
     <string name="add_manually_a_book">Saisie manuelle d\'un livre</string>
+    <string name="take_a_picture" >Prendre une photo</string>
 
 </resources>

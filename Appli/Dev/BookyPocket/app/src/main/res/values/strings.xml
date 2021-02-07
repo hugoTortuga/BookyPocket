@@ -100,6 +100,7 @@
     <string name="serach_friends_title">Add a friends</string>
     <string name="books_of_a_friend">My friend\'s books</string>
     <string name="add_manually_a_book">Add a book manually</string>
+    <string name="take_a_picture" >Take a picture</string>
 
 
 </resources>
