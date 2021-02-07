@@ -23,7 +23,7 @@ public class BarCodeReader {
     private static BarcodeDetector barcodeDetector;
 
     public static boolean isBarcodeDetectorOperational(Context context){
-        barcodeDetector = new BarcodeDetector.Builder(context).setBarcodeFormats(Barcode.EAN_13).build();
+        barcodeDetector = new BarcodeDetector.Builder(context).setBarcodeFormats(Barcode.ALL_FORMATS).build();
 
         //Check if Android system Barcode Detector available on the user system
         if(barcodeDetector.isOperational()){

@@ -1,6 +1,5 @@
 package android.cnam.bookypocket.Utils;
 
-
 import org.apache.commons.codec.digest.DigestUtils;
 
 public class Cryptography {

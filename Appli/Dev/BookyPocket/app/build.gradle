@@ -50,4 +50,5 @@ dependencies {
     implementation 'com.google.android.gms:play-services-vision:11.0.2'
     implementation group: 'commons-codec', name: 'commons-codec', version: '1.4'
 
+
 }
