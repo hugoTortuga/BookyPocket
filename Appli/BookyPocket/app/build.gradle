@@ -1,11 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
+    aaptOptions { cruncherEnabled = false }
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "android.cnam.bookypocket"
+        applicationId "fr.cnam.bookypocket"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1

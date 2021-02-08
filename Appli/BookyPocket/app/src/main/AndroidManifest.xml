@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:versionCode="3"
+    android:versionName="0.3"
     package="android.cnam.bookypocket">
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- get an approximative location (WiFi, 3G/4G, IP) -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
