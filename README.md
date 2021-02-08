@@ -1,5 +1,5 @@
 # BookyPocket
-Application Java - Développement Mobile USSI1T - Génie Logicielle USSI0T
+Application Java - Développement Mobile USSI1T - Génie Logiciel USSI0T
 
 Maëlle Laporte - Raphaël Robert - Hugo Malglaive
 
@@ -21,6 +21,10 @@ Ensuite ouvrir Android Studio
                               
 Maintenant vous pouvez lancer l'appli sur l'émulateur d'android studio ou sur votre mobile relié en USB
 
+# Objectifs de l'application
+
+La solution applicative développée a pour but de permettre aux utilisateurs de gérer leurs lectures, en les ajoutant à une liste par le biais d’une barre recherche, d’une saisie manuelle ou bien d’une recherche par scan de l’ISBN. L’utilisateur dispose également d’une liste d’amis desquels il peut consulter les lectures.
+
 # Fonctionnalités de l'application
 
 -	Inscription / Connexion
@@ -34,4 +38,8 @@ Maintenant vous pouvez lancer l'appli sur l'émulateur d'android studio ou sur v
 -	Ajouter des ami(e)s
 -	Consulter les ouvrages de ses ami(e)s
 
+# Charte graphique
+* ![#e6b71d](https://placehold.it/15/e6b71d/000000?text=+)
+* ![#f7f8f8](https://placehold.it/15/f7f8f8/000000?text=+)
+* ![#cbccd2](https://placehold.it/15/cbccd2/000000?text=+)
 
