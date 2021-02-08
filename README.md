@@ -23,7 +23,7 @@ Maintenant vous pouvez lancer l'appli sur l'émulateur d'android studio ou sur v
 
 # Objectifs de l'application
 
-La solution applicative développée a pour but de permettre aux utilisateurs de gérer leurs lectures, en les ajoutant à une liste par le biais d’une barre recherche, d’une saisie manuelle ou bien d’une recherche par scan de l’ISBN. L’utilisateur dispose également d’une liste d’amis desquels il peut consulter les lectures.
+L'application développée a pour but de permettre aux utilisateurs de gérer leurs lectures, en les ajoutant à une liste par le biais d’une barre recherche, d’une saisie manuelle ou bien d’une recherche par scan de l’ISBN. L’utilisateur dispose également d’une liste d’amis.
 
 # Fonctionnalités de l'application
 
