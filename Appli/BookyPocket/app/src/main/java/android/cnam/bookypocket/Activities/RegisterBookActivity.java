@@ -170,7 +170,7 @@ public class RegisterBookActivity extends AppCompatActivity {
     }
 
     /**
-     * Bouton retour arrièr click
+     * Bouton retour arrière click
      * @param view
      */
     public void GoHome(View view) {

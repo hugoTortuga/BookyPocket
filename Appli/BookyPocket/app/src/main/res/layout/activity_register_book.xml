@@ -62,14 +62,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:inputType="textPersonName"
+                android:inputType="number"
                 android:paddingLeft="30dp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-
                 android:text="@string/register_titleText"
                 android:layout_weight="1"
                 android:textColor="#E5B81D"
@@ -79,9 +78,9 @@
                 android:id="@+id/register_titleValue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingLeft="30dp"
                 android:layout_weight="1"
                 android:inputType="textPersonName"
-                android:paddingLeft="30dp"
                 android:text="@string/register_titleValue" />
 
             <TextView
@@ -97,6 +96,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:paddingLeft="30dp"
                 android:inputType="textPersonName"
                 android:text="@string/register_authorValue" />
 

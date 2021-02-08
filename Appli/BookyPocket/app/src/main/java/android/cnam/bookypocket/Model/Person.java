@@ -110,7 +110,7 @@ public class Person implements Parcelable {
         id = in.readInt();
         lastName = in.readString();
         firstName = in.readString();
-        avatar = in.readParcelable(Photo.class.getClassLoader());
+        avatar = (Photo) in.readParcelable(Photo.class.getClassLoader());
     }
 
     public static final Creator<Person> CREATOR = new Creator<Person>() {

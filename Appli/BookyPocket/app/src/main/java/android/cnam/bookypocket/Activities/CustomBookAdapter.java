@@ -25,28 +25,27 @@ import java.util.ArrayList;
  */
 public class CustomBookAdapter extends ArrayAdapter<Book> {
 
-    ArrayList<Book> dataSet;
-    Activity mContext;
+    private ArrayList<Book> dataSet;
+    private Activity mContext;
 
     public CustomBookAdapter(@NonNull Activity context, ArrayList<Book> dataSet) {
         super(context, R.layout.book_item_list, dataSet);
         this.dataSet = dataSet;
         this.mContext = context;
     }
-
     private static class ViewHolder {
         TextView txtNom;
         ImageView image;
     }
 
-
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+
         Book book = getItem(position);
+        //if(parent.)
         ViewHolder viewHolder = new ViewHolder();
         if (convertView == null) {
-
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.book_item_list, parent, false);
             viewHolder.txtNom = convertView.findViewById(R.id.text_book_item_list);
@@ -56,28 +55,32 @@ public class CustomBookAdapter extends ArrayAdapter<Book> {
             convertView.getTag();
         }
 
-        if (book.getPhoto() != null) {
-            byte[] chartData = book.getPhoto().getImage();
-            Bitmap bm = BitmapFactory.decodeByteArray(chartData, 0, chartData.length);
-            DisplayMetrics dm = new DisplayMetrics();
-            mContext.getWindowManager().getDefaultDisplay().getMetrics(dm);
+        if (book != null){
+            try{
+                if (book.getPhoto() != null) {
+                    byte[] chartData = book.getPhoto().getImage();
+                    Bitmap bm = BitmapFactory.decodeByteArray(chartData, 0, chartData.length);
+                    DisplayMetrics dm = new DisplayMetrics();
+                    mContext.getWindowManager().getDefaultDisplay().getMetrics(dm);
 
 
-            if (viewHolder != null)
-                if (viewHolder.image != null) {
-                    viewHolder.image.setMinimumHeight(dm.heightPixels);
-                    viewHolder.image.setMinimumWidth(dm.widthPixels);
-                    viewHolder.image.setImageBitmap(bm);
+                    if (viewHolder != null)
+                        if (viewHolder.image != null) {
+                            viewHolder.image.setMinimumHeight(dm.heightPixels);
+                            viewHolder.image.setMinimumWidth(dm.widthPixels);
+                            viewHolder.image.setImageBitmap(bm);
+                        }
                 }
+            }
+            catch (Exception ex){
+                ex.printStackTrace();
+            }
 
-        }
 
-
-        if (book != null)
             if (book.getTitle() != null)
-                if (viewHolder != null)
                     if (viewHolder.txtNom != null)
                         viewHolder.txtNom.setText(book.getTitle());
+        }
 
         return convertView;
     }

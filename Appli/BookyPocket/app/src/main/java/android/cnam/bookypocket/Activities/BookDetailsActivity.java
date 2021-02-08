@@ -176,7 +176,7 @@ public class BookDetailsActivity extends AppCompatActivity {
             Alert.ShowDialog(this, "Succès", "Ajout réussi à vos lectures");
         } catch (Exception ex) {
             ex.printStackTrace();
-            Alert.ShowError(this, "Erreur", "" + ex);
+            Alert.ShowDialog(this, "Erreur", "Le livre est malformé ou il est déjà présent dans vos lectures");
         }
 
     }
@@ -211,7 +211,7 @@ public class BookDetailsActivity extends AppCompatActivity {
             }
             startActivity(intent);
         } catch (Exception ex) {
-            Alert.ShowError(this, "Erreur", "" + ex);
+            Alert.ShowError(this, "Erreur", "Cet auteur n'est pas référencé");
         }
 
     }

@@ -136,12 +136,13 @@ public class BookSearchActivity extends AppCompatActivity implements AdapterView
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         try{
+            Book book = (Book) parent.getItemAtPosition(position);
             Book bookToSend = books_list.get(position);
-            if(bookToSend != null)
-                ChangeActivity.GoToBookDetailActivity(this, bookToSend);
+            if(book != null)
+                ChangeActivity.GoToBookDetailActivity(this, book);
         }
         catch (Exception ex){
-            Alert.ShowDialog(this, "Erreur lors du changement de page", "" + ex);
+            Alert.ShowDialog(this, "Erreur lors du changement de page", "Le livre n'a pas d'ISBN");
         }
     }
 

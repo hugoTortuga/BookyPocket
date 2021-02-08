@@ -188,22 +188,6 @@ public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
 
 
     /**
-     * met à jour la photo d'un user
-     * @param idphoto
-     * @param idreader
-     */
-    public void updateReaderPhoto(int idphoto, int idreader){
-        try{
-            Dao<Reader, Integer> dao = getDao(Reader.class);
-            UpdateBuilder<Reader, Integer> updateBuilder = dao.updateBuilder();
-            updateBuilder.updateColumnValue("avatar_id",idphoto).where().eq("id", idreader);
-            updateBuilder.update();
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }
-    }
-
-    /**
      * récupère les auteurs d'un livre
      * @param book_id
      * @return
@@ -362,5 +346,47 @@ public class ORMSQLiteManager extends OrmLiteSqliteOpenHelper {
     public List<Library> getAllLibrary() throws SQLException {
         Dao<Library, Integer> dao = getDao(Library.class);
         return (List<Library>) dao.queryBuilder().query();
+    }
+
+    /**
+     * Récupère l'id Max de toutes les photos
+     * @return
+     * @throws SQLException
+     */
+    public int getLastPhotoId() throws SQLException {
+        Dao<Photo, Integer> dao = getDao(Photo.class);
+        long max = dao.queryRawValue("select max(id) from Photo;");
+        return (int) max++;
+    }
+
+    /**
+     * met à jour la photo d'un user
+     * @param idphoto
+     * @param idreader
+     */
+    public void updateReaderPhoto(int idphoto, int idreader){
+        try{
+            Dao<Reader, Integer> dao = getDao(Reader.class);
+            UpdateBuilder<Reader, Integer> updateBuilder = dao.updateBuilder();
+            updateBuilder.updateColumnValue("avatar_id",idphoto).where().eq("id", idreader);
+            updateBuilder.update();
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+    }
+
+    /**
+     * Retourne la photo d'un utilisateur avec l'id de l'utilisateur
+     * @param id
+     * @return
+     * @throws SQLException
+     */
+    public Photo getPhotoFromUser(int id) throws SQLException {
+        Dao<Reader, Integer> dao = getDao(Reader.class);
+        Reader reader = dao.queryBuilder().where().eq("id", id).queryForFirst();
+        if(reader != null)
+            return reader.getAvatar();
+        else
+            return null;
     }
 }

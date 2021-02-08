@@ -79,7 +79,7 @@ public class ManageAccountActivity extends AppCompatActivity {
             dateOfBirth = (EditText) findViewById(R.id.editTextDate);
             if (currentUser.getDateOfBirth() != null) {
                 Date date = currentUser.getDateOfBirth();
-                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
                 dateOfBirth.setText(dateFormat.format(date));
             }
 
@@ -242,7 +242,20 @@ public class ManageAccountActivity extends AppCompatActivity {
                                     currentUser.setPassword(newPasswdStr);
                                 }
                             }
+                            Photo photoAlreadyInBase = DataBaseSingleton.GetDataBaseSingleton(currentContext).getPhotoFromUser(currentUser.getId());
+
                             DataBaseSingleton.GetDataBaseSingleton(currentContext).updateReaderInfo(checkInfoReaderBeforeSave());
+                            //il n'y a pas de photo donc on insère la photo
+                            try{
+                                if(photoAlreadyInBase == null && currentUser.getAvatar() != null){
+                                    Photo newPhoto = new Photo();
+                                    newPhoto.setImage(currentUser.getAvatar().getImage());
+                                    DataBaseSingleton.GetDataBaseSingleton(currentContext).insertObjectInDB(newPhoto, Photo.class);
+                                    DataBaseSingleton.GetDataBaseSingleton(currentContext).updateReaderPhoto(newPhoto.getId() ,currentUser.getId());
+                                }
+                            } catch (Exception ex){
+                                ex.printStackTrace();
+                            }
                         } catch (Exception e) {
                             e.printStackTrace();
                         }

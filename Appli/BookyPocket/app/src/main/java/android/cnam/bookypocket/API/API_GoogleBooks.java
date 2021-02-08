@@ -213,7 +213,7 @@ public class API_GoogleBooks {
 
     /**
      * Requete google book, prend un mot clef et fait une recherche sur le titre, l'auteur, et la description du livre
-     * renvoi une liste de maximum 20 livres qui match avec le mot clef
+     * renvoi une liste de maximum 10 livres qui match avec le mot clef
      * @param keyword
      * @param context
      * @return
@@ -224,7 +224,7 @@ public class API_GoogleBooks {
             throw new Exception("Le champ de recherche est vide");
 
         keyword = keyword.replace(' ', '+');
-        JSONObject json = API_GoogleBooks.ReadJsonFromUrl("https://www.googleapis.com/books/v1/volumes?q=" + keyword + " &maxResults=20");
+        JSONObject json = API_GoogleBooks.ReadJsonFromUrl("https://www.googleapis.com/books/v1/volumes?q=" + keyword + " &maxResults=10");
         return JSON_Decryptor(json, context);
     }
 
