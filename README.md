@@ -38,4 +38,8 @@ La solution applicative développée a pour but de permettre aux utilisateurs de
 -	Ajouter des ami(e)s
 -	Consulter les ouvrages de ses ami(e)s
 
+# Charte graphique
+* ![#e6b71d](https://placehold.it/15/deb0dd/000000?text=+)
+* ![#f7f8f8](https://placehold.it/15/c6d6b2/000000?text=+)
+* ![#cbccd2](https://placehold.it/15/a6a695/000000?text=+)
 
