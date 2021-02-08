@@ -1,5 +1,5 @@
 # BookyPocket
-Application Java - Développement Mobile USSI1T
+Application Java - Développement Mobile USSI1T - Génie Logicielle USSI0T
 
 Maëlle Laporte - Raphaël Robert - Hugo Malglaive
 
@@ -15,7 +15,7 @@ Ensuite ouvrir Android Studio
 
                               -> File / Open 
 
-                              -> randomFolder/Appli/Dev/BookyPocket
+                              -> randomFolder/Appli/BookyPocket
                               
                               -> build the projet with gradle
                               
